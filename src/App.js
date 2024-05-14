@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import DefaultLayout from './components/Layouts/DefaultLayout/DefaultLayout';
+import InformationComponent from './components/MainPageComponents/InformationComponent/InformationComponent';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DefaultLayout>
+        <div className="overflow-x-hidden">
+          <div className="relative top-0 mt-[100px] left-1/2 transform -translate-x-1/2 h-[500px] w-[150%] rounded-b-[100%] bg-white"></div>
+        </div>
+        <div className="-mt-20 w-full bg-stockifyPurple flex items-center justify-center">
+          <InformationComponent />
+        </div>
+      </DefaultLayout>
     </div>
   );
 }
