@@ -6,6 +6,9 @@ module.exports = {
       colors: {
         stockifyPurple: '#52489C',
       },
+      backgroundImage: {
+        logoBlack: "url('../public/logoTransparent.png')",
+      },
     },
   },
   plugins: [],

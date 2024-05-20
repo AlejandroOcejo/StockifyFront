@@ -223,8 +223,8 @@ const RegisterComponent = () => {
                 <Spacer />
                 <div className="flex justify-center w-full">
                   <div className="w-full md:w-2/3 lg:w-1/2">
-                    <div className="bg-white p-4 rounded-lg">
-                      <h2 className="text-2xl font-bold mb-4 text-center">Coste Total</h2>
+                    <div className="bg-white p-4 rounded-lg bg-logoBlack bg-contain bg-no-repeat bg-center">
+                      <h2 className="text-2xl font-bold mb-4 text-center ">Coste Total</h2>
                       <div className="flex justify-between mb-2">
                         <div className="font-semibold">Plan:</div>
                         <div>{getSelectedServicePrice(selectedService)?.name}</div>
