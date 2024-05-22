@@ -8,13 +8,17 @@ export const loginUser = createAsyncThunk(
         `http://localhost:5142/Login?password=${formData.password}&username=${formData.username}`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         }
       );
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
+      console.log(data);
+      if (data !== 'Tenant found') {
+        return rejectWithValue(data);
+      }
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

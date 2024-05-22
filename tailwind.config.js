@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         stockifyPurple: '#52489C',
+        stockifyLogoColor: '#ffdb99',
       },
       backgroundImage: {
         logoBlack: "url('../public/logoTransparent.png')",

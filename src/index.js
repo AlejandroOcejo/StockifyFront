@@ -8,6 +8,7 @@ import Login from './views/Login/Login';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
 import Register from './views/Register/Register';
+import Services from './views/Services/Services';
 
 const App = () => (
   <BrowserRouter>
@@ -15,6 +16,7 @@ const App = () => (
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/services" element={<Services />} />
     </Routes>
   </BrowserRouter>
 );

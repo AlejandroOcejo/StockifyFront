@@ -5,6 +5,9 @@ import { registerUser } from '../../state/registerSlicer';
 import Dropdown from '../CommonComponents/Dropdown/Dropdown';
 import Spacer from '../CommonComponents/Spacer/Spacer';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Icon } from 'react-icons-kit';
+import { eyeOff } from 'react-icons-kit/feather/eyeOff';
+import { eye } from 'react-icons-kit/feather/eye';
 
 const RegisterComponent = () => {
   const servicesArray = [
@@ -16,16 +19,20 @@ const RegisterComponent = () => {
   const [selectedService, setSelectedService] = useState(servicesArray[0].name);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.register);
+  const [type, setType] = useState('password');
+  const [icon, setIcon] = useState(eyeOff);
 
   const [formData, setFormData] = useState({
-    username: '',
-    surname: '',
+    name: '',
     password: '',
-    email: '',
-    country: '',
-    city: '',
-    direction: '',
-    postalCode: '',
+    contact: {
+      surname: '',
+      email: '',
+      country: '',
+      city: '',
+      direction: '',
+      postalCode: '',
+    },
   });
 
   const [paymentFormData, setpaymentFormData] = useState({
@@ -34,12 +41,34 @@ const RegisterComponent = () => {
     expirationDate: '',
     CVC: '',
   });
+  const handleToggle = () => {
+    if (type === 'password') {
+      setIcon(eye);
+      setType('text');
+    } else {
+      setIcon(eyeOff);
+      setType('password');
+    }
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+    setFormData((prevFormData) => {
+      if (name in prevFormData) {
+        return {
+          ...prevFormData,
+          [name]: value,
+        };
+      } else if (name in prevFormData.contact) {
+        return {
+          ...prevFormData,
+          contact: {
+            ...prevFormData.contact,
+            [name]: value,
+          },
+        };
+      }
+      return prevFormData;
     });
   };
 
@@ -76,7 +105,11 @@ const RegisterComponent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(registerUser(formData));
+    const formattedData = {
+      ...formData,
+      contact: JSON.stringify(formData.contact),
+    };
+    dispatch(registerUser(formattedData));
     setFormStep(2);
   };
 
@@ -92,7 +125,7 @@ const RegisterComponent = () => {
 
   return (
     <div className="w-screen h-screen bg-stockifyPurple flex flex-row justify-center items-center">
-      <img className="h-16 absolute top-0 mt-6" src="/logo.png" alt="logo" />
+      <img className="h-16 absolute top-0 mt-6" href="/" src="/logo.png" alt="logo" />
       <TransitionGroup component={null}>
         <CSSTransition key={formStep} timeout={150} classNames="swipe">
           <div className="max-w-lg w-full h-2/4 bg-[#F1F3FF] p-12 rounded-2xl border-[#A0AFFF] border-solid flex flex-col justify-center">
@@ -102,8 +135,8 @@ const RegisterComponent = () => {
                   <input
                     className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
                     placeholder="Nombre"
-                    name="username"
-                    value={formData.username}
+                    name="name"
+                    value={formData.name}
                     onChange={handleInputChange}
                   />
                   <input
@@ -111,16 +144,36 @@ const RegisterComponent = () => {
                     placeholder="Apellidos"
                     type="surname"
                     name="surname"
-                    value={formData.surname}
+                    value={formData.contact.surname}
                     onChange={handleInputChange}
                   />
+                </div>
+                <div className="relative flex items-center">
+                  <input
+                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
+                    placeholder="Contraseña"
+                    type={type}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                  />
+                  <span
+                    className="absolute top-0 right-0 p-2.5 flex justify-around items-center"
+                    onClick={handleToggle}>
+                    <Icon
+                      className="absolute mr-10"
+                      icon={icon}
+                      size={25}
+                      style={{ marginTop: '15px' }}
+                    />
+                  </span>
                 </div>
                 <input
                   className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                   placeholder="Email"
                   type="email"
                   name="email"
-                  value={formData.email}
+                  value={formData.contact.email}
                   onChange={handleInputChange}
                 />
                 <div className="flex flex-row space-x-4">
@@ -128,7 +181,7 @@ const RegisterComponent = () => {
                     className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
                     placeholder="País"
                     name="country"
-                    value={formData.country}
+                    value={formData.contact.country}
                     onChange={handleInputChange}
                   />
                   <input
@@ -136,7 +189,7 @@ const RegisterComponent = () => {
                     placeholder="Ciudad"
                     type="city"
                     name="city"
-                    value={formData.city}
+                    value={formData.contact.city}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -146,7 +199,7 @@ const RegisterComponent = () => {
                     placeholder="Dirección"
                     type="direction"
                     name="direction"
-                    value={formData.direction}
+                    value={formData.contact.direction}
                     onChange={handleInputChange}
                   />
                   <input
@@ -154,7 +207,7 @@ const RegisterComponent = () => {
                     placeholder="Código Postal"
                     type="postalCode"
                     name="postalCode"
-                    value={formData.postalCode}
+                    value={formData.contact.postalCode}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -163,7 +216,7 @@ const RegisterComponent = () => {
                   options={servicesArray}
                   onChange={handleServiceChange}
                 />
-                <Spacer height={'11rem'} />
+                <Spacer height={'7rem'} />
                 <div className="flex justify-center">
                   <Button
                     width={'14rem'}
@@ -222,7 +275,7 @@ const RegisterComponent = () => {
                 </div>
                 <Spacer />
                 <div className="flex justify-center w-full">
-                  <div className="w-full md:w-2/3 lg:w-1/2">
+                  <div className="w-full ">
                     <div className="bg-white p-4 rounded-lg bg-logoBlack bg-contain bg-no-repeat bg-center">
                       <h2 className="text-2xl font-bold mb-4 text-center ">Coste Total</h2>
                       <div className="flex justify-between mb-2">

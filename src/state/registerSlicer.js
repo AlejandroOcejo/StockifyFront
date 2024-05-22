@@ -22,14 +22,14 @@ export const registerUser = createAsyncThunk(
   'registerUser/postRegister',
   async (formData, { dispatch, rejectWithValue }) => {
     const isRegistered = await dispatch(checkUser(formData)).unwrap();
-
     if (!isRegistered) {
       try {
-        const response = await fetch(`http://localhost:5142/Tenant`, {
+        const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
-        });
+        };
+        const response = await fetch(`http://localhost:5142/Tenant`, requestOptions);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }

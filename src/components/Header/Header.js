@@ -11,7 +11,7 @@ const Header = () => {
           </div>
           <div className="flex-grow text-center">
             <a
-              href="#"
+              href="/register"
               className="text-center link link-underline-black hover:link-underline-black-hover no-underline text-white p-1">
               Servicios
             </a>
@@ -32,7 +32,7 @@ const Header = () => {
           </div>
           <div className="flex-grow text-center">
             <a
-              href="#"
+              href="/login"
               className=" flex-grow link link-underline-black hover:link-underline-black-hover no-underline text-white p-1">
               Area cliente
             </a>
