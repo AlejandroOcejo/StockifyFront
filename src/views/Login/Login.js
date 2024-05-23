@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../../components/CommonComponents/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../state/loginSlicer';
-
+import { Link } from 'react-router-dom';
 const Login = () => {
   const dispatch = useDispatch();
   const { loading, error, user } = useSelector((state) => state.login);
@@ -27,7 +27,14 @@ const Login = () => {
 
   return (
     <div className="w-screen h-screen bg-stockifyPurple flex flex-col justify-center items-center">
-      <img className="h-16 absolute top-0 mt-6" src="/logo.png" alt="logo" />
+      <Link className="no-underline" to={'/'}>
+        <img
+          className="h-16 absolute top-6 left-1/2 transform -translate-x-1/2"
+          href="/"
+          src="/logo.png"
+          alt="logo"
+        />
+      </Link>
       <h1 className="text-white text-5xl">Inicio de sesion</h1>
       <div className="flex flex-col items-center  bg-[#F1F3FF] p-16 rounded-2xl border-[#A0AFFF] border-solid">
         <input

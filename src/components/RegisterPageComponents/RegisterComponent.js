@@ -8,6 +8,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Icon } from 'react-icons-kit';
 import { eyeOff } from 'react-icons-kit/feather/eyeOff';
 import { eye } from 'react-icons-kit/feather/eye';
+import { Link } from 'react-router-dom';
 
 const RegisterComponent = () => {
   const servicesArray = [
@@ -125,7 +126,14 @@ const RegisterComponent = () => {
 
   return (
     <div className="w-screen h-screen bg-stockifyPurple flex flex-row justify-center items-center">
-      <img className="h-16 absolute top-0 mt-6" href="/" src="/logo.png" alt="logo" />
+      <Link className="no-underline" to={'/'}>
+        <img
+          className="h-16 absolute top-6 left-1/2 transform -translate-x-1/2"
+          href="/"
+          src="/logo.png"
+          alt="logo"
+        />
+      </Link>
       <TransitionGroup component={null}>
         <CSSTransition key={formStep} timeout={150} classNames="swipe">
           <div className="max-w-lg w-full h-2/4 bg-[#F1F3FF] p-12 rounded-2xl border-[#A0AFFF] border-solid flex flex-col justify-center">
