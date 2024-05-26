@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { store } from './state/store';
 import Register from './views/Register/Register';
 import Services from './views/Services/Services';
+import ClientMain from './views/ClientZone/ClientMain/ClientMain';
 
 const App = () => (
   <BrowserRouter>
@@ -17,6 +18,7 @@ const App = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/Client" element={<ClientMain />} />
     </Routes>
   </BrowserRouter>
 );
