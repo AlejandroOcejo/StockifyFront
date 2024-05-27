@@ -1,0 +1,15 @@
+{
+  "header": {
+    "Services": "Services",
+    "Pricing": "Pricing",
+    "Tech": "Technologies",
+    "ClientZone": "Client Area",
+    "About-Us": "About Us"
+  },
+  "MainPage": {
+    "Title": "Lorem ipsum dolor sit amet,",
+    "Title2": "consectetur",
+    "SubTitle": "Maecenas pulvinar condimentum massa. Curabitur et lorem",
+    "Information": "More information"
+  }
+}

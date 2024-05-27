@@ -10,6 +10,27 @@ import { store } from './state/store';
 import Register from './views/Register/Register';
 import Services from './views/Services/Services';
 import ClientMain from './views/ClientZone/ClientMain/ClientMain';
+import i18next from 'i18next';
+import { I18nextProvider } from 'react-i18next';
+import global_es from './Translations/es/global.json';
+import global_en from './Translations/en/global.json';
+import global_fr from './Translations/fr/global.json';
+
+i18next.init({
+  interpolation: { escapeValue: false },
+  lng: 'es',
+  resources: {
+    es: {
+      global: global_es,
+    },
+    en: {
+      global: global_en,
+    },
+    fr: {
+      global: global_fr,
+    },
+  },
+});
 
 const App = () => (
   <BrowserRouter>
@@ -27,7 +48,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <I18nextProvider i18n={i18next}>
+        <App />
+      </I18nextProvider>
     </React.StrictMode>
   </Provider>
 );
