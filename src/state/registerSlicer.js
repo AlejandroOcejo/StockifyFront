@@ -1,18 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const checkUser = createAsyncThunk('checkUser/postUser', async (formData) => {
+export const checkUser = createAsyncThunk('checkUser/postUser', async (formData) => {
   try {
     const response = await fetch(
-      `http://localhost:5142/Login?password=0&username=${formData.username}`,
+      `http://localhost:5142/Login?username=${formData.username}&password=0`,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       }
     );
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-    return false;
+    const data = await response.json();
+    console.log(data);
+    if (data === 'Tenant not found') {
+      return false;
+    }
+    return true;
   } catch (error) {
     return true;
   }

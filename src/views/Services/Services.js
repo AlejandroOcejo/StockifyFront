@@ -5,7 +5,7 @@ const Main = () => {
   return (
     <div>
       <DefaultLayout>
-        <ServicesCard></ServicesCard>
+        <ServicesCard />
       </DefaultLayout>
     </div>
   );

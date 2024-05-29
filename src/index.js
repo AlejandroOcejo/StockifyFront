@@ -15,6 +15,8 @@ import { I18nextProvider } from 'react-i18next';
 import global_es from './Translations/es/global.json';
 import global_en from './Translations/en/global.json';
 import global_fr from './Translations/fr/global.json';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
 
 i18next.init({
   interpolation: { escapeValue: false },

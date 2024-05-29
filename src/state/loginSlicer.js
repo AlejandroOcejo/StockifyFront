@@ -4,22 +4,18 @@ export const loginUser = createAsyncThunk(
   'login/postUser',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        `http://localhost:5142/Login?password=${formData.password}&username=${formData.username}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        }
-      );
+      const response = await fetch(`http://localhost:5142/Auth/Login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(formData),
+      });
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
-      console.log(data);
-      if (data !== 'Tenant found') {
-        return rejectWithValue(data);
-      }
-      return data;
+      const token = data.body;
+      console.log(token + 'token token token');
+      return { user: data, token: token };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -32,6 +28,7 @@ const loginSlice = createSlice({
     loading: false,
     error: null,
     user: null,
+    token: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -42,7 +39,8 @@ const loginSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

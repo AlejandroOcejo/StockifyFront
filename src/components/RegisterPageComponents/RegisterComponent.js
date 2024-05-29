@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Button from '../../components/CommonComponents/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../../state/registerSlicer';
+import { registerUser, checkUser } from '../../state/registerSlicer';
 import Dropdown from '../CommonComponents/Dropdown/Dropdown';
 import Spacer from '../CommonComponents/Spacer/Spacer';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Icon } from 'react-icons-kit';
 import { eyeOff } from 'react-icons-kit/feather/eyeOff';
 import { eye } from 'react-icons-kit/feather/eye';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RegisterComponent = () => {
   const servicesArray = [
@@ -16,15 +16,14 @@ const RegisterComponent = () => {
     { name: 'prueba2', price: '1000000' },
     { name: 'prueba3', price: '0.99' },
   ];
+  const dispatch = useDispatch();
+  const { loading, error: errorRegister } = useSelector((state) => state.register);
   const [formStep, setFormStep] = useState(1);
   const [selectedService, setSelectedService] = useState(servicesArray[0].name);
-  const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.register);
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(eyeOff);
-
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     password: '',
     contact: {
       surname: '',
@@ -35,13 +34,26 @@ const RegisterComponent = () => {
       postalCode: '',
     },
   });
-
-  const [paymentFormData, setpaymentFormData] = useState({
+  const [paymentFormData, setPaymentFormData] = useState({
     cardHolder: '',
     cardNumber: '',
     expirationDate: '',
     CVC: '',
   });
+  const [errors, setErrors] = useState({
+    username: false,
+    password: false,
+    surname: false,
+    email: false,
+    country: false,
+    city: false,
+    direction: false,
+    postalCode: false,
+    userExists: false,
+  });
+
+  const navigate = useNavigate();
+
   const handleToggle = () => {
     if (type === 'password') {
       setIcon(eye);
@@ -71,6 +83,12 @@ const RegisterComponent = () => {
       }
       return prevFormData;
     });
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value === '',
+      userExists: false,
+    }));
   };
 
   const handlePaymentInputChange = (event) => {
@@ -89,7 +107,7 @@ const RegisterComponent = () => {
       }
     }
 
-    setpaymentFormData({
+    setPaymentFormData({
       ...paymentFormData,
       [name]: updatedValue,
     });
@@ -104,14 +122,51 @@ const RegisterComponent = () => {
     console.log(selectedService);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formattedData = {
-      ...formData,
-      contact: JSON.stringify(formData.contact),
+  const validateForm = () => {
+    const newErrors = {
+      username: formData.username === '',
+      password: formData.password === '',
+      surname: formData.contact.surname === '',
+      email: formData.contact.email === '',
+      country: formData.contact.country === '',
+      city: formData.contact.city === '',
+      direction: formData.contact.direction === '',
+      postalCode: formData.contact.postalCode === '',
+      userExists: errors.userExists,
     };
-    dispatch(registerUser(formattedData));
-    setFormStep(2);
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(Boolean);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      const formattedData = {
+        ...formData,
+        contact: JSON.stringify(formData.contact),
+      };
+      const isRegistered = await dispatch(checkUser(formData)).unwrap();
+      if (!isRegistered) {
+        dispatch(registerUser(formattedData));
+        setFormStep(2);
+        if (formStep === 2 && !errorRegister) {
+          navigate('/login');
+        }
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          username: true,
+          userExists: true,
+        }));
+        setFormStep(1);
+      }
+    }
+  };
+
+  const nextStep = () => {
+    if (validateForm()) {
+      setFormStep(2);
+    }
   };
 
   const getSelectedServicePrice = (serviceName) => {
@@ -141,16 +196,20 @@ const RegisterComponent = () => {
               <div className="w-full flex flex-col space-y-4">
                 <div className="flex flex-row space-x-4">
                   <input
-                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
+                    className={`p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${
+                      errors.username ? 'border-red-500' : 'border-[#A0AFFF]'
+                    }`}
                     placeholder="Nombre"
-                    name="name"
-                    value={formData.name}
+                    name="username"
+                    value={formData.username}
                     onChange={handleInputChange}
                   />
                   <input
-                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
+                    className={`p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${
+                      errors.surname ? 'border-red-500' : 'border-[#A0AFFF]'
+                    }`}
                     placeholder="Apellidos"
-                    type="surname"
+                    type="text"
                     name="surname"
                     value={formData.contact.surname}
                     onChange={handleInputChange}
@@ -158,7 +217,9 @@ const RegisterComponent = () => {
                 </div>
                 <div className="relative flex items-center">
                   <input
-                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
+                    className={`p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${
+                      errors.password ? 'border-red-500' : 'border-[#A0AFFF]'
+                    }`}
                     placeholder="Contraseña"
                     type={type}
                     name="password"
@@ -177,7 +238,9 @@ const RegisterComponent = () => {
                   </span>
                 </div>
                 <input
-                  className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
+                  className={`p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 ${
+                    errors.email ? 'border-red-500' : 'border-[#A0AFFF]'
+                  }`}
                   placeholder="Email"
                   type="email"
                   name="email"
@@ -186,16 +249,20 @@ const RegisterComponent = () => {
                 />
                 <div className="flex flex-row space-x-4">
                   <input
-                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
+                    className={`p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${
+                      errors.country ? 'border-red-500' : 'border-[#A0AFFF]'
+                    }`}
                     placeholder="País"
                     name="country"
                     value={formData.contact.country}
                     onChange={handleInputChange}
                   />
                   <input
-                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
+                    className={`p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${
+                      errors.city ? 'border-red-500' : 'border-[#A0AFFF]'
+                    }`}
                     placeholder="Ciudad"
-                    type="city"
+                    type="text"
                     name="city"
                     value={formData.contact.city}
                     onChange={handleInputChange}
@@ -203,17 +270,21 @@ const RegisterComponent = () => {
                 </div>
                 <div className="flex flex-row space-x-4">
                   <input
-                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1"
+                    className={`p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${
+                      errors.direction ? 'border-red-500' : 'border-[#A0AFFF]'
+                    }`}
                     placeholder="Dirección"
-                    type="direction"
+                    type="text"
                     name="direction"
                     value={formData.contact.direction}
                     onChange={handleInputChange}
                   />
                   <input
-                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-3"
+                    className={`p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-3 ${
+                      errors.postalCode ? 'border-red-500' : 'border-[#A0AFFF]'
+                    }`}
                     placeholder="Código Postal"
-                    type="postalCode"
+                    type="text"
                     name="postalCode"
                     value={formData.contact.postalCode}
                     onChange={handleInputChange}
@@ -224,11 +295,18 @@ const RegisterComponent = () => {
                   options={servicesArray}
                   onChange={handleServiceChange}
                 />
+                {Object.values(errors).some((error) => error) && (
+                  <div className="text-red-500">
+                    {errors.userExists
+                      ? 'Usuario ya registrado'
+                      : 'Rellene todos los campos antes de continuar'}
+                  </div>
+                )}
                 <Spacer height={'7rem'} />
                 <div className="flex justify-center">
                   <Button
                     width={'14rem'}
-                    onButtonClick={handleSubmit}
+                    onButtonClick={nextStep}
                     label={'Continuar'}
                     disabled={loading}
                   />

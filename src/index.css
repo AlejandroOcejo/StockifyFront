@@ -104,3 +104,28 @@ code {
   }
 }
 
+@keyframes bgChangeToBlack {
+  0% {
+    background-color: var(--bg-start, #52489C);
+  }
+  100% {
+    background-color: var(--bg-end, #000000);
+  }
+}
+
+@keyframes bgChangeToPurple {
+  0% {
+    background-color: var(--bg-start, #000000);
+  }
+  100% {
+    background-color: var(--bg-end, #52489C);
+  }
+}
+
+.bg-change-to-black {
+  animation: bgChangeToBlack 1s ease-in-out backwards;
+}
+
+.bg-change-to-purple {
+  animation: bgChangeToPurple 1s ease-in-out forwards;
+}
