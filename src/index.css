@@ -31,24 +31,24 @@ code {
 }
 
 @keyframes reveal {
-	from {
-		opacity: 0.9;
-		clip-path: inset(0% 0% 100% 0%);
-	}
-	to {
-		opacity: 1;
-		clip-path: inset(0% 0% 0% 0%);
-	}
+  from {
+    opacity: 0.9;
+    clip-path: inset(0% 0% 100% 0%);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0% 0% 0% 0%);
+  }
 }
 
 .revealing-image {
-	view-timeline-name: --revealing-image;
-	view-timeline-axis: block;
+  view-timeline-name: --revealing-image;
+  view-timeline-axis: block;
 
-	animation: linear reveal both;
-	animation-timeline: --revealing-image;
+  animation: linear reveal both;
+  animation-timeline: --revealing-image;
 
-	animation-range: entry 25% cover 50%;
+  animation-range: entry 25% cover 50%;
 }
 
 .swipe-enter {
@@ -74,7 +74,6 @@ code {
   transition: opacity 20ms ease, transform 500ms ease;
 }
 
-
 .fade-in-text {
   animation: left-to-right-fade-in 1s ease-in;
   -webkit-mask-repeat: no-repeat;
@@ -83,7 +82,6 @@ code {
 .clip-path-triangle {
   clip-path: polygon(0 0, 100% 0, 100% 100%);
 }
-
 
 @keyframes left-to-right-fade-in {
   0% {
@@ -128,4 +126,8 @@ code {
 
 .bg-change-to-purple {
   animation: bgChangeToPurple 1s ease-in-out forwards;
+}
+
+.btn-hover:hover {
+  transition: background-color 0.3s ease;
 }

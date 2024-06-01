@@ -11,7 +11,12 @@ const AddInventory = () => {
 
   return (
     <>
-      {isActive ? <Dialog closeDialog={handleClick} content={<AddInventoryForm />} /> : null}
+      {isActive ? (
+        <Dialog
+          closeDialog={handleClick}
+          content={<AddInventoryForm closeDialog={handleClick} />}
+        />
+      ) : null}
       <div
         className="flex w-52 h-52 flex-col border-4 border-dashed border-indigo-600 gap-8 bg-[#F3F3F3] text-center rounded-3xl justify-center items-center cursor-pointer"
         onClick={handleClick}>

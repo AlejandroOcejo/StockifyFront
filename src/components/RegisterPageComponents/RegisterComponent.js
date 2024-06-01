@@ -191,7 +191,7 @@ const RegisterComponent = () => {
       </Link>
       <TransitionGroup component={null}>
         <CSSTransition key={formStep} timeout={150} classNames="swipe">
-          <div className="max-w-lg w-full h-2/4 bg-[#F1F3FF] p-12 rounded-2xl border-[#A0AFFF] border-solid flex flex-col justify-center">
+          <div className="max-w-lg w-full bg-[#F1F3FF] p-12 rounded-2xl border-[#A0AFFF] border-solid flex flex-col justify-center">
             {formStep === 1 ? (
               <div className="w-full flex flex-col space-y-4">
                 <div className="flex flex-row space-x-4">

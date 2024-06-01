@@ -35,7 +35,7 @@ const ServicesCard = () => {
           <div className="flex flex-col gap-1">
             {service.serviceBenefits.map((benefit, index) => (
               <div key={index} className="text-sm md:text-base flex justify-start ml-12 gap-2 ">
-                <img alt="check" src="icons/cheque.png" className='w-6 h-6' />
+                <img alt="check" src="icons/cheque.png" className="w-6 h-6" />
                 {benefit}
               </div>
             ))}
@@ -44,10 +44,10 @@ const ServicesCard = () => {
             <Button label="Pruebalo ya" />
           </div>
           <div
-            className="absolute top-0 right-0 p-4 w-8 h-8 bg-stockifyLogoColor clip-path-triangle"
+            className="absolute top-0 right-0 p-4 w-14 h-14 bg-stockifyLogoColor clip-path-triangle"
             style={{ borderTopRightRadius: '20px' }}>
             <img
-              className="w-5 h-5 absolute top-0 right-0 p-2"
+              className="w-8 h-8 absolute top-0 right-0 p-2"
               src="icons/estrella.png"
               alt="estrella"
             />

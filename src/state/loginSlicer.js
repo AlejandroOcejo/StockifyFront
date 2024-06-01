@@ -13,8 +13,8 @@ export const loginUser = createAsyncThunk(
         throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
-      const token = data.body;
-      console.log(token + 'token token token');
+      const token = data.token;
+      console.log(token + ' token token token');
       return { user: data, token: token };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -28,7 +28,6 @@ const loginSlice = createSlice({
     loading: false,
     error: null,
     user: null,
-    token: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -40,7 +39,8 @@ const loginSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        localStorage.setItem('token', action.payload.token);
+        console.log('Token stored in localStorage:', action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

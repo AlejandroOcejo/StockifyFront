@@ -1,23 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
   const { width, height, onButtonClick, disabled, label, color } = props;
+  const [hoverStyles, setHoverStyles] = useState({});
 
   const sizeStyles = {
     width: width || 'auto',
     height: height || 'auto',
   };
 
-  const backgroundColor = disabled ? 'gray' : color || '#6b46c1'; // Reemplaza '#6b46c1' con el color hexadecimal de 'bg-stockifyPurple'
+  const backgroundColor = disabled ? 'gray' : color || '#6b46c1';
+
+  const handleMouseMove = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setHoverStyles({
+      background: `radial-gradient(circle at ${x}px ${y}px, #685dba, ${backgroundColor})`,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setHoverStyles({
+      background: backgroundColor,
+    });
+  };
 
   return (
     <div
       onClick={disabled ? null : onButtonClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className={`flex justify-center items-center pt-2 pb-3 pl-7 pr-7 rounded-3xl text-white cursor-pointer leading-thigh ${
-        disabled ? 'cursor-not-allowed' : ''
+        disabled ? 'cursor-not-allowed' : 'btn-hover'
       }`}
-      style={{ ...sizeStyles, backgroundColor }}>
+      style={{ ...sizeStyles, backgroundColor: backgroundColor, ...hoverStyles }}>
       {label}
     </div>
   );
