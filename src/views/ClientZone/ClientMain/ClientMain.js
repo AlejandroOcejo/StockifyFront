@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddInventory from '../../../components/ClienZoneComponents/AddInventory/AddInventory';
 import InventoryCard from '../../../components/ClienZoneComponents/InventoryCard/InventoryCard';
 import { useNavigate } from 'react-router';
+import ClientLayout from '../../../components/Layouts/ClientLayout/ClientLayout';
+import { Dropdown } from 'primereact/dropdown';
 
 const ClientMain = () => {
   const navigate = useNavigate();
@@ -21,8 +23,7 @@ const ClientMain = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-row">
-      <Sidebar />
+    <ClientLayout>
       <div className="p-28 flex flex-col gap-4">
         <div className="flex flex-wrap gap-4">
           <AddInventory />
@@ -31,7 +32,7 @@ const ClientMain = () => {
           ))}
         </div>
       </div>
-    </div>
+    </ClientLayout >
   );
 };
 

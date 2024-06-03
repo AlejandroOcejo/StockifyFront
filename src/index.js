@@ -17,7 +17,8 @@ import global_en from './Translations/en/global.json';
 import global_fr from './Translations/fr/global.json';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
-
+import ClientCreateUser from './views/ClientZone/ClientCreateUser/ClientCreateUser';
+import ClientProductsInfo from './views/ClientZone/ClienProductsInfo/ClientProductsInfo';
 i18next.init({
   interpolation: { escapeValue: false },
   lng: 'es',
@@ -42,6 +43,8 @@ const App = () => (
       <Route path="/register" element={<Register />} />
       <Route path="/services" element={<Services />} />
       <Route path="/Client" element={<ClientMain />} />
+      <Route path="/Client/users" element={<ClientCreateUser />} />
+      <Route path="/Client/products" element={<ClientProductsInfo />} />
     </Routes>
   </BrowserRouter>
 );

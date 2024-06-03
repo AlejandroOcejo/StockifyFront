@@ -10,7 +10,7 @@ const Button = (props) => {
     height: height || 'auto',
   };
 
-  const backgroundColor = disabled ? 'gray' : color || '#6b46c1';
+  const backgroundColor = disabled ? 'gray' : color || '#52489C';
 
   const handleMouseMove = (e) => {
     const rect = e.target.getBoundingClientRect();
@@ -18,7 +18,7 @@ const Button = (props) => {
     const y = e.clientY - rect.top;
 
     setHoverStyles({
-      background: `radial-gradient(circle at ${x}px ${y}px, #685dba, ${backgroundColor})`,
+      background: `radial-gradient(circle at ${x}px ${y}px, #6b46c1, ${backgroundColor})`,
     });
   };
 
@@ -33,9 +33,8 @@ const Button = (props) => {
       onClick={disabled ? null : onButtonClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`flex justify-center items-center pt-2 pb-3 pl-7 pr-7 rounded-3xl text-white cursor-pointer leading-thigh ${
-        disabled ? 'cursor-not-allowed' : 'btn-hover'
-      }`}
+      className={`flex justify-center items-center pt-2 pb-3 pl-7 pr-7 rounded-3xl text-white cursor-pointer leading-thigh ${disabled ? 'cursor-not-allowed' : 'btn-hover'
+        }`}
       style={{ ...sizeStyles, backgroundColor: backgroundColor, ...hoverStyles }}>
       {label}
     </div>
