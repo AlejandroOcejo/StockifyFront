@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Asynchronous thunk to add a product
 export const addProduct = createAsyncThunk(
     'product/addProduct',
     async (formData, { rejectWithValue }) => {
@@ -30,7 +29,6 @@ export const addProduct = createAsyncThunk(
     }
 );
 
-// Asynchronous thunk to get products
 export const getProducts = createAsyncThunk(
     'product/getProducts',
     async (_, { rejectWithValue }) => {
@@ -54,7 +52,6 @@ export const getProducts = createAsyncThunk(
                 const errorText = await response.text();
                 throw new Error(`Error: ${response.status} - ${errorText}`);
             }
-
             const data = await response.json();
             return data;
         } catch (error) {
@@ -64,7 +61,6 @@ export const getProducts = createAsyncThunk(
     }
 );
 
-// Asynchronous thunk to remove a product
 export const removeProduct = createAsyncThunk(
     'product/removeProduct',
     async (id, { rejectWithValue, dispatch }) => {
@@ -91,7 +87,6 @@ export const removeProduct = createAsyncThunk(
     }
 );
 
-// Create the product slice
 const productSlice = createSlice({
     name: 'product',
     initialState: {

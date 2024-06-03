@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Button from '../../../CommonComponents/Button/Button';
 import Spacer from '../../../CommonComponents/Spacer/Spacer';
 import { addInventory } from '../../../../state/inventorySlicer';
+import { addProduct } from '../../../../state/productSlicer';
 import { ColorPicker } from 'primereact/colorpicker';
 import { useDispatch } from 'react-redux';
 import { uploadImageToS3 } from '../../../../awsS3';
+import { FileUpload } from 'primereact/fileupload';
+import * as XLSX from 'xlsx';
+import './AddInventoryForm.css';
 
 const AddInventoryForm = ({ closeDialog }) => {
   const dispatch = useDispatch();
@@ -21,6 +25,7 @@ const AddInventoryForm = ({ closeDialog }) => {
 
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [excelData, setExcelData] = useState([]);
 
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -49,20 +54,66 @@ const AddInventoryForm = ({ closeDialog }) => {
     }
   };
 
+  const handleExcelUpload = (event) => {
+    const file = event.files[0];
+    if (!file) {
+      console.error('No file selected');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+        setExcelData(jsonData);
+        console.log('Excel data:', jsonData);
+      } catch (error) {
+        console.error('Error reading Excel file:', error);
+      }
+    };
+    reader.onerror = (error) => {
+      console.error('Error loading the file:', error);
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const currentDate = new Date().toISOString();
+    let inventoryId = null;
+
     if (imageFile) {
-      uploadImageToS3(imageFile, (err, location) => {
+      uploadImageToS3(imageFile, async (err, location) => {
         if (!err) {
-          dispatch(addInventory({ ...formData, image: location, creationDate: currentDate }));
+          const newInventory = await dispatch(addInventory({ ...formData, image: location, creationDate: currentDate }));
+          inventoryId = newInventory.payload.id;
+          uploadProducts(inventoryId);
           closeDialog();
         }
       });
     } else {
-      dispatch(addInventory({ ...formData, creationDate: currentDate }));
+      const newInventory = await dispatch(addInventory({ ...formData, creationDate: currentDate }));
+      inventoryId = newInventory.payload.id;
+      uploadProducts(inventoryId);
       closeDialog();
     }
+  };
+
+  const uploadProducts = (inventoryId) => {
+    excelData.forEach((product) => {
+      const productData = {
+        name: product.product || 'No especificado en la exportación',
+        description: product.description || 'No especificado en la exportación',
+        price: parseFloat(product.price.replace('$', '')) || 0,
+        quantity: product.quantity || 0,
+        inventoryId: inventoryId,
+        categoriesId: product.category ? [product.category] : [],
+      };
+      dispatch(addProduct(productData));
+    });
   };
 
   return (
@@ -120,6 +171,9 @@ const AddInventoryForm = ({ closeDialog }) => {
         onChange={handleInputChange}
       />
       <Spacer height={'1rem'} />
+      <div className="flex justify-center">
+        <FileUpload mode="basic" name="demo[]" accept=".xlsx, .xls" maxFileSize={1000000} onSelect={handleExcelUpload} />
+      </div>
       <div className="flex justify-center">
         <Button width={'14rem'} label={'Continuar'} onButtonClick={handleSubmit} />
       </div>
