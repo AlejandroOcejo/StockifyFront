@@ -23,7 +23,7 @@ const ClientMain = () => {
   }, [dispatch]);
 
   return (
-    <ClientLayout>
+    <ClientLayout centerContent={false}>
       <div className="p-28 flex flex-col gap-4">
         <div className="flex flex-wrap gap-4">
           <AddInventory />
@@ -32,7 +32,7 @@ const ClientMain = () => {
           ))}
         </div>
       </div>
-    </ClientLayout >
+    </ClientLayout>
   );
 };
 

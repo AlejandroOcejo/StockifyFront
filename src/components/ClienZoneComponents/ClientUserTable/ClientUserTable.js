@@ -5,31 +5,31 @@ import { InputText } from 'primereact/inputtext';
 import { FilterMatchMode } from 'primereact/api';
 import Button from '../../CommonComponents/Button/Button';
 import Dialog from '../../CommonComponents/Dialog/Dialog';
-import { getProducts } from '../../../state/productSlicer';
+import { getUsers } from '../../../state/userSlicer';
 import { useDispatch, useSelector } from 'react-redux';
 import CreateUser from '../CreateUser/CreateUser';
 
 const ClientUserTable = () => {
-    const [isActive, setActive] = useState(false)
-    const handleAddClick = () => {
-        setActive(!isActive);
-    };
-    const inventoryItems = useSelector((state) => state.product.products);
-
+    const [isActive, setActive] = useState(false);
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [filters, setFilters] = useState({
         'global': { value: null, matchMode: FilterMatchMode.CONTAINS }
     });
-    const dispatch = useDispatch()
-    useEffect(() => {
-        const fetchProducts = () => {
-            dispatch(getProducts())
-            setUsers(inventoryItems);
-        };
-        fetchProducts();
-    }, []);
+    const dispatch = useDispatch();
+    const userItems = useSelector((state) => state.user.users);
 
+    useEffect(() => {
+        const fetchUsers = () => {
+            dispatch(getUsers());
+            setUsers(userItems);
+        };
+        fetchUsers();
+    }, [dispatch, userItems]);
+
+    const handleAddClick = () => {
+        setActive(!isActive);
+    };
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
@@ -61,12 +61,12 @@ const ClientUserTable = () => {
                 />
             ) : null}
             <div className="card">
-                <DataTable value={users} paginator rows={10} dataKey="id" filters={filters} globalFilterFields={['id', 'name', 'description', 'price', 'quantity', 'quantity']} header={header} emptyMessage="No products found." selectionMode="single" selection={selectedUser} onSelectionChange={(e) => setSelectedUser(e.value)} tableStyle={{ minWidth: '50rem' }}>
-                    <Column field="id" header="id" sortable style={{ minWidth: '12rem' }} />
+                <DataTable value={users} paginator rows={10} dataKey="id" filters={filters} globalFilterFields={['id', 'name', 'lastName', 'email', 'role']} header={header} emptyMessage="No users found." selectionMode="single" selection={selectedUser} onSelectionChange={(e) => setSelectedUser(e.value)} tableStyle={{ minWidth: '50rem' }}>
+                    <Column field="id" header="ID" sortable style={{ minWidth: '12rem' }} />
                     <Column field="name" header="Name" sortable style={{ minWidth: '12rem' }} />
-                    <Column field="description" header="description" sortable style={{ minWidth: '12rem' }} />
-                    <Column field="price" header="price" sortable style={{ minWidth: '12rem' }} />
-                    <Column field="quantity" header="quantity" sortable style={{ minWidth: '12rem' }} />
+                    <Column field="lastName" header="Last Name" sortable style={{ minWidth: '12rem' }} />
+                    <Column field="email" header="Email" sortable style={{ minWidth: '12rem' }} />
+                    <Column field="role" header="Role" sortable style={{ minWidth: '12rem' }} />
                 </DataTable>
             </div>
         </>

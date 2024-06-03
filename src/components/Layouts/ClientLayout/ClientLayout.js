@@ -1,13 +1,14 @@
-import Sidebar from "../../ClienZoneComponents/SideBar/Sidebar";
+import React from 'react';
+import Sidebar from '../../ClienZoneComponents/SideBar/Sidebar';
 
-const ClientLayout = ({ children }) => {
+const ClientLayout = ({ children, centerContent = true }) => {
   return (
-    <>
-      <main className="flex flex-row">
-        <Sidebar />
+    <main className="flex flex-row">
+      <Sidebar />
+      <div className={`flex-1 ${centerContent ? 'flex justify-center items-center' : ''}`}>
         {children}
-      </main>
-    </>
+      </div>
+    </main>
   );
 };
 

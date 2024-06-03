@@ -11,7 +11,6 @@ const CreateUser = () => {
                 Crear Usuario
             </span>
             <CreateUserForm />
-            <Button width={'7rem'} label={'Crear'} />
         </div>
     )
 }

@@ -12,6 +12,7 @@
     "classnames": "^2.5.1",
     "dotenv": "^16.4.5",
     "dotenv-webpack": "^8.1.0",
+    "emailjs-com": "^3.2.0",
     "i18next": "^23.11.5",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
