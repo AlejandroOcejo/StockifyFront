@@ -8,14 +8,33 @@ import Dialog from '../../CommonComponents/Dialog/Dialog';
 import AddProduct from '../AddProduct/AddProduct';
 import { getProducts } from '../../../state/productSlicer';
 import { useDispatch, useSelector } from 'react-redux';
+import './ClientProductsTable.css';
+import { useParams, useLocation, useNavigate } from 'react-router';
 
 const ClientProductsTable = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { state } = location;
+
+    useEffect(() => {
+        if (!state || !state.fromInventoryCard) {
+            navigate('/client');
+        }
+    }, [state, navigate]);
+
     const [isActive, setActive] = useState(false);
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [filters, setFilters] = useState({
-        'global': { value: null, matchMode: FilterMatchMode.CONTAINS }
+        'id': { value: null, matchMode: FilterMatchMode.CONTAINS },
+        'name': { value: null, matchMode: FilterMatchMode.CONTAINS },
+        'description': { value: null, matchMode: FilterMatchMode.CONTAINS },
+        'price': { value: null, matchMode: FilterMatchMode.CONTAINS },
+        'quantity': { value: null, matchMode: FilterMatchMode.CONTAINS },
+        'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
+        'categories': { value: null, matchMode: FilterMatchMode.CONTAINS }
     });
+    const { id } = useParams();
 
     const handleAddClick = () => {
         setActive(!isActive);
@@ -26,11 +45,18 @@ const ClientProductsTable = () => {
 
     useEffect(() => {
         const fetchProducts = () => {
-            dispatch(getProducts());
+            dispatch(getProducts(id));
             setProducts(inventoryItems);
         };
         fetchProducts();
-    }, [inventoryItems]);
+    }, [inventoryItems, dispatch]);
+
+    const onFilterChange = (e, field) => {
+        const value = e.target.value;
+        let _filters = { ...filters };
+        _filters[field].value = value;
+        setFilters(_filters);
+    };
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
@@ -61,15 +87,18 @@ const ClientProductsTable = () => {
                     content={<AddProduct />}
                 />
             ) : null}
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="card w-full max-w-5xl mx-4">
-                    <DataTable value={products} paginator rows={10} dataKey="id" filters={filters} globalFilterFields={['id', 'name', 'description', 'price', 'quantity', 'quantity']} header={header} emptyMessage="No products found." selectionMode="single" selection={selectedProduct} onSelectionChange={(e) => setSelectedProduct(e.value)} tableStyle={{ minWidth: '50rem' }}>
-                        <Column field="id" header="id" sortable style={{ minWidth: '12rem' }} />
-                        <Column field="name" header="Name" sortable style={{ minWidth: '12rem' }} />
-                        <Column field="description" header="description" sortable style={{ minWidth: '12rem' }} />
-                        <Column field="price" header="price" sortable style={{ minWidth: '12rem' }} />
-                        <Column field="quantity" header="quantity" sortable style={{ minWidth: '12rem' }} />
-                    </DataTable>
+            <div className="flex justify-center items-center h-full w-full p-4">
+                <div className="flex flex-col justify-center items-center h-full w-full">
+                    <div className="card w-full">
+                        <DataTable value={products} paginator rows={10} dataKey="id" filters={filters} header={header} emptyMessage="No products found." selectionMode="single" selection={selectedProduct} onSelectionChange={(e) => setSelectedProduct(e.value)} className="w-full">
+                            <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'id')} body={(data) => <span className="block md:inline" data-header="ID">{data.id}</span>} />
+                            <Column field="name" header="Name" sortable filter filterPlaceholder="Search by name" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'name')} body={(data) => <span className="block md:inline" data-header="Name">{data.name}</span>} />
+                            <Column field="description" header="Description" sortable filter filterPlaceholder="Search by description" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'description')} body={(data) => <span className="block md:inline" data-header="Description">{data.description}</span>} />
+                            <Column field="categories" header="Categories" sortable filter filterPlaceholder="Search by categories" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'categories')} body={(data) => <span className="block md:inline" data-header="Categories">{data.categories ? data.categories.map(cat => cat.name).join(', ') : ''}</span>} />
+                            <Column field="price" header="Price" sortable filter filterPlaceholder="Search by price" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'price')} body={(data) => <span className="block md:inline" data-header="Price">{data.price}</span>} />
+                            <Column field="quantity" header="Quantity" sortable filter filterPlaceholder="Search by quantity" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'quantity')} body={(data) => <span className="block md:inline" data-header="Quantity">{data.quantity}</span>} />
+                        </DataTable>
+                    </div>
                 </div>
             </div>
         </>

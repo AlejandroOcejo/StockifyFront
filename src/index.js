@@ -19,6 +19,7 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import ClientCreateUser from './views/ClientZone/ClientCreateUser/ClientCreateUser';
 import ClientProductsInfo from './views/ClientZone/ClienProductsInfo/ClientProductsInfo';
+
 i18next.init({
   interpolation: { escapeValue: false },
   lng: 'es',
@@ -42,9 +43,9 @@ const App = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/services" element={<Services />} />
-      <Route path="/Client" element={<ClientMain />} />
-      <Route path="/Client/users" element={<ClientCreateUser />} />
-      <Route path="/Client/products" element={<ClientProductsInfo />} />
+      <Route path="/client" element={<ClientMain />} />
+      <Route path="/client/users" element={<ClientCreateUser />} />
+      <Route path="/client/:id/products" element={<ClientProductsInfo />} />
     </Routes>
   </BrowserRouter>
 );

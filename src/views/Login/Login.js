@@ -80,7 +80,7 @@ const Login = () => {
           />
           <label htmlFor="username">Nombre de usuario</label>
         </FloatLabel>
-        <Spacer height={'1.5rem'} /> 
+        <Spacer height={'1.5rem'} />
         <FloatLabel>
           <InputText
             id="password"
@@ -92,17 +92,19 @@ const Login = () => {
           />
           <label htmlFor="password">Contraseña</label>
         </FloatLabel>
-        <span className="text-xs self-start pl-2 mb-4 text-gray-400 cursor-pointer">
-          ¿Has olvidado tu contraseña?
+        <span className="text-xs self-start mb-4 mt-1 cursor-pointer">
+          <Link className='no-underline text-gray-400' to={'/register'}>
+            ¿No tienes cuenta? Registrate
+          </Link>
         </span>
         <div className="flex items-center space-x-3 mb-4">
           <label className="text-gray-700">¿Eres propietario?</label>
           <Switch isOn={isTenant} handleToggle={handleToggle} />
         </div>
-        <Spacer height={'2rem'} />
+        <Spacer height={'1rem'} />
+        {error && <div className="text-red-500">Inicio de sesión fallido</div>}
+        <Spacer height={'1rem'} />
         <Button onButtonClick={handleSubmit} label={'Continuar'} disabled={loading} />
-        {error && <div className="text-red-500">{error}</div>}
-        {user && <div className="text-green-500">¡Inicio de sesión exitoso!</div>}
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ const AddInventory = () => {
       <div
         className="flex w-52 h-52 flex-col border-4 border-dashed border-indigo-600 gap-8 bg-[#F3F3F3] text-center rounded-3xl justify-center items-center cursor-pointer"
         onClick={handleClick}>
-        <img className="w-20 h-auto" alt="añadir" src="anadir.png" />
+        <img className="w-20 h-auto" alt="añadir" src="/anadir.png" />
       </div>
     </>
   );

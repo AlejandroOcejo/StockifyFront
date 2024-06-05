@@ -29,9 +29,9 @@ export const addProduct = createAsyncThunk(
     }
 );
 
-export const getProducts = createAsyncThunk(
+export const getAllProducts = createAsyncThunk(
     'product/getProducts',
-    async (_, { rejectWithValue }) => {
+    async (id, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
 
         if (!token) {
@@ -39,7 +39,7 @@ export const getProducts = createAsyncThunk(
         }
 
         try {
-            const response = await fetch(`http://localhost:5142/Product`, {
+            const response = await fetch(`http://localhost:5142/product`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,7 +47,43 @@ export const getProducts = createAsyncThunk(
                     Authorization: `Bearer ${token}`,
                 },
             });
+            if (response.status === 404) {
+                return null;
+            }
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Error: ${response.status} - ${errorText}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error:', error);
+            return rejectWithValue(error.message);
+        }
+    }
+);
 
+export const getProducts = createAsyncThunk(
+    'product/getProducts',
+    async (id, { rejectWithValue }) => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            return rejectWithValue('No token found');
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5142/Inventory/${id}/products`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 404) {
+                return null;
+            }
             if (!response.ok) {
                 const errorText = await response.text();
                 throw new Error(`Error: ${response.status} - ${errorText}`);
@@ -120,6 +156,9 @@ const productSlice = createSlice({
             .addCase(getProducts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+                if (action.payload.includes('404')) {
+                    state.products = null;
+                }
             })
             .addCase(removeProduct.pending, (state) => {
                 state.loading = true;

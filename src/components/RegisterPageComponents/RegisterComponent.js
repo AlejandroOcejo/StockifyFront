@@ -334,19 +334,19 @@ const RegisterComponent = () => {
             ) : (
               <div className="w-full flex flex-col space-y-4">
                 <FloatLabel>
-                  <InputText
+                  <InputText disabled
                     id="cardHolder"
                     value={paymentFormData.cardHolder}
                     name="cardHolder"
                     onChange={handlePaymentInputChange}
-                    className="p-2 w-full rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
+                    className="bg-slate-200 p-2 w-full rounded-xl border-gray-400 border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                   />
                   <label htmlFor="cardHolder">Nombre Completo</label>
                 </FloatLabel>
 
                 <div className="flex space-x-4">
                   <FloatLabel>
-                    <InputText
+                    <InputText disabled
                       id="cardNumber"
                       value={paymentFormData.cardNumber}
                       name="cardNumber"
@@ -356,24 +356,24 @@ const RegisterComponent = () => {
                       maxLength="19"
                       required
                       onChange={handlePaymentInputChange}
-                      className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
+                      className="bg-slate-200 p-2 rounded-xl border-gray-400 border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                     />
                     <label htmlFor="cardNumber">Número de tarjeta</label>
                   </FloatLabel>
                   <FloatLabel>
-                    <InputText
+                    <InputText disabled
                       id="expirationDate"
                       value={paymentFormData.expirationDate}
                       name="expirationDate"
                       maxLength="7"
                       onChange={handlePaymentInputChange}
-                      className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
+                      className="bg-slate-200 p-2 rounded-xl border-gray-400 border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                     />
                     <label htmlFor="expirationDate">MM/AAAA</label>
                   </FloatLabel>
                 </div>
                 <FloatLabel>
-                  <InputText
+                  <InputText disabled
                     id="CVC"
                     value={paymentFormData.CVC}
                     name="CVC"
@@ -383,7 +383,7 @@ const RegisterComponent = () => {
                     maxLength="4"
                     required
                     onChange={handlePaymentInputChange}
-                    className="p-2 rounded-xl border-[#A0AFFF] border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
+                    className="bg-slate-200 p-2 rounded-xl border-gray-400 border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                   />
                   <label htmlFor="CVC">CVC</label>
                 </FloatLabel>

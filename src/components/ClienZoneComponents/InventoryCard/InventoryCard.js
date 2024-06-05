@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Dialog from "../../CommonComponents/Dialog/Dialog";
-import RemoveInventory from "../RemoveInventory/RemoveInventory";
 import InventoryCardInfo from "./InventoryCardInfo/InventoryCardInfo";
 
 const InventoryCard = (props) => {
@@ -13,7 +12,6 @@ const InventoryCard = (props) => {
   const handleClose = () => {
     setIsDialogOpen(false);
   };
-
 
   return (
     <>
@@ -28,7 +26,6 @@ const InventoryCard = (props) => {
             alt="añadir"
             src={props.item.image}
           />
-
         ) : null}
       </div>
       {isDialogOpen && (

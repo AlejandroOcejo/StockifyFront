@@ -9,6 +9,7 @@ import { uploadImageToS3 } from '../../../../awsS3';
 import { FileUpload } from 'primereact/fileupload';
 import * as XLSX from 'xlsx';
 import './AddInventoryForm.css';
+import { addCategory } from '../../../../state/categorySlicer';
 
 const AddInventoryForm = ({ closeDialog }) => {
   const dispatch = useDispatch();
@@ -69,7 +70,6 @@ const AddInventoryForm = ({ closeDialog }) => {
         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
         const jsonData = XLSX.utils.sheet_to_json(firstSheet);
         setExcelData(jsonData);
-        console.log('Excel data:', jsonData);
       } catch (error) {
         console.error('Error reading Excel file:', error);
       }
@@ -90,38 +90,54 @@ const AddInventoryForm = ({ closeDialog }) => {
         if (!err) {
           const newInventory = await dispatch(addInventory({ ...formData, image: location, creationDate: currentDate }));
           inventoryId = newInventory.payload.id;
-          uploadProducts(inventoryId);
+          await uploadProducts(inventoryId);
           closeDialog();
         }
       });
     } else {
       const newInventory = await dispatch(addInventory({ ...formData, creationDate: currentDate }));
       inventoryId = newInventory.payload.id;
-      uploadProducts(inventoryId);
+      await uploadProducts(inventoryId);
       closeDialog();
     }
   };
 
-  const uploadProducts = (inventoryId) => {
-    excelData.forEach((product) => {
+  const uploadProducts = async (inventoryId) => {
+    const categorySet = new Set();
+    const categoryMap = {};
+
+    for (const product of excelData) {
+      const category = product.category;
+      if (!categorySet.has(category)) {
+        categorySet.add(category);
+        const categories = {
+          name: category,
+          inventoryId: inventoryId
+        };
+        const result = await dispatch(addCategory(categories));
+        categoryMap[category] = result.payload.id;
+      }
+    }
+
+    for (const product of excelData) {
       const productData = {
         name: product.product || 'No especificado en la exportación',
         description: product.description || 'No especificado en la exportación',
-        price: parseFloat(product.price.replace('$', '')) || 0,
+        price: parseFloat(product.price?.replace('$', '')) || 0,
         quantity: product.quantity || 0,
         inventoryId: inventoryId,
-        categoriesId: product.category ? [product.category] : [],
+        categoriesId: product.category ? [categoryMap[product.category]] : [],
       };
       dispatch(addProduct(productData));
-    });
+    }
   };
 
   return (
     <div className="w-full flex flex-col space-y-4">
       <div className='flex items-center justify-center text-3xl font-bold'>Creación de inventario</div>
-      <div className="flex flex-row items-center justify-center gap-8 p-2">
+      <div className="flex flex-row items-center justify-center gap-8 ">
         <div
-          className="flex w-32 h-32 flex-col border-4 border-dashed gap-8 bg-[#F3F3F3] text-center rounded-full justify-center items-center cursor-pointer"
+          className="flex w-32 h-32 flex-col border-4 border-dashed gap-6 bg-[#F3F3F3] text-center rounded-full justify-center items-center cursor-pointer"
           style={{ borderColor: color ? `#${color}` : '#4c51bf' }}>
           <input
             type="file"
@@ -140,7 +156,7 @@ const AddInventoryForm = ({ closeDialog }) => {
             )}
           </label>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-7">
           <input
             className="p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 border-[#A0AFFF]"
             placeholder="Nombre del inventario"
@@ -148,10 +164,14 @@ const AddInventoryForm = ({ closeDialog }) => {
             value={formData.name}
             onChange={handleInputChange}
           />
-          <div className="flex flex-row items-center gap-4">
-            <span>Color:</span>
-            <ColorPicker value={color} onChange={(e) => setColor(e.value)} />
-          </div>
+          <input
+            className="p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 border-[#A0AFFF]"
+            placeholder="Localización"
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleInputChange}
+          />
         </div>
       </div>
       <input
@@ -162,18 +182,17 @@ const AddInventoryForm = ({ closeDialog }) => {
         value={formData.description}
         onChange={handleInputChange}
       />
-      <input
-        className="p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 border-[#A0AFFF]"
-        placeholder="Localización"
-        type="text"
-        name="location"
-        value={formData.location}
-        onChange={handleInputChange}
-      />
-      <Spacer height={'1rem'} />
-      <div className="flex justify-center">
-        <FileUpload mode="basic" name="demo[]" accept=".xlsx, .xls" maxFileSize={1000000} onSelect={handleExcelUpload} />
+      <Spacer height={"1rem"} />
+      <div className='flex flex-row justify-between '>
+        <div className="flex flex-row items-center gap-4">
+          <span>Color:</span>
+          <ColorPicker value={color} onChange={(e) => setColor(e.value)} />
+        </div>
+        <div className="flex justify-center self-center">
+          <FileUpload mode="basic" name="demo[]" accept=".xlsx, .xls" maxFileSize={1000000} onSelect={handleExcelUpload} chooseLabel="Importar" />
+        </div>
       </div>
+      <Spacer height={"1rem"} />
       <div className="flex justify-center">
         <Button width={'14rem'} label={'Continuar'} onButtonClick={handleSubmit} />
       </div>

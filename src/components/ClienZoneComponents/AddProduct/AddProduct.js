@@ -30,7 +30,6 @@ const AddProduct = () => {
             </div> : null}
             {isNew && <div className='flex flex-col gap-6 items-center'>
                 <AddCategoryForm />
-                <Button width={'7rem'} label={'Crear'} />
             </div>}
             {isNotNew && <AddProductForm />}
         </div>
