@@ -5,6 +5,8 @@ import inventorySlicer from './inventorySlicer';
 import productSlicer from './productSlicer';
 import userSlicer from './userSlicer';
 import categorySlicer from './categorySlicer';
+import transactionSlicer from './transactionSlicer';
+
 export const store = configureStore({
   reducer: {
     login: loginReducer,
@@ -12,6 +14,7 @@ export const store = configureStore({
     inventory: inventorySlicer,
     product: productSlicer,
     user: userSlicer,
-    category: categorySlicer
+    category: categorySlicer,
+    transaction: transactionSlicer
   },
 });

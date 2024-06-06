@@ -11,6 +11,7 @@ import Spacer from '../../CommonComponents/Spacer/Spacer';
 import { getCategories } from '../../../state/categorySlicer';
 import { removeProduct, updateProduct } from '../../../state/productSlicer';
 import Switch from '../../CommonComponents/Switch/Switch';
+import ProductCardMovementsInfo from './ProductCardInfo/ProductCardMovementsInfo';
 
 const ProductCard = ({ product, inventoryId, closeDialog }) => {
     const dispatch = useDispatch();
@@ -152,9 +153,9 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                 </>
             )}
             {view === 'movements' && (
-                <div>
+                <div className='flex flex-col justify-center items-center'>
                     <h3>Movimientos</h3>
-                    <p>Movimientos</p>
+                    <ProductCardMovementsInfo id={product.id} />
                     <Button width={'7rem'} onButtonClick={() => setView('details')} label={"Volver"} />
                 </div>
             )}
