@@ -20,7 +20,7 @@ export const addCategory = createAsyncThunk(
                 throw new Error(`Error: ${response.status} - ${errorText}`);
             }
 
-            const data = await response;
+            const data = await response.json();
             return data;
         } catch (error) {
             console.error('Error:', error);

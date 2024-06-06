@@ -85,20 +85,21 @@ const AddInventoryForm = ({ closeDialog }) => {
     const currentDate = new Date().toISOString();
     let inventoryId = null;
 
-    if (imageFile) {
-      uploadImageToS3(imageFile, async (err, location) => {
-        if (!err) {
-          const newInventory = await dispatch(addInventory({ ...formData, image: location, creationDate: currentDate }));
-          inventoryId = newInventory.payload.id;
-          await uploadProducts(inventoryId);
-          closeDialog();
-        }
-      });
-    } else {
-      const newInventory = await dispatch(addInventory({ ...formData, creationDate: currentDate }));
+    const saveInventory = async (imageLocation) => {
+      const newInventory = await dispatch(addInventory({ ...formData, image: imageLocation, creationDate: currentDate }));
       inventoryId = newInventory.payload.id;
       await uploadProducts(inventoryId);
       closeDialog();
+    };
+
+    if (imageFile) {
+      uploadImageToS3(imageFile, async (err, location) => {
+        if (!err) {
+          await saveInventory(location);
+        }
+      });
+    } else {
+      await saveInventory('');
     }
   };
 
@@ -110,11 +111,12 @@ const AddInventoryForm = ({ closeDialog }) => {
       const category = product.category;
       if (!categorySet.has(category)) {
         categorySet.add(category);
-        const categories = {
+        const formData = {
           name: category,
-          inventoryId: inventoryId
+          inventoryId: inventoryId,
         };
-        const result = await dispatch(addCategory(categories));
+        console.log(formData);
+        const result = await dispatch(addCategory({ formData }));
         categoryMap[category] = result.payload.id;
       }
     }
