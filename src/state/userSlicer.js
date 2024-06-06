@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
 export const getUsers = createAsyncThunk(
     'user/getUsers',
     async (_, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/user`, {
+            const response = await fetch(`http://localhost:5142/users`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,25 +31,26 @@ export const getUsers = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
     'user/updateUser',
-    async ({ id, formData }, { rejectWithValue }) => {
+    async (newData, { rejectWithValue, dispatch }) => {
+        console.log(newData);
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/user/${id}`, {
+            const response = await fetch(`http://localhost:5142/Tenant/user/${newData.id}/role`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ role: newData.role })
             });
 
             if (!response.ok) {
                 const errorText = await response.text();
                 throw new Error(`Error: ${response.status} - ${errorText}`);
             }
-
-            const data = await response.json();
+            await response
+            const data = dispatch(getUsers());
             return data;
         } catch (error) {
             console.error('Error:', error);

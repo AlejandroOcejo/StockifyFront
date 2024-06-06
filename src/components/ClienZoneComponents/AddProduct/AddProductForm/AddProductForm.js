@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { FloatLabel } from 'primereact/floatlabel';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
@@ -7,24 +8,23 @@ import 'primereact/resources/primereact.min.css';
 import './AddProductForm.css';
 import Button from '../../../CommonComponents/Button/Button';
 import Spacer from '../../../CommonComponents/Spacer/Spacer';
-import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../../state/productSlicer';
+import { getCategories } from '../../../../state/categorySlicer';
 
-const AddProductForm = () => {
+const AddProductForm = ({ inventoryId, onClose }) => {
     const dispatch = useDispatch();
-    const categoriesMock = [
-        { name: "Categoria 1", id: "1" },
-        { name: "Categoria 2", id: "CAT2" },
-        { name: "Categoria 3", id: "CAT3" },
-        { name: "Categoria 4", id: "CAT4" },
-    ];
+    const categories = useSelector(state => state.category.categories);
+
+    useEffect(() => {
+        dispatch(getCategories(inventoryId));
+    }, [dispatch, inventoryId]);
 
     const [formData, setFormData] = useState({
         name: "",
         description: "",
         price: "",
         quantity: "",
-        inventoryId: "",
+        inventoryId: inventoryId,
         categoriesId: []
     });
 
@@ -33,7 +33,6 @@ const AddProductForm = () => {
         description: false,
         price: false,
         quantity: false,
-        inventoryId: false,
         categoriesId: false
     });
 
@@ -57,13 +56,37 @@ const AddProductForm = () => {
         }));
         setErrors((prevErrors) => ({
             ...prevErrors,
-            categoriesId: selectedCategoryIds.length === 0
+            categoriesId: false
         }));
+    };
+
+    const handleNumericInput = (event) => {
+        if (!/^\d*\.?\d*$/.test(event.key)) {
+            event.preventDefault();
+        }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        dispatch(addProduct(formData));
+
+        // Validate fields
+        const newErrors = {
+            name: formData.name === '',
+            description: formData.description === '',
+            price: formData.price === '',
+            quantity: formData.quantity === '',
+            categoriesId: formData.categoriesId.length === 0
+        };
+
+        setErrors(newErrors);
+
+        // If any errors are true, prevent submission
+        if (Object.values(newErrors).some(error => error)) {
+            return;
+        }
+
+        await dispatch(addProduct(formData));
+        onClose();
     };
 
     return (
@@ -102,6 +125,8 @@ const AddProductForm = () => {
                             value={formData.price}
                             name="price"
                             onChange={handleInputChange}
+                            onKeyPress={handleNumericInput}
+                            inputMode="decimal"
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.price ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
                         <label htmlFor="price">Precio</label>
@@ -114,6 +139,8 @@ const AddProductForm = () => {
                             value={formData.quantity}
                             name="quantity"
                             onChange={handleInputChange}
+                            onKeyPress={handleNumericInput}
+                            inputMode="numeric"
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.quantity ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
                         <label htmlFor="quantity">Cantidad</label>
@@ -121,22 +148,10 @@ const AddProductForm = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
-                <div>
-                    <FloatLabel className="w-full">
-                        <InputText
-                            id="inventoryId"
-                            value={formData.inventoryId}
-                            name="inventoryId"
-                            onChange={handleInputChange}
-                            className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.inventoryId ? 'border-red-500' : 'border-[#A0AFFF]'}`}
-                        />
-                        <label htmlFor="inventoryId">ID de Inventario</label>
-                    </FloatLabel>
-                </div>
                 <div className="w-full">
                     <MultiSelect
-                        value={formData.categoriesId.map(id => categoriesMock.find(category => category.id === id))}
-                        options={categoriesMock}
+                        value={formData.categoriesId.map(id => categories.find(category => category.id === id))}
+                        options={categories}
                         onChange={handleCategoryChange}
                         optionLabel="name"
                         filter

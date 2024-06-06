@@ -10,7 +10,7 @@ const RemoveButton = (props) => {
         height: height || 'auto',
     };
 
-    const backgroundColor = disabled ? 'gray' : color || '#e3342f'; // Cambiado a rojo
+    const backgroundColor = disabled ? 'gray' : color || '#e3342f';
 
     const handleMouseMove = (e) => {
         if (!disabled) {
@@ -19,7 +19,7 @@ const RemoveButton = (props) => {
             const y = e.clientY - rect.top;
 
             setHoverStyles({
-                background: `radial-gradient(circle at ${x}px ${y}px, #cc1f1a, ${backgroundColor})`, // Cambiado a tonos de rojo
+                background: `radial-gradient(circle at ${x}px ${y}px, #cc1f1a, ${backgroundColor})`,
             });
         }
     };

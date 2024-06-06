@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const addCategory = createAsyncThunk(
     'category/addCategory',
-    async (formData, { rejectWithValue }) => {
+    async ({ formData }, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
         try {
             const response = await fetch(`http://localhost:5142/Category`, {
@@ -20,7 +20,7 @@ export const addCategory = createAsyncThunk(
                 throw new Error(`Error: ${response.status} - ${errorText}`);
             }
 
-            const data = await response.json();
+            const data = await response;
             return data;
         } catch (error) {
             console.error('Error:', error);
@@ -31,15 +31,14 @@ export const addCategory = createAsyncThunk(
 
 export const getCategories = createAsyncThunk(
     'category/getCategories',
-    async (_, { rejectWithValue }) => {
+    async (id, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
-
         if (!token) {
             return rejectWithValue('No token found');
         }
 
         try {
-            const response = await fetch(`http://localhost:5142/Category`, {
+            const response = await fetch(`http://localhost:5142/Inventory/${id}/categories`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

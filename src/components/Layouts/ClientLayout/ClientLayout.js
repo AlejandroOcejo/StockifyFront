@@ -3,9 +3,9 @@ import Sidebar from '../../ClienZoneComponents/SideBar/Sidebar';
 
 const ClientLayout = ({ children, centerContent = true }) => {
   return (
-    <main className="flex flex-row">
+    <main className="md:flex md:flex-row">
       <Sidebar />
-      <div className={`flex-1 ${centerContent ? 'flex justify-center items-center' : ''}`}>
+      <div className={`flex-1 mt-14 md:mt-0 ${centerContent ? 'flex justify-center items-center' : ''}`}>
         {children}
       </div>
     </main>

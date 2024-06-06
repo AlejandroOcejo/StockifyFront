@@ -29,40 +29,6 @@ export const addProduct = createAsyncThunk(
     }
 );
 
-export const getAllProducts = createAsyncThunk(
-    'product/getProducts',
-    async (id, { rejectWithValue }) => {
-        const token = localStorage.getItem('token');
-
-        if (!token) {
-            return rejectWithValue('No token found');
-        }
-
-        try {
-            const response = await fetch(`http://localhost:5142/product`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            if (response.status === 404) {
-                return null;
-            }
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Error: ${response.status} - ${errorText}`);
-            }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('Error:', error);
-            return rejectWithValue(error.message);
-        }
-    }
-);
-
 export const getProducts = createAsyncThunk(
     'product/getProducts',
     async (id, { rejectWithValue }) => {
@@ -99,7 +65,7 @@ export const getProducts = createAsyncThunk(
 
 export const removeProduct = createAsyncThunk(
     'product/removeProduct',
-    async (id, { rejectWithValue, dispatch }) => {
+    async ({ id, inventoryId }, { rejectWithValue, dispatch }) => {
         const token = localStorage.getItem('token');
         try {
             const response = await fetch(`http://localhost:5142/Product/${id}`, {
@@ -115,7 +81,36 @@ export const removeProduct = createAsyncThunk(
                 const errorText = await response.text();
                 throw new Error(`Error: ${response.status} - ${errorText}`);
             }
-            dispatch(getProducts());
+            dispatch(getProducts(inventoryId));
+        } catch (error) {
+            console.error('Error:', error);
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const updateProduct = createAsyncThunk(
+    'product/updateProduct',
+    async ({ id, formData, inventoryId }, { rejectWithValue, dispatch }) => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`http://localhost:5142/Product/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Error: ${response.status} - ${errorText}`);
+            }
+            const data = await response;
+            dispatch(getProducts(inventoryId));
+            return data;
         } catch (error) {
             console.error('Error:', error);
             return rejectWithValue(error.message);
@@ -168,6 +163,20 @@ const productSlice = createSlice({
                 state.loading = false;
             })
             .addCase(removeProduct.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateProduct.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateProduct.fulfilled, (state, action) => {
+                state.loading = false;
+                state.products = state.products.map(product =>
+                    product.id === action.payload.id ? action.payload : product
+                );
+            })
+            .addCase(updateProduct.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });

@@ -53,10 +53,14 @@ export const registerUser = createAsyncThunk(
 export const registerUserNotTenant = createAsyncThunk(
   'registerUserNotTenant/postRegister',
   async (formData, { dispatch, rejectWithValue }) => {
+    const token = localStorage.getItem('token');
     try {
       const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(formData),
       };
       const response = await fetch(`http://localhost:5142/Auth/Register`, requestOptions);

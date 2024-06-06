@@ -16,15 +16,17 @@ const Sidebar = () => {
   return (
     <div className="flex md:flex-row">
       <header className="bg-stockifyPurple text-white flex justify-between items-center p-4 fixed top-0 left-0 w-full z-50 md:hidden">
-        <button onClick={toggleSidebar}>
-          <FaBars className="w-6 h-6" />
+        <button className='bg-transparent border-none' onClick={toggleSidebar}>
+          <FaBars className="w-6 h-6 text-white" />
         </button>
-        <img className="w-36 h-auto" alt="logo" src="/logo.png" />
+        <div className="absolute left-1/2 transform -translate-x-1/2">
+          <img className="w-20 h-auto" alt="logo" src="/logo.png" />
+        </div>
       </header>
       <div className={`fixed inset-0 z-40 bg-stockifyPurple text-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:w-64 md:h-screen`}>
         <div className="w-64 h-full flex flex-col justify-between pt-16 md:pt-0">
           <div className="mt-6 flex flex-col gap-14">
-            <div className="flex justify-center items-center mb-6">
+            <div className={`flex justify-center items-center mb-6 ${isOpen ? 'md:flex hidden' : ''}`}>
               <img className="w-36 h-auto" alt="logo" src="/logo.png" />
             </div>
             <button className="md:hidden absolute top-4 right-4" onClick={toggleSidebar}>

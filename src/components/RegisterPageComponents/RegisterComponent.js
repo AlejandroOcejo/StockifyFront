@@ -183,7 +183,7 @@ const RegisterComponent = () => {
   };
 
   return (
-    <div className="w-screen h-screen bg-stockifyPurple flex flex-col justify-start gap-8 items-center px-4 pb-8">
+    <div className="w-screen h-screen bg-stockifyPurple flex flex-col justify-start gap-8 items-center px-4 pb-8 overflow-hidden">
       <Link className="no-underline" to={'/'}>
         <img
           className="h-20 relative left-1/2 transform -translate-x-1/2 mt-6"

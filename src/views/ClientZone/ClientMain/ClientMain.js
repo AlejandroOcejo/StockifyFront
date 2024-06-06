@@ -24,7 +24,7 @@ const ClientMain = () => {
 
   return (
     <ClientLayout centerContent={false}>
-      <div className="p-28 flex flex-col gap-4">
+      <div className="p-20 flex flex-col gap-4">
         <div className="flex flex-wrap gap-4">
           <AddInventory />
           {inventoryItems.map((item) => (

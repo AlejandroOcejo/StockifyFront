@@ -4,13 +4,14 @@ import registerSlicer from './registerSlicer';
 import inventorySlicer from './inventorySlicer';
 import productSlicer from './productSlicer';
 import userSlicer from './userSlicer';
-
+import categorySlicer from './categorySlicer';
 export const store = configureStore({
   reducer: {
     login: loginReducer,
     register: registerSlicer,
     inventory: inventorySlicer,
     product: productSlicer,
-    user: userSlicer
+    user: userSlicer,
+    category: categorySlicer
   },
 });

@@ -10,6 +10,7 @@ import { getProducts } from '../../../state/productSlicer';
 import { useDispatch, useSelector } from 'react-redux';
 import './ClientProductsTable.css';
 import { useParams, useLocation, useNavigate } from 'react-router';
+import ProductCard from '../ProductCard/ProductCard';
 
 const ClientProductsTable = () => {
     const location = useLocation();
@@ -23,7 +24,8 @@ const ClientProductsTable = () => {
     }, [state, navigate]);
 
     const [isActive, setActive] = useState(false);
-    const [products, setProducts] = useState([]);
+    const [isProductActive, setisProductActive] = useState(false);
+    const [products, setProducts] = useState()
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [filters, setFilters] = useState({
         'id': { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -34,22 +36,31 @@ const ClientProductsTable = () => {
         'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
         'categories': { value: null, matchMode: FilterMatchMode.CONTAINS }
     });
-    const { id } = useParams();
+    const { id: inventoryId } = useParams();
 
     const handleAddClick = () => {
         setActive(!isActive);
     };
 
-    const inventoryItems = useSelector((state) => state.product.products);
     const dispatch = useDispatch();
+    const inventoryItems = useSelector((state) => state.product.products);
 
     useEffect(() => {
         const fetchProducts = () => {
-            dispatch(getProducts(id));
-            setProducts(inventoryItems);
+            dispatch(getProducts(inventoryId));
         };
         fetchProducts();
-    }, [inventoryItems, dispatch]);
+    }, [dispatch, inventoryId]);
+
+    useEffect(() => {
+        setProducts(inventoryItems);
+    }, [inventoryItems]);
+
+    useEffect(() => {
+        if (selectedProduct !== null) {
+            setisProductActive(true);
+        }
+    }, [selectedProduct]);
 
     const onFilterChange = (e, field) => {
         const value = e.target.value;
@@ -71,7 +82,7 @@ const ClientProductsTable = () => {
                 <Button label={'Añadir producto'} onButtonClick={handleAddClick} />
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
-                    <InputText className='rounded-xl' type="search" onInput={onGlobalFilterChange} placeholder="Search..." />
+                    <InputText className='rounded-xl' type="search" onInput={onGlobalFilterChange} placeholder="Search..." style={{ maxWidth: '8rem' }} />
                 </span>
             </div>
         );
@@ -84,13 +95,19 @@ const ClientProductsTable = () => {
             {isActive ? (
                 <Dialog
                     closeDialog={handleAddClick}
-                    content={<AddProduct />}
+                    content={<AddProduct inventoryId={inventoryId} onClose={handleAddClick} />}
+                />
+            ) : null}
+            {isProductActive && selectedProduct ? (
+                <Dialog
+                    closeDialog={() => setisProductActive(false)}
+                    content={<ProductCard product={selectedProduct} inventoryId={inventoryId} closeDialog={() => setisProductActive(false)} />}
                 />
             ) : null}
             <div className="flex justify-center items-center h-full w-full p-4">
                 <div className="flex flex-col justify-center items-center h-full w-full">
                     <div className="card w-full">
-                        <DataTable value={products} paginator rows={10} dataKey="id" filters={filters} header={header} emptyMessage="No products found." selectionMode="single" selection={selectedProduct} onSelectionChange={(e) => setSelectedProduct(e.value)} className="w-full">
+                        <DataTable removableSort value={products} paginator rows={10} dataKey="id" filters={filters} header={header} emptyMessage="No products found." selectionMode="single" selection={selectedProduct} onSelectionChange={(e) => setSelectedProduct(e.value)} className="w-full">
                             <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'id')} body={(data) => <span className="block md:inline" data-header="ID">{data.id}</span>} />
                             <Column field="name" header="Name" sortable filter filterPlaceholder="Search by name" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'name')} body={(data) => <span className="block md:inline" data-header="Name">{data.name}</span>} />
                             <Column field="description" header="Description" sortable filter filterPlaceholder="Search by description" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'description')} body={(data) => <span className="block md:inline" data-header="Description">{data.description}</span>} />
