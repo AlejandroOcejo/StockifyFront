@@ -7,10 +7,11 @@ import Button from '../../../CommonComponents/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserNotTenant } from '../../../../state/registerSlicer';
 import emailjs from 'emailjs-com';
+import { getUsers } from '../../../../state/userSlicer';
 
-const CreateUserForm = () => {
+const CreateUserForm = ({ closeDialog }) => {
     const dispatch = useDispatch();
-    const { loading, error, success } = useSelector(state => state.register);
+    const { loading } = useSelector(state => state.register);
     const [formData, setFormData] = useState({
         name: "",
         lastName: "",
@@ -71,6 +72,8 @@ const CreateUserForm = () => {
             const response = await dispatch(registerUserNotTenant(updatedFormData)).unwrap();
             if (response && response.success) {
                 sendMail(updatedFormData.email, updatedFormData.name, randomPassword, updatedFormData.tenantName);
+                dispatch(getUsers())
+                closeDialog();
             } else {
                 console.error('Error al crear la cuenta:', response.error);
             }

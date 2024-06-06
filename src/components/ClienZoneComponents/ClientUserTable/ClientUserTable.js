@@ -97,7 +97,7 @@ const ClientUserTable = () => {
             {isActive ? (
                 <Dialog
                     closeDialog={handleAddClick}
-                    content={<CreateUser />}
+                    content={<CreateUser closeDialog={handleAddClick} />}
                 />
             ) : null}
             <div className="w-full overflow-x-auto">
