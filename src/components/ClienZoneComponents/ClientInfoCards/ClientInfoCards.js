@@ -6,7 +6,6 @@ import { getAllTransactions } from '../../../state/transactionSlicer';
 import { format } from 'date-fns';
 import InventoryProductDistribution from './Graphs/InventoryProductDistribution';
 import InventoryProduct from './Graphs/InventoryProducts';
-import ProductByInventory from './Graphs/ProductByInventory';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 const ClientInfoCards = () => {
@@ -64,9 +63,6 @@ const ClientInfoCards = () => {
       <div className='hidden md:flex flex-col md:flex-row justify-around gap-4 mt-8'>
         <InventoryProductDistribution />
         <InventoryProduct />
-      </div>
-      <div className='hidden md:block mt-8'>
-        <ProductByInventory />
       </div>
     </div>
   );

@@ -185,7 +185,8 @@
   },
   "RemoveInventory": {
     "WarningText": "Supprimer un inventaire est une action irréversible, vous devriez contacter un responsable avant de le supprimer",
-    "RemoveButtonLabel": "Supprimer"
+    "RemoveButtonLabel": "Supprimer",
+    "ExportButtonLabel": "Exporter"
   },
   "ClientProductsTable": {
     "AddProductButtonLabel": "Ajouter un produit",

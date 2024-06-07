@@ -12,6 +12,7 @@ import { getCategories } from '../../../state/categorySlicer';
 import { removeProduct, updateProduct } from '../../../state/productSlicer';
 import Switch from '../../CommonComponents/Switch/Switch';
 import ProductCardMovementsInfo from './ProductCardInfo/ProductCardMovementsInfo';
+import UpdateButton from '../../CommonComponents/UpdateButton/UpdateButton';
 
 const ProductCard = ({ product, inventoryId, closeDialog }) => {
     const dispatch = useDispatch();
@@ -128,7 +129,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                     </div>
                     <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
                         <Button width={'8rem'} onButtonClick={handleMovements} label={"Movimientos"} />
-                        <Button width={'8rem'} onButtonClick={handleUpdateOptions} label={"Actualizar"} />
+                        <UpdateButton width={'8rem'} onButtonClick={handleUpdateOptions} label={"Actualizar"} />
                         <RemoveButton width={'8rem'} onButtonClick={handleDelete} label={"Borrar"} />
                     </div>
                 </>
@@ -146,7 +147,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                         </div>
                     </div>
                     <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
-                        <Button width={'8rem'} onButtonClick={() => setView('details')} label={"Volver"} />
+                        <Button width={'8rem'} onButtonClick={() => setView('details')} icon={'/flecha.png'} label={"Volver"} />
                         <Button width={'8rem'} onButtonClick={handleQuantityUpdate} label={"Cantidad"} />
                         <Button width={'8rem'} onButtonClick={handleInfoUpdate} label={"Información"} />
                     </div>
@@ -156,7 +157,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                 <div className='flex flex-col justify-center items-center'>
                     <div className='flex items-center justify-center text-3xl font-bold mb-8'>Movimientos</div>
                     <ProductCardMovementsInfo id={product.id} style />
-                    <Button width={'7rem'} onButtonClick={() => setView('details')} label={"Volver"} />
+                    <Button width={'7rem'} onButtonClick={() => setView('details')} icon={'/flecha.png'} label={"Volver"} />
                 </div>
             )}
             {view === 'update' && step === '0' && (
@@ -180,8 +181,8 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                     </FloatLabel>
                     <Spacer />
                     <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
-                        <Button width={'8rem'} onButtonClick={handleUpdateOptions} label={"Cancelar"} />
-                        <Button width={'8rem'} onButtonClick={handleSubmit} label={"Actualizar"} />
+                        <Button width={'8rem'} onButtonClick={handleUpdateOptions} icon={'/flecha.png'} label={"Volver"} />
+                        <UpdateButton width={'8rem'} onButtonClick={handleSubmit} label={"Actualizar"} />
                     </div>
                 </>
             )}
@@ -241,8 +242,8 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                         </div>
                     </div>
                     <Spacer height={'2rem'} />
-                    <div className="flex flex-col md:flex-row gap-2 items-center md:items-start">
-                        <Button width={'8rem'} onButtonClick={() => setView('updateOptions')} label={"Cancelar"} />
+                    <div className="flex flex-col md:flex-row gap-2 items-center justify-center md:items-start">
+                        <Button width={'8rem'} onButtonClick={() => setView('updateOptions')} icon={'/flecha.png'} label={"Volver"} />
                         <Button width={'8rem'} onButtonClick={handleSubmit} label={'Guardar'} type="submit" />
                     </div>
                 </form>

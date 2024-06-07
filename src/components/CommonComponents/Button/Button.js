@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
-  const { width, height, onButtonClick, disabled, label, color } = props;
+  const { width, height, onButtonClick, disabled, label, color, icon } = props;
   const [hoverStyles, setHoverStyles] = useState({});
 
   const sizeStyles = {
@@ -40,6 +40,7 @@ const Button = (props) => {
       onMouseLeave={handleMouseLeave}
       className={`flex justify-center items-center pt-2 pb-3 pl-7 pr-7 rounded-3xl text-white leading-thigh ${disabled ? 'cursor-not-allowed' : 'btn-hover'}`}
       style={{ ...sizeStyles, backgroundColor: backgroundColor, cursor: cursorStyle, ...hoverStyles }}>
+      {icon && <img src={icon} alt="icon" className="mr-2" style={{ width: '1em', height: '1em', marginTop: '3px' }} />}
       {label}
     </div>
   );
@@ -54,4 +55,5 @@ Button.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.string,
+  icon: PropTypes.string, // Add icon prop type
 };

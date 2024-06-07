@@ -62,6 +62,39 @@ export const getInventory = createAsyncThunk(
   }
 );
 
+export const getInventoryById = createAsyncThunk(
+  'inventory/getInventoryById',
+  async (id, { rejectWithValue }) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return rejectWithValue('No token found');
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5142/Inventory/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const removeInventory = createAsyncThunk(
   'inventory/removeInventory',
   async (id, { rejectWithValue, dispatch }) => {
@@ -88,13 +121,13 @@ export const removeInventory = createAsyncThunk(
   }
 );
 
-
 const inventorySlice = createSlice({
   name: 'inventory',
   initialState: {
     loading: false,
     error: null,
     inventory: [],
+    currentInventory: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -120,6 +153,18 @@ const inventorySlice = createSlice({
         state.inventory = action.payload;
       })
       .addCase(getInventory.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getInventoryById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getInventoryById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentInventory = action.payload;
+      })
+      .addCase(getInventoryById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

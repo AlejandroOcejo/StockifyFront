@@ -185,7 +185,8 @@
   },
   "RemoveInventory": {
     "WarningText": "Deleting an inventory is an irreversible action. Before deleting, you should contact a responsible person",
-    "RemoveButtonLabel": "Delete"
+    "RemoveButtonLabel": "Delete",
+    "ExportButtonLabel": "Export"
   },
   "ClientProductsTable": {
     "AddProductButtonLabel": "Add Product",
