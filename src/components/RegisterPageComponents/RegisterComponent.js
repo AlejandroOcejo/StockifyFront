@@ -1,5 +1,4 @@
 import { Dropdown } from 'primereact/dropdown';
-
 import React, { useState } from 'react';
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
@@ -12,15 +11,15 @@ import { Icon } from 'react-icons-kit';
 import { eyeOff } from 'react-icons-kit/feather/eyeOff';
 import { eye } from 'react-icons-kit/feather/eye';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const RegisterComponent = () => {
   const servicesArray = [
-    { name: 'prueba1', price: 'free' },
-    { name: 'prueba2', price: '1000000' },
-    { name: 'prueba3', price: '0.99' },
+    { name: 'Plan gratuito', price: 'Gratis' },
   ];
   const dispatch = useDispatch();
   const { loading, error: errorRegister } = useSelector((state) => state.register);
+  const [t] = useTranslation('global');
   const [formStep, setFormStep] = useState(1);
   const [selectedService, setSelectedService] = useState(servicesArray[0]);
   const [type, setType] = useState('password');
@@ -183,7 +182,7 @@ const RegisterComponent = () => {
   };
 
   return (
-    <div className="w-screen h-screen bg-stockifyPurple flex flex-col justify-start gap-8 items-center px-4 pb-8 overflow-hidden">
+    <div className="w-screen min-h-screen bg-stockifyPurple flex flex-col justify-start gap-8 items-center px-4 pb-8">
       <Link className="no-underline" to={'/'}>
         <img
           className="h-20 relative left-1/2 transform -translate-x-1/2 mt-6"
@@ -195,7 +194,7 @@ const RegisterComponent = () => {
       <Spacer height={'2rem'} />
       <TransitionGroup component={null}>
         <CSSTransition key={formStep} timeout={150} classNames="swipe">
-          <div className="max-w-lg w-full bg-[#F1F3FF] p-8 md:p-12 rounded-2xl border-[#A0AFFF] border-solid flex flex-col justify-center">
+          <div className="max-w-lg w-full bg-[#F1F3FF] p-8 md:p-12 rounded-2xl border-[#A0AFFF] border-solid flex flex-col justify-center flex-grow">
             {formStep === 1 ? (
               <div className="w-full flex flex-col space-y-7">
                 <div className="flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0">
@@ -208,7 +207,7 @@ const RegisterComponent = () => {
                       className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${errors.username ? 'border-red-500' : 'border-[#A0AFFF]'
                         }`}
                     />
-                    <label htmlFor="username">Nombre</label>
+                    <label htmlFor="username">{t('Register.UsernameLabel')}</label>
                   </FloatLabel>
                   <FloatLabel>
                     <InputText
@@ -219,7 +218,7 @@ const RegisterComponent = () => {
                       className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${errors.surname ? 'border-red-500' : 'border-[#A0AFFF]'
                         }`}
                     />
-                    <label htmlFor="surname">Apellidos</label>
+                    <label htmlFor="surname">{t('Register.SurnameLabel')}</label>
                   </FloatLabel>
                 </div>
                 <div >
@@ -233,7 +232,7 @@ const RegisterComponent = () => {
                       className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${errors.password ? 'border-red-500' : 'border-[#A0AFFF]'
                         }`}
                     />
-                    <label htmlFor="password">Contraseña</label>
+                    <label htmlFor="password">{t('Register.PasswordLabel')}</label>
                     <span
                       className="absolute top-0 right-0 p-2.5 flex justify-around items-center cursor-pointer"
                       onClick={handleToggle}>
@@ -256,7 +255,7 @@ const RegisterComponent = () => {
                     className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 ${errors.email ? 'border-red-500' : 'border-[#A0AFFF]'
                       }`}
                   />
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="email">{t('Register.EmailLabel')}</label>
                 </FloatLabel>
                 <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
                   <FloatLabel>
@@ -268,7 +267,7 @@ const RegisterComponent = () => {
                       className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${errors.country ? 'border-red-500' : 'border-[#A0AFFF]'
                         }`}
                     />
-                    <label htmlFor="country">País</label>
+                    <label htmlFor="country">{t('Register.CountryLabel')}</label>
                   </FloatLabel>
                   <FloatLabel>
                     <InputText
@@ -279,7 +278,7 @@ const RegisterComponent = () => {
                       className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${errors.city ? 'border-red-500' : 'border-[#A0AFFF]'
                         }`}
                     />
-                    <label htmlFor="city">Ciudad</label>
+                    <label htmlFor="city">{t('Register.CityLabel')}</label>
                   </FloatLabel>
                 </div>
                 <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
@@ -292,7 +291,7 @@ const RegisterComponent = () => {
                       className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-1 ${errors.direction ? 'border-red-500' : 'border-[#A0AFFF]'
                         }`}
                     />
-                    <label htmlFor="direction">Dirección</label>
+                    <label htmlFor="direction">{t('Register.DirectionLabel')}</label>
                   </FloatLabel>
                   <FloatLabel>
                     <InputText
@@ -303,7 +302,7 @@ const RegisterComponent = () => {
                       className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-stockifyPurple focus:ring-0 flex-3 ${errors.postalCode ? 'border-red-500' : 'border-[#A0AFFF]'
                         }`}
                     />
-                    <label htmlFor="postalCode">Código Postal</label>
+                    <label htmlFor="postalCode">{t('Register.PostalCodeLabel')}</label>
                   </FloatLabel>
                 </div>
                 <Dropdown
@@ -311,14 +310,14 @@ const RegisterComponent = () => {
                   onChange={handleServiceChange}
                   options={servicesArray}
                   optionLabel="name"
-                  placeholder="Selecciona un Servicio"
+                  placeholder={t('Register.ServicePlaceholder')}
                   className="w-full rounded-xl"
                 />
                 {Object.values(errors).some((error) => error) && (
                   <div className="text-red-500">
                     {errors.userExists
-                      ? 'Usuario ya registrado'
-                      : 'Rellene todos los campos antes de continuar'}
+                      ? t('Register.UserExistsError')
+                      : t('Register.FormError')}
                   </div>
                 )}
                 <Spacer height={'7rem'} />
@@ -326,7 +325,7 @@ const RegisterComponent = () => {
                   <Button
                     width={'14rem'}
                     onButtonClick={nextStep}
-                    label={'Continuar'}
+                    label={t('Register.ContinueButton')}
                     disabled={loading}
                   />
                 </div>
@@ -341,7 +340,7 @@ const RegisterComponent = () => {
                     onChange={handlePaymentInputChange}
                     className="bg-slate-200 p-2 w-full rounded-xl border-gray-400 border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                   />
-                  <label htmlFor="cardHolder">Nombre Completo</label>
+                  <label htmlFor="cardHolder">{t('Register.CardHolderLabel')}</label>
                 </FloatLabel>
 
                 <div className="flex space-x-4">
@@ -358,7 +357,7 @@ const RegisterComponent = () => {
                       onChange={handlePaymentInputChange}
                       className="bg-slate-200 p-2 rounded-xl border-gray-400 border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                     />
-                    <label htmlFor="cardNumber">Número de tarjeta</label>
+                    <label htmlFor="cardNumber">{t('Register.CardNumberLabel')}</label>
                   </FloatLabel>
                   <FloatLabel>
                     <InputText disabled
@@ -369,7 +368,7 @@ const RegisterComponent = () => {
                       onChange={handlePaymentInputChange}
                       className="bg-slate-200 p-2 rounded-xl border-gray-400 border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                     />
-                    <label htmlFor="expirationDate">MM/AAAA</label>
+                    <label htmlFor="expirationDate">{t('Register.ExpirationDateLabel')}</label>
                   </FloatLabel>
                 </div>
                 <FloatLabel>
@@ -385,19 +384,19 @@ const RegisterComponent = () => {
                     onChange={handlePaymentInputChange}
                     className="bg-slate-200 p-2 rounded-xl border-gray-400 border-solid focus:border-teal outline-stockifyPurple focus:ring-0"
                   />
-                  <label htmlFor="CVC">CVC</label>
+                  <label htmlFor="CVC">{t('Register.CVCLabel')}</label>
                 </FloatLabel>
                 <Spacer />
                 <div className="flex justify-center w-full">
                   <div className="w-full ">
                     <div className="bg-white p-4 rounded-lg bg-logoBlack bg-contain bg-no-repeat bg-center">
-                      <h2 className="text-2xl font-bold mb-4 text-center ">Coste Total</h2>
+                      <h2 className="text-2xl font-bold mb-4 text-center ">{t('Register.TotalCost')}</h2>
                       <div className="flex justify-between mb-2">
-                        <div className="font-semibold">Plan:</div>
+                        <div className="font-semibold">{t('Register.Plan')}:</div>
                         <div>{getSelectedServicePrice(selectedService?.name)?.name}</div>
                       </div>
                       <div className="flex justify-between mb-2">
-                        <div className="font-semibold">Precio:</div>
+                        <div className="font-semibold">{t('Register.Price')}:</div>
                         <div>
                           {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) ===
                             'number'
@@ -406,7 +405,7 @@ const RegisterComponent = () => {
                         </div>
                       </div>
                       <div className="flex justify-between mb-2">
-                        <div className="font-semibold">Impuestos:</div>
+                        <div className="font-semibold">{t('Register.Taxes')}:</div>
                         <div>
                           {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) ===
                             'number'
@@ -416,7 +415,7 @@ const RegisterComponent = () => {
                         </div>
                       </div>
                       <div className="flex justify-between font-semibold">
-                        <div>Total:</div>
+                        <div>{t('Register.Total')}:</div>
                         <div>
                           {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) ===
                             'number'
@@ -434,13 +433,13 @@ const RegisterComponent = () => {
                   <Button
                     width={'12rem'}
                     onButtonClick={returnPrevStep}
-                    label={'Volver'}
+                    label={t('Register.BackButton')}
                     disabled={loading}
                   />
                   <Button
                     width={'12rem'}
                     onButtonClick={handleSubmit}
-                    label={'Aceptar y pagar'}
+                    label={t('Register.AcceptAndPayButton')}
                     disabled={loading}
                   />
                 </div>

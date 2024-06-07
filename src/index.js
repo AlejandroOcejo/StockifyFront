@@ -18,7 +18,11 @@ import global_fr from './Translations/fr/global.json';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import ClientCreateUser from './views/ClientZone/ClientCreateUser/ClientCreateUser';
-import ClientProductsInfo from './views/ClientZone/ClienProductsInfo/ClientProductsInfo';
+import ClientProductsInfo from './views/ClientZone/ClientProductsInfo/ClientProductsInfo';
+import ClientInformation from './views/ClientZone/ClientInformation/ClientInformation';
+import Tech from './views/Tech/Tech';
+import AboutUs from './views/AboutUs/AboutUs';
+import NotFound from './views/NotFound/NotFound';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -43,9 +47,13 @@ const App = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/tech" element={<Tech />} />
+      <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/client" element={<ClientMain />} />
       <Route path="/client/users" element={<ClientCreateUser />} />
       <Route path="/client/:id/products" element={<ClientProductsInfo />} />
+      <Route path="/client/information" element={<ClientInformation />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 );

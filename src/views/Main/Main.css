@@ -1,0 +1,10 @@
+.card-height {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button{
+    background-color: #52489C;
+  }

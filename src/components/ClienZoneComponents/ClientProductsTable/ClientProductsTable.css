@@ -1,3 +1,7 @@
 .p-button.p-button-outlined {
     color: white;
 }
+
+.pi.pi-search{
+display: none;
+}

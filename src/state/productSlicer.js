@@ -63,6 +63,39 @@ export const getProducts = createAsyncThunk(
     }
 );
 
+export const getAllProducts = createAsyncThunk(
+    'product/getAllProducts',
+    async (_, { rejectWithValue }) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            return rejectWithValue('No token found');
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5142/products`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 404) {
+                return null;
+            }
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Error: ${response.status} - ${errorText}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error:', error);
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 export const removeProduct = createAsyncThunk(
     'product/removeProduct',
     async ({ id, inventoryId }, { rejectWithValue, dispatch }) => {
@@ -108,8 +141,7 @@ export const updateProduct = createAsyncThunk(
                 const errorText = await response.text();
                 throw new Error(`Error: ${response.status} - ${errorText}`);
             }
-            const data = await response;
-            dispatch(getProducts(inventoryId));
+            const data = dispatch(getProducts(inventoryId));;
             return data;
         } catch (error) {
             console.error('Error:', error);
@@ -154,6 +186,18 @@ const productSlice = createSlice({
                 if (action.payload.includes('404')) {
                     state.products = null;
                 }
+            })
+            .addCase(getAllProducts.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getAllProducts.fulfilled, (state, action) => {
+                state.loading = false;
+                state.products = action.payload;
+            })
+            .addCase(getAllProducts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             })
             .addCase(removeProduct.pending, (state) => {
                 state.loading = true;

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import Button from '../../CommonComponents/Button/Button';
 import AddCategoryForm from '../AddCategory/AddCategoryForm';
 import AddProductForm from './AddProductForm/AddProductForm';
+import { useTranslation } from 'react-i18next';
 
 const AddProduct = ({ inventoryId, onClose }) => {
     const [isNew, setNew] = useState(false);
     const [isNotNew, setNotNew] = useState(false);
     const [showProductForm, setShowProductForm] = useState(false);
+    const [t] = useTranslation('global');
 
     const handleNewButtonClick = () => {
         setNew(true);
@@ -27,17 +29,17 @@ const AddProduct = ({ inventoryId, onClose }) => {
     return (
         <div className='flex flex-col items-center gap-8'>
             {!isNew && !isNotNew ? (
-                <span className='text-2xl items-center font-semibold'>Categoría</span>
+                <span className='text-2xl items-center font-semibold'>{t('AddProduct.CategoryLabel')}</span>
             ) : showProductForm ? (
-                <span className='text-2xl items-center font-semibold'>Producto</span>
+                <span className='text-2xl items-center font-semibold'>{t('AddProduct.ProductLabel')}</span>
             ) : (
-                <span className='text-2xl items-center font-semibold'>Categoría</span>
+                <span className='text-2xl items-center font-semibold'>{t('AddProduct.CategoryLabel')}</span>
             )}
 
             {!isNew && !isNotNew ? (
                 <div className='flex flex-row gap-4'>
-                    <Button width={'8rem'} label={'Nueva'} onButtonClick={handleNewButtonClick} />
-                    <Button width={'8rem'} label={'Existente'} onButtonClick={handleNotNewButtonClick} />
+                    <Button width={'8rem'} label={t('AddProduct.NewButtonLabel')} onButtonClick={handleNewButtonClick} />
+                    <Button width={'8rem'} label={t('AddProduct.ExistingButtonLabel')} onButtonClick={handleNotNewButtonClick} />
                 </div>
             ) : null}
 

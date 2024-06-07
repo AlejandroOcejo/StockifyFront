@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import '../../../index.css';
 import Dialog from '../../CommonComponents/Dialog/Dialog';
+import InformationContent1 from '../InformationContent/InformationContent1';
+import InformationContent2 from '../InformationContent/InformationContent2';
+import InformationContent3 from '../InformationContent/InformationContent3';
+import { useTranslation } from 'react-i18next';
 
 const InformationComponent = () => {
   const [isActive, setActive] = useState(false);
+  const [activeContent, setActiveContent] = useState(1);
+  const [t] = useTranslation('global');
 
-  const handleClick = () => {
-    setActive(!isActive);
+  const handleClick = (num) => {
+    setActive(true);
+    setActiveContent(num);
   };
 
   useEffect(() => {
@@ -58,57 +65,44 @@ const InformationComponent = () => {
     });
   }, []);
 
+  const renderContent = () => {
+    switch (activeContent) {
+      case 1:
+        return <InformationContent1 />;
+      case 2:
+        return <InformationContent2 />;
+      case 3:
+        return <InformationContent3 />;
+      default:
+        return null;
+    }
+  };
+
+  const imageData = [
+    { num: 1, src: '/diferenciacion.png' },
+    { num: 2, src: '/embalaje.png' },
+    { num: 3, src: '/grupo.png' },
+  ];
+
   return (
     <>
-      {isActive ? <Dialog closeDialog={handleClick} content={'b'} /> : null}
-      <div className="flex flex-col items-center mt-32 mb-32 revealing-image">
-        <h2 className="text-3xl font-semibold text-white mb-20">Nunc consectetur gravida</h2>
-        <div className="flex items-center">
-          <img
-            onClick={handleClick}
-            activeValue={isActive}
-            className="w-60"
-            src="/images/imagenprueba.jpg"
-            alt="fernando alonso"
-          />
-          <div className="w-36 h-1 bg-white" />
-          <div className="flex flex-col items-center">
-            <div className="w-1 h-32 bg-white" />
-            <img className="h-16 w-16" src="/icons/numbers/numero-1.png" alt="logo" />
-            <div className="w-1 h-32 bg-white" />
+      {isActive && <Dialog closeDialog={() => setActive(false)} content={renderContent()} />}
+      <div className="flex flex-col items-center mt-32 revealing-image">
+        <h2 className="text-3xl font-semibold text-white mb-20">{t('MainPage.HowToStart')}</h2>
+        {imageData.map(({ num, src }, index, array) => (
+          <div key={num} className="flex flex-col items-center ">
+            <img className="h-16 w-16 " src={`/icons/numbers/numero-${num}.png`} alt="logo" />
+            <div className="w-1 h-32 bg-white " />
+            <img
+              onClick={() => handleClick(num)}
+              activeValue={isActive}
+              className="w-48 rounded-3xl border-white border-solid p-2 cursor-pointer"
+              src={src}
+              alt="imagen"
+            />
+            {index !== array.length - 1 && <div className="w-1 h-32 bg-white " />}
           </div>
-          <div className="w-96 bg-white " />
-        </div>
-        <div className="flex items-center">
-          <div className="w-96 bg-white " />
-          <div className="flex flex-col items-center">
-            <div className="w-1 h-32 bg-white" />
-            <img className="h-16 w-16" src="/icons/numbers/numero-2.png" alt="logo" />
-            <div className="w-1 h-32 bg-white" />
-          </div>
-          <div className="w-36 h-1 bg-white" />
-          <img className="w-60" src="/images/imagenprueba.jpg" alt="fernando alonso" />
-        </div>
-        <div className="flex items-center">
-          <img className="w-60" src="/images/imagenprueba.jpg" alt="fernando alonso" />
-          <div className="w-36 h-1 bg-white" />
-          <div className="flex flex-col items-center">
-            <div className="w-1 h-32 bg-white" />
-            <img className="h-16 w-16" src="/icons/numbers/numero-3.png" alt="logo" />
-            <div className="w-1 h-32 bg-white" />
-          </div>
-          <div className="w-96 bg-white " />
-        </div>
-        <div className="flex items-center">
-          <div className="w-96 bg-white " />
-          <div className="flex flex-col items-center">
-            <div className="w-1 h-32 bg-white" />
-            <img className="h-16 w-16" src="/icons/numbers/numero-4.png" alt="logo" />
-            <div className="w-1 h-32 bg-white" />
-          </div>
-          <div className="w-36 h-1 bg-white" />
-          <img className="w-60" src="/images/imagenprueba.jpg" alt="fernando alonso" />
-        </div>
+        ))}
       </div>
     </>
   );

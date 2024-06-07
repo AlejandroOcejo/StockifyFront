@@ -10,10 +10,12 @@ import Button from '../../../CommonComponents/Button/Button';
 import Spacer from '../../../CommonComponents/Spacer/Spacer';
 import { addProduct } from '../../../../state/productSlicer';
 import { getCategories } from '../../../../state/categorySlicer';
+import { useTranslation } from 'react-i18next';
 
 const AddProductForm = ({ inventoryId, onClose }) => {
     const dispatch = useDispatch();
     const categories = useSelector(state => state.category.categories);
+    const [t] = useTranslation('global');
 
     useEffect(() => {
         dispatch(getCategories(inventoryId));
@@ -69,7 +71,6 @@ const AddProductForm = ({ inventoryId, onClose }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Validate fields
         const newErrors = {
             name: formData.name === '',
             description: formData.description === '',
@@ -80,7 +81,6 @@ const AddProductForm = ({ inventoryId, onClose }) => {
 
         setErrors(newErrors);
 
-        // If any errors are true, prevent submission
         if (Object.values(newErrors).some(error => error)) {
             return;
         }
@@ -101,7 +101,7 @@ const AddProductForm = ({ inventoryId, onClose }) => {
                             onChange={handleInputChange}
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.name ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
-                        <label htmlFor="name">Nombre</label>
+                        <label htmlFor="name">{t('AddProductForm.NameLabel')}</label>
                     </FloatLabel>
                 </div>
                 <div>
@@ -113,7 +113,7 @@ const AddProductForm = ({ inventoryId, onClose }) => {
                             onChange={handleInputChange}
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.description ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
-                        <label htmlFor="description">Descripción</label>
+                        <label htmlFor="description">{t('AddProductForm.DescriptionLabel')}</label>
                     </FloatLabel>
                 </div>
             </div>
@@ -129,7 +129,7 @@ const AddProductForm = ({ inventoryId, onClose }) => {
                             inputMode="decimal"
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.price ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
-                        <label htmlFor="price">Precio</label>
+                        <label htmlFor="price">{t('AddProductForm.PriceLabel')}</label>
                     </FloatLabel>
                 </div>
                 <div>
@@ -143,7 +143,7 @@ const AddProductForm = ({ inventoryId, onClose }) => {
                             inputMode="numeric"
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.quantity ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
-                        <label htmlFor="quantity">Cantidad</label>
+                        <label htmlFor="quantity">{t('AddProductForm.QuantityLabel')}</label>
                     </FloatLabel>
                 </div>
             </div>
@@ -155,16 +155,16 @@ const AddProductForm = ({ inventoryId, onClose }) => {
                         onChange={handleCategoryChange}
                         optionLabel="name"
                         filter
-                        placeholder="Seleccionar Categorías"
+                        placeholder={t('AddProductForm.SelectCategoriesPlaceholder')}
                         maxSelectedLabels={3}
                         className={`rounded-xl fixed-height w-full ${errors.categoriesId ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                     />
-                    {errors.categoriesId && <div style={{ color: 'red' }}>Seleccione al menos una categoría</div>}
+                    {errors.categoriesId && <div style={{ color: 'red' }}>{t('AddProductForm.SelectAtLeastOneCategoryError')}</div>}
                 </div>
             </div>
             <Spacer height={'4rem'} />
             <div className="flex justify-center">
-                <Button width={'10rem'} label={'Crear'} onButtonClick={handleSubmit} />
+                <Button width={'10rem'} label={t('AddProductForm.CreateButtonLabel')} onButtonClick={handleSubmit} />
             </div>
         </div>
     );

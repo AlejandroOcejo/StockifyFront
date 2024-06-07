@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 const Sidebar = () => {
+  const { t } = useTranslation('global');
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogoutClick = () => {
@@ -12,6 +14,8 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+  const isTenant = localStorage.getItem('isTenant') === 'Tenant';
 
   return (
     <div className="flex md:flex-row">
@@ -37,8 +41,8 @@ const Sidebar = () => {
                 to="/client"
                 className="flex items-center text-center text-white text-2xl cursor-pointer no-underline link link-underline-black hover:link-underline-black-hover"
               >
-                <img src="/icons/estrella.png" alt="icon" className="w-6 h-6 mr-2" />
-                Mis inventarios
+                <img src="/inventario-disponible.png" alt="icon" className="w-8 h-8 mr-2" />
+                {t('Sidebar.MyInventories')}
               </Link>
             </div>
             <div className="flex flex-col items-start pl-6 space-y-8">
@@ -46,24 +50,26 @@ const Sidebar = () => {
                 to="/client/users"
                 className="flex items-center text-center text-white text-2xl cursor-pointer no-underline link link-underline-black hover:link-underline-black-hover"
               >
-                <img src="/icons/estrella.png" alt="icon" className="w-6 h-6 mr-2" />
-                Usuarios
+                <img src="/agregar-usuario.png" alt="icon" className="w-8 h-8 mr-2" />
+                {t('Sidebar.Users')}
               </Link>
             </div>
-            <div className="flex flex-col items-start pl-6 space-y-8">
-              <Link
-                to="/client/products"
-                className="flex items-center text-center text-white text-2xl cursor-pointer no-underline link link-underline-black hover:link-underline-black-hover"
-              >
-                <img src="/icons/estrella.png" alt="icon" className="w-6 h-6 mr-2" />
-                Productos
-              </Link>
-            </div>
+            {isTenant && (
+              <div className="flex flex-col items-start pl-6 space-y-8">
+                <Link
+                  to="/client/information"
+                  className="flex items-center text-center text-white text-2xl cursor-pointer no-underline link link-underline-black hover:link-underline-black-hover"
+                >
+                  <img src="/seguro.png" alt="icon" className="w-8 h-8 mr-2" />
+                  {t('Sidebar.Information')}
+                </Link>
+              </div>
+            )}
           </div>
           <div className="mb-6 pl-6">
             <a href='/login' onClick={handleLogoutClick} className="flex items-center no-underline text-white">
-              <img src="logout-icon-url" alt="logout" className="w-6 h-6 mr-2" />
-              Cerrar sesión
+              <img src="/cerrar-sesion.png" alt="logout" className="w-8 h-8 mr-2" />
+              {t('Sidebar.Logout')}
             </a>
           </div>
         </div>

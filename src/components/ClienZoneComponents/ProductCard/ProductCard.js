@@ -40,8 +40,8 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
     }, [dispatch, inventoryId]);
 
     const handleDelete = () => {
-        let id = product.id
-        dispatch(removeProduct({ id, inventoryId }))
+        let id = product.id;
+        dispatch(removeProduct({ id, inventoryId }));
         closeDialog();
     };
 
@@ -126,7 +126,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                             <p><strong>Categories:</strong> {product.categories ? product.categories.map(cat => cat.name).join(', ') : ''}</p>
                         </div>
                     </div>
-                    <div className='flex flex-row gap-3'>
+                    <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
                         <Button width={'8rem'} onButtonClick={handleMovements} label={"Movimientos"} />
                         <Button width={'8rem'} onButtonClick={handleUpdateOptions} label={"Actualizar"} />
                         <RemoveButton width={'8rem'} onButtonClick={handleDelete} label={"Borrar"} />
@@ -145,7 +145,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                             <p><strong>Categories:</strong> {product.categories ? product.categories.map(cat => cat.name).join(', ') : ''}</p>
                         </div>
                     </div>
-                    <div className='flex flex-row gap-3'>
+                    <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
                         <Button width={'8rem'} onButtonClick={() => setView('details')} label={"Volver"} />
                         <Button width={'8rem'} onButtonClick={handleQuantityUpdate} label={"Cantidad"} />
                         <Button width={'8rem'} onButtonClick={handleInfoUpdate} label={"Información"} />
@@ -154,8 +154,8 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
             )}
             {view === 'movements' && (
                 <div className='flex flex-col justify-center items-center'>
-                    <h3>Movimientos</h3>
-                    <ProductCardMovementsInfo id={product.id} />
+                    <div className='flex items-center justify-center text-3xl font-bold mb-8'>Movimientos</div>
+                    <ProductCardMovementsInfo id={product.id} style />
                     <Button width={'7rem'} onButtonClick={() => setView('details')} label={"Volver"} />
                 </div>
             )}
@@ -179,7 +179,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                         <label htmlFor="quantity">Cantidad</label>
                     </FloatLabel>
                     <Spacer />
-                    <div className='flex flex-row gap-3'>
+                    <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
                         <Button width={'8rem'} onButtonClick={handleUpdateOptions} label={"Cancelar"} />
                         <Button width={'8rem'} onButtonClick={handleSubmit} label={"Actualizar"} />
                     </div>
@@ -241,7 +241,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                         </div>
                     </div>
                     <Spacer height={'2rem'} />
-                    <div className="flex justify-center gap-2">
+                    <div className="flex flex-col md:flex-row gap-2 items-center md:items-start">
                         <Button width={'8rem'} onButtonClick={() => setView('updateOptions')} label={"Cancelar"} />
                         <Button width={'8rem'} onButtonClick={handleSubmit} label={'Guardar'} type="submit" />
                     </div>

@@ -11,11 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import './ClientProductsTable.css';
 import { useParams, useLocation, useNavigate } from 'react-router';
 import ProductCard from '../ProductCard/ProductCard';
+import { useTranslation } from 'react-i18next';
 
 const ClientProductsTable = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { state } = location;
+    const [t] = useTranslation('global');
 
     useEffect(() => {
         if (!state || !state.fromInventoryCard) {
@@ -25,7 +27,7 @@ const ClientProductsTable = () => {
 
     const [isActive, setActive] = useState(false);
     const [isProductActive, setisProductActive] = useState(false);
-    const [products, setProducts] = useState()
+    const [products, setProducts] = useState();
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [filters, setFilters] = useState({
         'id': { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -79,10 +81,10 @@ const ClientProductsTable = () => {
     const renderHeader = () => {
         return (
             <div className="flex items-center justify-between">
-                <Button label={'Añadir producto'} onButtonClick={handleAddClick} />
+                <Button label={t('ClientProductsTable.AddProductButtonLabel')} onButtonClick={handleAddClick} />
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
-                    <InputText className='rounded-xl' type="search" onInput={onGlobalFilterChange} placeholder="Search..." style={{ maxWidth: '8rem' }} />
+                    <InputText className='rounded-xl' type="search" onInput={onGlobalFilterChange} placeholder={t('ClientProductsTable.SearchPlaceholder')} style={{ maxWidth: '8rem' }} />
                 </span>
             </div>
         );
@@ -107,13 +109,13 @@ const ClientProductsTable = () => {
             <div className="flex justify-center items-center h-full w-full p-4">
                 <div className="flex flex-col justify-center items-center h-full w-full">
                     <div className="card w-full">
-                        <DataTable removableSort value={products} paginator rows={10} dataKey="id" filters={filters} header={header} emptyMessage="No products found." selectionMode="single" selection={selectedProduct} onSelectionChange={(e) => setSelectedProduct(e.value)} className="w-full">
-                            <Column field="id" header="ID" sortable filter filterPlaceholder="Search by ID" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'id')} body={(data) => <span className="block md:inline" data-header="ID">{data.id}</span>} />
-                            <Column field="name" header="Name" sortable filter filterPlaceholder="Search by name" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'name')} body={(data) => <span className="block md:inline" data-header="Name">{data.name}</span>} />
-                            <Column field="description" header="Description" sortable filter filterPlaceholder="Search by description" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'description')} body={(data) => <span className="block md:inline" data-header="Description">{data.description}</span>} />
-                            <Column field="categories" header="Categories" sortable filter filterPlaceholder="Search by categories" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'categories')} body={(data) => <span className="block md:inline" data-header="Categories">{data.categories ? data.categories.map(cat => cat.name).join(', ') : ''}</span>} />
-                            <Column field="price" header="Price" sortable filter filterPlaceholder="Search by price" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'price')} body={(data) => <span className="block md:inline" data-header="Price">{data.price}</span>} />
-                            <Column field="quantity" header="Quantity" sortable filter filterPlaceholder="Search by quantity" className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'quantity')} body={(data) => <span className="block md:inline" data-header="Quantity">{data.quantity}</span>} />
+                        <DataTable removableSort value={products} paginator rows={10} dataKey="id" filters={filters} header={header} emptyMessage={t('ClientProductsTable.EmptyMessage')} selectionMode="single" selection={selectedProduct} onSelectionChange={(e) => setSelectedProduct(e.value)} className="w-full">
+                            <Column field="id" header={t('ClientProductsTable.IDHeader')} sortable filter filterPlaceholder={t('ClientProductsTable.SearchByIDPlaceholder')} className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'id')} body={(data) => <span className="block md:inline" data-header="ID">{data.id}</span>} />
+                            <Column field="name" header={t('ClientProductsTable.NameHeader')} sortable filter filterPlaceholder={t('ClientProductsTable.SearchByNamePlaceholder')} className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'name')} body={(data) => <span className="block md:inline" data-header="Name">{data.name}</span>} />
+                            <Column field="description" header={t('ClientProductsTable.DescriptionHeader')} sortable filter filterPlaceholder={t('ClientProductsTable.SearchByDescriptionPlaceholder')} className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'description')} body={(data) => <span className="block md:inline" data-header="Description">{data.description}</span>} />
+                            <Column field="categories" header={t('ClientProductsTable.CategoriesHeader')} sortable filter filterPlaceholder={t('ClientProductsTable.SearchByCategoriesPlaceholder')} className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'categories')} body={(data) => <span className="block md:inline" data-header="Categories">{data.categories ? data.categories.map(cat => cat.name).join(', ') : ''}</span>} />
+                            <Column field="price" header={t('ClientProductsTable.PriceHeader')} sortable filter filterPlaceholder={t('ClientProductsTable.SearchByPricePlaceholder')} className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'price')} body={(data) => <span className="block md:inline" data-header="Price">{data.price}</span>} />
+                            <Column field="quantity" header={t('ClientProductsTable.QuantityHeader')} sortable filter filterPlaceholder={t('ClientProductsTable.SearchByQuantityPlaceholder')} className="w-full md:w-auto" onFilterChange={(e) => onFilterChange(e, 'quantity')} body={(data) => <span className="block md:inline" data-header="Quantity">{data.quantity}</span>} />
                         </DataTable>
                     </div>
                 </div>

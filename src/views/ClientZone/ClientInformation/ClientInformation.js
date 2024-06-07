@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import ClientLayout from '../../../components/Layouts/ClientLayout/ClientLayout';
-import ClientProductsTable from '../../../components/ClienZoneComponents/ClientProductsTable/ClientProductsTable';
+import ClientInfoCards from '../../../components/ClienZoneComponents/ClientInfoCards/ClientInfoCards';
 
-const ClientProductsInfo = () => {
+const ClientInformation = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -19,9 +19,9 @@ const ClientProductsInfo = () => {
 
     return (
         <ClientLayout>
-            <ClientProductsTable />
+            <ClientInfoCards />
         </ClientLayout>
     );
 };
 
-export default ClientProductsInfo;
+export default ClientInformation;

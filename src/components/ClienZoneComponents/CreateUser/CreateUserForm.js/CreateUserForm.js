@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUserNotTenant } from '../../../../state/registerSlicer';
 import emailjs from 'emailjs-com';
 import { getUsers } from '../../../../state/userSlicer';
+import { useTranslation } from 'react-i18next';
 
 const CreateUserForm = ({ closeDialog }) => {
     const dispatch = useDispatch();
     const { loading } = useSelector(state => state.register);
+    const [t] = useTranslation('global');
     const [formData, setFormData] = useState({
         name: "",
         lastName: "",
@@ -94,7 +96,7 @@ const CreateUserForm = ({ closeDialog }) => {
                             onChange={handleInputChange}
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.name ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
-                        <label htmlFor="name">Nombre</label>
+                        <label htmlFor="name">{t('CreateUserForm.NameLabel')}</label>
                     </FloatLabel>
                 </div>
                 <div>
@@ -106,7 +108,7 @@ const CreateUserForm = ({ closeDialog }) => {
                             onChange={handleInputChange}
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.lastName ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
-                        <label htmlFor="lastname">Apellido</label>
+                        <label htmlFor="lastname">{t('CreateUserForm.LastNameLabel')}</label>
                     </FloatLabel>
                 </div>
             </div>
@@ -120,12 +122,12 @@ const CreateUserForm = ({ closeDialog }) => {
                             onChange={handleInputChange}
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.email ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">{t('CreateUserForm.EmailLabel')}</label>
                     </FloatLabel>
                 </div>
             </div>
             <div className="flex justify-center">
-                <Button width={'10rem'} label={'Crear'} onButtonClick={handleSubmit} disabled={loading} />
+                <Button width={'10rem'} label={t('CreateUserForm.CreateButtonLabel')} onButtonClick={handleSubmit} disabled={loading} />
             </div>
         </div>
     );

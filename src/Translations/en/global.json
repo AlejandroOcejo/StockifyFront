@@ -2,14 +2,267 @@
   "header": {
     "Services": "Services",
     "Pricing": "Pricing",
-    "Tech": "Technologies",
-    "ClientZone": "Client Area",
+    "Tech": "Tech",
+    "ClientZone": "Client Zone",
     "About-Us": "About Us"
   },
   "MainPage": {
-    "Title": "Lorem ipsum dolor sit amet,",
-    "Title2": "consectetur",
-    "SubTitle": "Maecenas pulvinar condimentum massa. Curabitur et lorem",
-    "Information": "More information"
+    "Title": "Manage your inventory with ease",
+    "SubTitle": "Our tool simplifies inventory management. Keep control of your stock easily.",
+    "Information": "More information",
+    "ReviewsTitle": "Customer reviews!",
+    "HowToStart": "How to start"
+  },
+  "Reviews": {
+    "Review1": "Fantastic inventory tool!",
+    "Review2": "Simplified our inventory completely!",
+    "Review3": "Essential for any business!",
+    "Review4": "Very efficient and easy to use.",
+    "Review5": "Exceeded all my expectations!",
+    "Review6": "Excellent support and customer service.",
+    "Review7": "I will continue using this service.",
+    "Review8": "Total efficiency in inventory management.",
+    "Review9": "High-quality tool."
+  },
+  "InformationContent": {
+    "Content1": {
+      "Title": "Choose the perfect plan for you",
+      "Text1": "We know that every business has <strong>unique needs</strong> regarding inventory management. That's why we offer a <strong>variety of plans</strong> that cater to different business sizes and operational complexities. Whether you are starting with a <strong>small inventory</strong> or managing a <strong>large warehouse</strong>, we have the right solution for you.",
+      "Text2": "Consider factors such as the <strong>volume of your products</strong> and the <strong>integration with other systems</strong> you use. Choosing the right plan not only <strong>optimizes your operations</strong> but also allows you to <strong>maintain precise</strong> and efficient control of your inventory, <strong>reducing costs</strong> and <strong>improving customer satisfaction</strong>."
+    },
+    "Content2": {
+      "Title": "Create your Inventory from Scratch or Import with Excel",
+      "Text1": "With our inventory management tool, you have the flexibility to <strong>create your inventory from scratch</strong> or <strong>import it easily using Excel</strong>. This allows you to get started quickly regardless of the current state of your inventory.",
+      "Text2": "If you decide to <strong>create your inventory from scratch</strong>, our intuitive interface will guide you through each step, ensuring that all your products are well categorized and organized. From adding detailed descriptions to setting stock levels, everything is designed to be simple and efficient.",
+      "Text3": "For those who already have an existing inventory, we offer an <strong>Excel import option</strong> that will allow you to load all your information in a matter of seconds. Simply download our template, complete the details of your inventory, and upload it."
+    },
+    "Content3": {
+      "Title": "Create and Manage Users with Custom Permissions",
+      "Text1": "Our platform allows you to <strong>create users</strong> and <strong>manage their permissions</strong> easily. You can assign specific roles such as <strong>Administrator</strong> and <strong>Reader</strong>.",
+      "Text2": "Administrators can control everything: add, modify, and delete data. Readers can only view information without making changes.",
+      "Text3": "Configure permissions to keep your information secure. Our intuitive interface allows you to <strong>add users</strong> and <strong>modify roles</strong> as per your needs."
+    }
+  },
+  "Services": {
+    "StandardPlan": {
+      "Name": "Standard Plan",
+      "Price": "19.99€/month",
+      "PriceYear": "192€/year",
+      "Benefits": ["3 inventories", "20 users", "Import inventories"]
+    },
+    "FreePlan": {
+      "Name": "Free Plan",
+      "Price": "Free",
+      "PriceYear": "Free",
+      "Benefits": ["1 inventory", "5 users", "Import inventories"]
+    },
+    "PremiumPlan": {
+      "Name": "Premium Plan",
+      "Price": "49.99€/month",
+      "PriceYear": "440€/year",
+      "Benefits": ["Unlimited inventories", "Unlimited users", "Import inventories"]
+    },
+    "ButtonLabel": "Try it now"
+  },
+  "Tech": {
+    "Title": "Our tech stack",
+    "Description": "At Stockify, we use a combination of modern and robust technologies to provide high-quality and high-performance solutions. Our tech stack includes:",
+    "Technologies": {
+      ".NET": {
+        "Name": ".NET",
+        "Description": "A software development platform for applications and services."
+      },
+      "React": {
+        "Name": "React",
+        "Description": "A JavaScript library for building user interfaces."
+      },
+      "JWT": {
+        "Name": "JWT",
+        "Description": "JSON Web Tokens for secure authentication."
+      },
+      "Tailwind CSS": {
+        "Name": "Tailwind CSS",
+        "Description": "A CSS framework for creating modern and responsive designs."
+      },
+      "EmailJs": {
+        "Name": "EmailJs",
+        "Description": "An email service for sending and receiving emails efficiently."
+      },
+      "ChartJs": {
+        "Name": "ChartJs",
+        "Description": "A JavaScript library for creating interactive charts."
+      },
+      "Docker": {
+        "Name": "Docker",
+        "Description": "A platform for developing, shipping, and running applications in containers."
+      },
+      "AWS": {
+        "Name": "AWS",
+        "Description": "Amazon Web Services, a cloud services platform."
+      },
+      "Kubernetes": {
+        "Name": "Kubernetes",
+        "Description": "A container orchestration system for automating deployment, scaling, and management of applications."
+      },
+      "GitHub": {
+        "Name": "GitHub",
+        "Description": "A platform for version control and collaboration in software development, using Git."
+      },
+      "Redux": {
+        "Name": "Redux",
+        "Description": "A JavaScript library for managing application state, commonly used with React."
+      },
+      "i18n": {
+        "Name": "i18n",
+        "Description": "i18next is an internationalization framework written in and for JavaScript."
+      }
+    }
+  },
+  "AboutUs": {
+    "Title": "About Us",
+    "Description": "At Stockify, we are dedicated to revolutionizing inventory management. Our goal is to provide innovative solutions that allow businesses to optimize their operations and reach new levels of efficiency. With a focus on advanced technology and ease of use, our services are designed to meet the needs of businesses of all sizes.",
+    "Vision": {
+      "Title": "Our Vision",
+      "Text": "We aspire to be leaders in inventory management solutions, helping businesses reduce costs, improve accuracy, and increase productivity. We believe that efficient inventory management is key to the success of any business."
+    },
+    "Project": {
+      "Title": "Our Project",
+      "Text": "Stockify offers an intuitive and powerful platform that integrates data analytics to provide real-time information. Our project is constantly evolving, incorporating feedback from our users to improve and adapt to the changing demands of the market."
+    }
+  },
+  "Login": {
+    "Title": "Login",
+    "UsernameLabel": "Username",
+    "PasswordLabel": "Password",
+    "RegisterLink": "Don't have an account? Sign up",
+    "OwnerLabel": "Are you an owner?",
+    "LoginFailed": "Login failed",
+    "ContinueButton": "Continue"
+  },
+  "Register": {
+    "UsernameLabel": "First Name",
+    "SurnameLabel": "Last Name",
+    "PasswordLabel": "Password",
+    "EmailLabel": "Email",
+    "CountryLabel": "Country",
+    "CityLabel": "City",
+    "DirectionLabel": "Address",
+    "PostalCodeLabel": "Postal Code",
+    "ServicePlaceholder": "Select a Service",
+    "UserExistsError": "User already registered",
+    "FormError": "Fill in all fields before continuing",
+    "ContinueButton": "Continue",
+    "CardHolderLabel": "Full Name",
+    "CardNumberLabel": "Card Number",
+    "ExpirationDateLabel": "MM/YYYY",
+    "CVCLabel": "CVC",
+    "TotalCost": "Total Cost",
+    "Plan": "Plan",
+    "Price": "Price",
+    "Taxes": "Taxes",
+    "Total": "Total",
+    "BackButton": "Back",
+    "AcceptAndPayButton": "Accept and pay"
+  },
+  "AddInventory": {
+    "AddButtonAlt": "add"
+  },
+  "AddInventoryForm": {
+    "Title": "Inventory Creation",
+    "NameLabel": "Inventory Name",
+    "LocationLabel": "Location",
+    "DescriptionLabel": "Description",
+    "ColorLabel": "Color",
+    "ImportLabel": "Import",
+    "ContinueButton": "Continue",
+    "AddButtonAlt": "add"
+  },
+  "InventoryCardInfo": {
+    "DescriptionLabel": "Description",
+    "LocationLabel": "Location",
+    "AccessButtonLabel": "Access",
+    "RemoveButtonLabel": "Delete"
+  },
+  "RemoveInventory": {
+    "WarningText": "Deleting an inventory is an irreversible action. Before deleting, you should contact a responsible person",
+    "RemoveButtonLabel": "Delete"
+  },
+  "ClientProductsTable": {
+    "AddProductButtonLabel": "Add Product",
+    "SearchPlaceholder": "Search...",
+    "EmptyMessage": "No products found.",
+    "IDHeader": "ID",
+    "NameHeader": "Name",
+    "DescriptionHeader": "Description",
+    "CategoriesHeader": "Categories",
+    "PriceHeader": "Price",
+    "QuantityHeader": "Quantity",
+    "SearchByIDPlaceholder": "Search by ID",
+    "SearchByNamePlaceholder": "Search by name",
+    "SearchByDescriptionPlaceholder": "Search by description",
+    "SearchByCategoriesPlaceholder": "Search by categories",
+    "SearchByPricePlaceholder": "Search by price",
+    "SearchByQuantityPlaceholder": "Search by quantity"
+  },
+  "AddProduct": {
+    "CategoryLabel": "Category",
+    "ProductLabel": "Product",
+    "NewButtonLabel": "New",
+    "ExistingButtonLabel": "Existing"
+  },
+  "AddCategoryForm": {
+    "CategoryNameLabel": "Category Name",
+    "CreateButtonLabel": "Create",
+    "ErrorMessage": "Fill in all fields"
+  },
+  "AddProductForm": {
+    "NameLabel": "Name",
+    "DescriptionLabel": "Description",
+    "PriceLabel": "Price",
+    "QuantityLabel": "Quantity",
+    "SelectCategoriesPlaceholder": "Select Categories",
+    "SelectAtLeastOneCategoryError": "Select at least one category",
+    "CreateButtonLabel": "Create"
+  },
+  "ClientInfoCards": {
+    "ProductPriceTitle": "Product Price",
+    "TotalProductsTitle": "Total Products",
+    "DailyTransactionsTitle": "Daily Transactions",
+    "TotalTransactionsTitle": "Total Transactions"
+  },
+  "InventoryProductDistribution": {
+    "Title": "Inventories",
+    "LoadingMessage": "Loading..."
+  },
+  "InventoryProduct": {
+    "Title": "Products",
+    "LoadingMessage": "Loading..."
+  },
+  "ClientUserTable": {
+    "AddUserButtonLabel": "Add User",
+    "SearchPlaceholder": "Search...",
+    "NoUsersFoundMessage": "No users found.",
+    "IDHeader": "ID",
+    "NameHeader": "Name",
+    "LastNameHeader": "Last Name",
+    "EmailHeader": "Email",
+    "RoleHeader": "Role",
+    "DeleteButtonLabel": "Delete",
+    "SelectRolePlaceholder": "Select a Role"
+  },
+  "CreateUser": {
+    "Title": "Create User"
+  },
+  "CreateUserForm": {
+    "NameLabel": "First Name",
+    "LastNameLabel": "Last Name",
+    "EmailLabel": "Email",
+    "CreateButtonLabel": "Create"
+  },
+  "Sidebar": {
+    "MyInventories": "My Inventories",
+    "Users": "Users",
+    "Information": "Information",
+    "Logout": "Logout"
   }
 }

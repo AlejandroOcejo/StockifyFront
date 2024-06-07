@@ -24,36 +24,44 @@ const ProductCardMovementsInfo = ({ id }) => {
                 backgroundColor: 'rgba(75, 192, 192, 0.6)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
+                type: 'bar',
+            },
+            {
+                label: 'Price',
+                data: transactions ? transactions.map(transaction => transaction.price) : [],
+                backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1,
+                type: 'line',
             },
         ],
     };
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
             x: {
-                title: {
-                    display: true,
-                    text: 'Date',
-                },
                 ticks: {
                     autoSkip: true,
                     maxTicksLimit: 10,
                 },
             },
             y: {
-                title: {
-                    display: true,
+                ticks: {
+                    beginAtZero: true,
                 },
             },
         },
     };
 
+
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <div>
+        <div style={{ height: '400px' }}>
             <Bar data={chartData} options={options} />
         </div>
     );
