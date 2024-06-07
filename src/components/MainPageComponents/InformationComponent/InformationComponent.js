@@ -30,8 +30,6 @@ const InformationComponent = () => {
           const animate = (currentTime) => {
             const elapsedTime = currentTime - startTime;
             const progress = (elapsedTime / animationDuration) * 100;
-            console.log(`Animation progress: ${progress.toFixed(2)}%`);
-
             if (progress < 100) {
               requestAnimationFrame(animate);
             }

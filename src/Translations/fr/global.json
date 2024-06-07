@@ -265,5 +265,24 @@
     "Users": "Utilisateurs",
     "Information": "Information",
     "Logout": "Déconnexion"
+  },
+  "product": {
+    "name": "Nom",
+    "description": "Description",
+    "price": "Prix",
+    "quantity": "Quantité",
+    "categories": "Catégories",
+    "movements": "Mouvements",
+    "update": "Mettre à jour",
+    "delete": "Supprimer",
+    "return": "Retour",
+    "add": "Ajouter",
+    "remove": "Retirer",
+    "update_quantity": "Quantité",
+    "update_information": "Informations",
+    "select_categories": "Sélectionner les catégories",
+    "select_at_least_one_category": "Sélectionnez au moins une catégorie",
+    "save": "Enregistrer",
+    "id": "ID"
   }
 }

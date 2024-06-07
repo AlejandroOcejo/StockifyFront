@@ -6,7 +6,7 @@ export const getUsers = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/users`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,10 +32,9 @@ export const getUsers = createAsyncThunk(
 export const updateUser = createAsyncThunk(
     'user/updateUser',
     async (newData, { rejectWithValue, dispatch }) => {
-        console.log(newData);
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/Tenant/user/${newData.id}/role`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Tenant/user/${newData.id}/role`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,7 +63,7 @@ export const deleteUser = createAsyncThunk(
     async (id, { rejectWithValue, dispatch }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/user/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

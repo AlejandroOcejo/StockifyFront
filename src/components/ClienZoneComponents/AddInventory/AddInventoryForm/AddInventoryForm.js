@@ -31,6 +31,7 @@ const AddInventoryForm = ({ closeDialog }) => {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [excelData, setExcelData] = useState([]);
+  const [loading, setLoading] = useState(false); // Add loading state
 
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -86,6 +87,7 @@ const AddInventoryForm = ({ closeDialog }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Set loading to true when submission starts
     const currentDate = new Date().toISOString();
     let inventoryId = null;
 
@@ -93,6 +95,7 @@ const AddInventoryForm = ({ closeDialog }) => {
       const newInventory = await dispatch(addInventory({ ...formData, image: imageLocation, creationDate: currentDate }));
       inventoryId = newInventory.payload.id;
       await uploadProducts(inventoryId);
+      setLoading(false); // Set loading to false when submission ends
       closeDialog();
     };
 
@@ -100,6 +103,8 @@ const AddInventoryForm = ({ closeDialog }) => {
       uploadImageToS3(imageFile, async (err, location) => {
         if (!err) {
           await saveInventory(location);
+        } else {
+          setLoading(false); // Set loading to false in case of error
         }
       });
     } else {
@@ -119,7 +124,6 @@ const AddInventoryForm = ({ closeDialog }) => {
           name: category,
           inventoryId: inventoryId,
         };
-        console.log(formData);
         const result = await dispatch(addCategory({ formData }));
         categoryMap[category] = result.payload.id;
       }
@@ -129,7 +133,7 @@ const AddInventoryForm = ({ closeDialog }) => {
       const productData = {
         name: product.product || 'No especificado en la exportación',
         description: product.description || 'No especificado en la exportación',
-        price: parseFloat(product.price?.replace('$', '')) || 0,
+        price: parseFloat(product.price?.replace('€', '')) || 0,
         quantity: product.quantity || 0,
         inventoryId: inventoryId,
         categoriesId: product.category ? [categoryMap[product.category]] : [],
@@ -207,7 +211,7 @@ const AddInventoryForm = ({ closeDialog }) => {
       </div>
       <Spacer height={"1rem"} />
       <div className="flex justify-center">
-        <Button width={'14rem'} label={t('AddInventoryForm.ContinueButton')} onButtonClick={handleSubmit} />
+        <Button width={'14rem'} label={t('AddInventoryForm.ContinueButton')} onButtonClick={handleSubmit} disabled={loading} />
       </div>
     </div>
   );

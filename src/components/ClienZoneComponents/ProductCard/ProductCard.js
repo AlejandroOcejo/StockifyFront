@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Button from '../../CommonComponents/Button/Button';
 import RemoveButton from '../../CommonComponents/RemoveButton/RemoveButton';
 import { FloatLabel } from 'primereact/floatlabel';
@@ -15,6 +16,7 @@ import ProductCardMovementsInfo from './ProductCardInfo/ProductCardMovementsInfo
 import UpdateButton from '../../CommonComponents/UpdateButton/UpdateButton';
 
 const ProductCard = ({ product, inventoryId, closeDialog }) => {
+    const { t } = useTranslation('global');
     const dispatch = useDispatch();
     const availableCategories = useSelector(state => state.category.categories);
     const [view, setView] = useState('details');
@@ -109,7 +111,6 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                 closeDialog();
             });
         } catch (error) {
-            console.log(error);
         }
     };
 
@@ -120,54 +121,54 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                     <div className='flex items-center justify-center text-3xl font-bold'>{product.name}</div>
                     <div className="flex flex-col justify-center h-full w-full">
                         <div>
-                            <p><strong>ID:</strong> {product.id}</p>
-                            <p><strong>Description:</strong> {product.description}</p>
-                            <p><strong>Price:</strong> {product.price}</p>
-                            <p><strong>Quantity:</strong> {product.quantity}</p>
-                            <p><strong>Categories:</strong> {product.categories ? product.categories.map(cat => cat.name).join(', ') : ''}</p>
+                            <p><strong>{t('product.id')}:</strong> {product.id}</p>
+                            <p><strong>{t('product.description')}:</strong> {product.description}</p>
+                            <p><strong>{t('product.price')}:</strong> {product.price}</p>
+                            <p><strong>{t('product.quantity')}:</strong> {product.quantity}</p>
+                            <p><strong>{t('product.categories')}:</strong> {product.categories ? product.categories.map(cat => cat.name).join(', ') : ''}</p>
                         </div>
                     </div>
                     <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
-                        <Button width={'8rem'} onButtonClick={handleMovements} label={"Movimientos"} />
-                        <UpdateButton width={'8rem'} onButtonClick={handleUpdateOptions} label={"Actualizar"} />
-                        <RemoveButton width={'8rem'} onButtonClick={handleDelete} label={"Borrar"} />
+                        <Button width={'8rem'} onButtonClick={handleMovements} label={t('product.movements')} />
+                        <UpdateButton width={'8rem'} onButtonClick={handleUpdateOptions} label={t('product.update')} />
+                        <RemoveButton width={'8rem'} onButtonClick={handleDelete} label={t('product.delete')} />
                     </div>
                 </>
             )}
             {view === 'updateOptions' && (
                 <>
-                    <div className='flex items-center justify-center text-3xl font-bold'>Actualizar {product.name}</div>
+                    <div className='flex items-center justify-center text-3xl font-bold'>{t('product.update')} {product.name}</div>
                     <div className="flex flex-col justify-center h-full w-full">
                         <div>
-                            <p><strong>ID:</strong> {product.id}</p>
-                            <p><strong>Description:</strong> {product.description}</p>
-                            <p><strong>Price:</strong> {product.price}</p>
-                            <p><strong>Quantity:</strong> {product.quantity}</p>
-                            <p><strong>Categories:</strong> {product.categories ? product.categories.map(cat => cat.name).join(', ') : ''}</p>
+                            <p><strong>{t('product.id')}:</strong> {product.id}</p>
+                            <p><strong>{t('product.description')}:</strong> {product.description}</p>
+                            <p><strong>{t('product.price')}:</strong> {product.price}</p>
+                            <p><strong>{t('product.quantity')}:</strong> {product.quantity}</p>
+                            <p><strong>{t('product.categories')}:</strong> {product.categories ? product.categories.map(cat => cat.name).join(', ') : ''}</p>
                         </div>
                     </div>
                     <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
-                        <Button width={'8rem'} onButtonClick={() => setView('details')} icon={'/flecha.png'} label={"Volver"} />
-                        <Button width={'8rem'} onButtonClick={handleQuantityUpdate} label={"Cantidad"} />
-                        <Button width={'8rem'} onButtonClick={handleInfoUpdate} label={"Información"} />
+                        <Button width={'8rem'} onButtonClick={() => setView('details')} icon={'/flecha.png'} label={t('product.return')} />
+                        <Button width={'8rem'} onButtonClick={handleQuantityUpdate} label={t('product.update_quantity')} />
+                        <Button width={'8rem'} onButtonClick={handleInfoUpdate} label={t('product.update_information')} />
                     </div>
                 </>
             )}
             {view === 'movements' && (
                 <div className='flex flex-col justify-center items-center'>
-                    <div className='flex items-center justify-center text-3xl font-bold mb-8'>Movimientos</div>
+                    <div className='flex items-center justify-center text-3xl font-bold mb-8'>{t('product.movements')}</div>
                     <ProductCardMovementsInfo id={product.id} style />
-                    <Button width={'7rem'} onButtonClick={() => setView('details')} icon={'/flecha.png'} label={"Volver"} />
+                    <Button width={'7rem'} onButtonClick={() => setView('details')} icon={'/flecha.png'} label={t('product.return')} />
                 </div>
             )}
             {view === 'update' && step === '0' && (
                 <>
-                    <div className='flex items-center justify-center text-3xl font-bold'>Actualizar cantidad</div>
+                    <div className='flex items-center justify-center text-3xl font-bold'>{t('product.update_quantity')}</div>
                     <Spacer />
                     <div className='flex flex-row items-center justify-center gap-4'>
-                        <span className={`text-xl font-semibold ${switchIsOn ? 'text-gray-500' : 'text-red-500'}`}>Retirar</span>
+                        <span className={`text-xl font-semibold ${switchIsOn ? 'text-gray-500' : 'text-red-500'}`}>{t('product.remove')}</span>
                         <Switch isOn={switchIsOn} handleToggle={() => setSwitchIsOn(!switchIsOn)} offColor="bg-red-500" />
-                        <span className={`text-xl font-semibold ${switchIsOn ? 'text-green-500' : 'text-gray-500'}`}>Añadir</span>
+                        <span className={`text-xl font-semibold ${switchIsOn ? 'text-green-500' : 'text-gray-500'}`}>{t('product.add')}</span>
                     </div>
                     <FloatLabel className="w-full mt-4">
                         <InputText
@@ -177,12 +178,12 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                             onChange={handleQuantityInputChange}
                             className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.quantity ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                         />
-                        <label htmlFor="quantity">Cantidad</label>
+                        <label htmlFor="quantity">{t('product.quantity')}</label>
                     </FloatLabel>
                     <Spacer />
                     <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
-                        <Button width={'8rem'} onButtonClick={handleUpdateOptions} icon={'/flecha.png'} label={"Volver"} />
-                        <UpdateButton width={'8rem'} onButtonClick={handleSubmit} label={"Actualizar"} />
+                        <Button width={'8rem'} onButtonClick={handleUpdateOptions} icon={'/flecha.png'} label={t('product.return')} />
+                        <UpdateButton width={'8rem'} onButtonClick={handleSubmit} label={t('product.update')} />
                     </div>
                 </>
             )}
@@ -198,7 +199,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                                     onChange={handleInputChange}
                                     className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.name ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                                 />
-                                <label htmlFor="name">Nombre</label>
+                                <label htmlFor="name">{t('product.name')}</label>
                             </FloatLabel>
                         </div>
                         <div>
@@ -210,7 +211,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                                     onChange={handleInputChange}
                                     className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.description ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                                 />
-                                <label htmlFor="description">Descripción</label>
+                                <label htmlFor="description">{t('product.description')}</label>
                             </FloatLabel>
                         </div>
                     </div>
@@ -224,7 +225,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                                     onChange={handleInputChange}
                                     className={`w-full p-2 rounded-xl border-solid focus:border-teal outline-none focus:ring-0 ${errors.price ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                                 />
-                                <label htmlFor="price">Precio</label>
+                                <label htmlFor="price">{t('product.price')}</label>
                             </FloatLabel>
                         </div>
                         <div className="flex justify-center flex-col">
@@ -234,17 +235,17 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                                 onChange={handleCategoryChange}
                                 optionLabel="name"
                                 filter
-                                placeholder="Seleccionar Categorías"
+                                placeholder={t('product.select_categories')}
                                 maxSelectedLabels={3}
                                 className={`rounded-xl fixed-height ${errors.categoryNames ? 'border-red-500' : 'border-[#A0AFFF]'}`}
                             />
-                            {errors.categoryNames && <div style={{ color: 'red' }}>Seleccione al menos una categoría</div>}
+                            {errors.categoryNames && <div style={{ color: 'red' }}>{t('product.select_at_least_one_category')}</div>}
                         </div>
                     </div>
                     <Spacer height={'2rem'} />
                     <div className="flex flex-col md:flex-row gap-2 items-center justify-center md:items-start">
-                        <Button width={'8rem'} onButtonClick={() => setView('updateOptions')} icon={'/flecha.png'} label={"Volver"} />
-                        <Button width={'8rem'} onButtonClick={handleSubmit} label={'Guardar'} type="submit" />
+                        <Button width={'8rem'} onButtonClick={() => setView('updateOptions')} icon={'/flecha.png'} label={t('product.return')} />
+                        <Button width={'8rem'} onButtonClick={handleSubmit} label={t('product.save')} type="submit" />
                     </div>
                 </form>
             )}

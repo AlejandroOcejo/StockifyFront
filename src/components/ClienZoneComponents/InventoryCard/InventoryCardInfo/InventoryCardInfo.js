@@ -18,7 +18,6 @@ const InventoryCardInfo = ({ item }) => {
 
     const handleClickRemove = () => {
         setIsRemove(true);
-        console.log(id);
     };
 
     const handleAccederClick = () => {
@@ -47,12 +46,11 @@ const InventoryCardInfo = ({ item }) => {
 
     const exportToExcel = (data) => {
         const products = data && data.products ? data.products.map(product => ({
-            'Product ID': product.id,
-            'Product Name': product.name,
-            'Description': product.description,
-            'Price': product.price,
-            'Quantity': product.quantity,
-            'Categories': product.categories.map(cat => cat.name).join(', '),
+            'product': product.name,
+            'description': product.description,
+            'price': `${product.price}€`,
+            'quantity': product.quantity,
+            'category': product.categories.map(cat => cat.name).join(', '),
         })) : [];
 
         const worksheet = XLSX.utils.json_to_sheet(products);

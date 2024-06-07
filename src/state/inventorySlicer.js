@@ -5,7 +5,7 @@ export const addInventory = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:5142/Inventory`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/Inventory`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export const getInventory = createAsyncThunk(
     }
 
     try {
-      const response = await fetch(`http://localhost:5142/Inventory`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/Inventory`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export const getInventoryById = createAsyncThunk(
     }
 
     try {
-      const response = await fetch(`http://localhost:5142/Inventory/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/Inventory/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export const removeInventory = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:5142/Inventory/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/Inventory/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

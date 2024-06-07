@@ -6,7 +6,7 @@ export const getAllTransactions = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:5142/Transaction', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Transaction`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const getTransactions = createAsyncThunk(
     async (id, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/Product/${id}/transactions`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Product/${id}/transactions`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

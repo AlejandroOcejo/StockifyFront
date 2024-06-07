@@ -5,7 +5,7 @@ export const addCategory = createAsyncThunk(
     async ({ formData }, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/Category`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Category`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const getCategories = createAsyncThunk(
         }
 
         try {
-            const response = await fetch(`http://localhost:5142/Inventory/${id}/categories`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Inventory/${id}/categories`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export const updateCategory = createAsyncThunk(
     async ({ id, formData }, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/Category/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Category/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export const removeCategory = createAsyncThunk(
     async (id, { rejectWithValue, dispatch }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/Category/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Category/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

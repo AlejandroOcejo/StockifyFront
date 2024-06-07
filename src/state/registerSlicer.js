@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const checkUser = createAsyncThunk('checkUser/postUser', async (formData) => {
   try {
     const response = await fetch(
-      `http://localhost:5142/Login?username=${formData.username}&password=0`,
+      `${process.env.REACT_APP_API_URL}/Login?username=${formData.username}&password=0`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -13,7 +13,6 @@ export const checkUser = createAsyncThunk('checkUser/postUser', async (formData)
       throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
-    console.log('Check User Data:', data);
     if (data === 'Tenant not found') {
       return false;
     }
@@ -35,7 +34,7 @@ export const registerUser = createAsyncThunk(
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
         };
-        const response = await fetch(`http://localhost:5142/Tenant`, requestOptions);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/Tenant`, requestOptions);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
@@ -63,7 +62,7 @@ export const registerUserNotTenant = createAsyncThunk(
         },
         body: JSON.stringify(formData),
       };
-      const response = await fetch(`http://localhost:5142/Auth/Register`, requestOptions);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/Auth/Register`, requestOptions);
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }

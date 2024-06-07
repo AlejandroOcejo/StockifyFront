@@ -23,7 +23,6 @@ const uploadImageToS3 = (file, callback) => {
       console.error('Error uploading image:', err);
       callback(err, null);
     } else {
-      console.log('Image uploaded successfully:', data.Location);
       callback(null, data.Location);
     }
   });

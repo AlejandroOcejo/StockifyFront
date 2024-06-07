@@ -59,7 +59,6 @@ const CreateUserForm = ({ closeDialog }) => {
 
         emailjs.send('service_gyf1sf9', 'template_buvq5ss', templateParams, 'orgiuFcj7SzraGVMv')
             .then((response) => {
-                console.log('Correo enviado:', response.status, response.text);
             }, (error) => {
                 console.error('Error al enviar el correo:', error);
             });

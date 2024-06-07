@@ -265,5 +265,24 @@
     "Users": "Users",
     "Information": "Information",
     "Logout": "Logout"
+  },
+  "product": {
+    "name": "Name",
+    "description": "Description",
+    "price": "Price",
+    "quantity": "Quantity",
+    "categories": "Categories",
+    "movements": "Movements",
+    "update": "Update",
+    "delete": "Delete",
+    "return": "Return",
+    "add": "Add",
+    "remove": "Remove",
+    "update_quantity": "Quantity",
+    "update_information": "Information",
+    "select_categories": "Select Categories",
+    "select_at_least_one_category": "Select at least one category",
+    "save": "Save",
+    "id": "ID"
   }
 }

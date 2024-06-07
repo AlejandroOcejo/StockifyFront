@@ -4,7 +4,7 @@ export const loginUser = createAsyncThunk(
   'login/postUser',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await fetch(`http://localhost:5142/Auth/Login`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/Auth/Login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(formData),

@@ -18,7 +18,6 @@ const InventoryProductDistribution = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        console.log('Inventory:', inventory);
 
         if (inventory && inventory.inventory && inventory.inventory.length > 0) {
             const inventoryData = inventory.inventory.map(inv => {
@@ -36,9 +35,6 @@ const InventoryProductDistribution = () => {
 
             const backgroundColors = inventory.inventory.map(inv => formatColor(inv.color));
             const borderColors = inventory.inventory.map(inv => formatColor(inv.color));
-
-            console.log(backgroundColors);
-            console.log(borderColors);
 
             const data = {
                 labels: inventoryLabels,

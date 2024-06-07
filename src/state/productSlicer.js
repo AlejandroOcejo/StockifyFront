@@ -5,7 +5,7 @@ export const addProduct = createAsyncThunk(
     async (formData, { rejectWithValue }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/Product`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Product`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export const getProducts = createAsyncThunk(
         }
 
         try {
-            const response = await fetch(`http://localhost:5142/Inventory/${id}/products`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Inventory/${id}/products`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export const getAllProducts = createAsyncThunk(
         }
 
         try {
-            const response = await fetch(`http://localhost:5142/products`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/products`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export const removeProduct = createAsyncThunk(
     async ({ id, inventoryId }, { rejectWithValue, dispatch }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/Product/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Product/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ export const updateProduct = createAsyncThunk(
     async ({ id, formData, inventoryId }, { rejectWithValue, dispatch }) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5142/Product/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/Product/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

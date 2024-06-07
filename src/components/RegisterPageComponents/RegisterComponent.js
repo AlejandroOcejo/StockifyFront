@@ -121,7 +121,6 @@ const RegisterComponent = () => {
 
   const handleServiceChange = (e) => {
     setSelectedService(e.value);
-    console.log(e.value);
   };
 
   const validateForm = () => {
