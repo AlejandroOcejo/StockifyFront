@@ -1,0 +1,269 @@
+{
+  "header": {
+    "Services": "Services",
+    "Pricing": "Tarification",
+    "Tech": "Technologie",
+    "ClientZone": "Zone Client",
+    "About-Us": "À propos de nous"
+  },
+  "MainPage": {
+    "Title": "Gérez votre inventaire avec facilité",
+    "SubTitle": "Notre outil simplifie la gestion des inventaires. Gardez le contrôle de votre stock facilement.",
+    "Information": "Plus d'informations",
+    "ReviewsTitle": "Avis de nos clients !",
+    "HowToStart": "Comment commencer"
+  },
+  "Reviews": {
+    "Review1": "Outil d'inventaire fantastique !",
+    "Review2": "A complètement simplifié notre inventaire !",
+    "Review3": "Indispensable pour toute entreprise !",
+    "Review4": "Très efficace et facile à utiliser.",
+    "Review5": "A dépassé toutes mes attentes !",
+    "Review6": "Excellent support et service client.",
+    "Review7": "Je continuerai à utiliser ce service.",
+    "Review8": "Efficacité totale dans la gestion des inventaires.",
+    "Review9": "Outil de haute qualité."
+  },
+  "InformationContent": {
+    "Content1": {
+      "Title": "Choisissez le plan parfait pour vous",
+      "Text1": "Nous savons que chaque entreprise a des <strong>besoins uniques</strong> en matière de gestion des inventaires. C'est pourquoi nous offrons une <strong>variété de plans</strong> adaptés à différentes tailles d'entreprises et à des complexités opérationnelles. Que vous commenciez avec un <strong>petit inventaire</strong> ou que vous gériez un <strong>grand entrepôt</strong>, nous avons la solution qui vous convient.",
+      "Text2": "Prenez en compte des facteurs tels que le <strong>volume de vos produits</strong> et l'<strong>intégration avec d'autres systèmes</strong> que vous utilisez. Choisir le bon plan permet non seulement d'<strong>optimiser vos opérations</strong>, mais aussi de <strong>maintenir un contrôle précis</strong> et efficace de votre inventaire, <strong>réduisant les coûts</strong> et <strong>améliorant la satisfaction client</strong>."
+    },
+    "Content2": {
+      "Title": "Créez votre inventaire à partir de zéro ou importez-le avec Excel",
+      "Text1": "Avec notre outil de gestion des inventaires, vous avez la flexibilité de <strong>créer votre inventaire à partir de zéro</strong> ou de l'<strong>importer facilement en utilisant Excel</strong>. Cela vous permet de commencer rapidement, quel que soit l'état actuel de votre inventaire.",
+      "Text2": "Si vous décidez de <strong>créer votre inventaire à partir de zéro</strong>, notre interface intuitive vous guidera à chaque étape, en veillant à ce que tous vos produits soient bien catégorisés et organisés. De l'ajout de descriptions détaillées à l'établissement de niveaux de stock, tout est conçu pour être simple et efficace.",
+      "Text3": "Pour ceux qui ont déjà un inventaire existant, nous proposons une <strong>option d'importation Excel</strong> qui vous permettra de charger toutes vos informations en quelques secondes. Téléchargez simplement notre modèle, complétez les détails de votre inventaire et téléchargez-le."
+    },
+    "Content3": {
+      "Title": "Créez et gérez des utilisateurs avec des permissions personnalisées",
+      "Text1": "Notre plateforme vous permet de <strong>créer des utilisateurs</strong> et de <strong>gérer leurs permissions</strong> facilement. Vous pouvez attribuer des rôles spécifiques tels qu'<strong>Administrateur</strong> et <strong>Lecteur</strong>.",
+      "Text2": "Les administrateurs peuvent tout contrôler : ajouter, modifier et supprimer des données. Les lecteurs peuvent uniquement consulter les informations sans faire de modifications.",
+      "Text3": "Configurez des permissions pour maintenir la sécurité de vos informations. Notre interface intuitive vous permet d'<strong>ajouter des utilisateurs</strong> et de <strong>modifier les rôles</strong> selon vos besoins."
+    }
+  },
+  "Services": {
+    "StandardPlan": {
+      "Name": "Plan standard",
+      "Price": "19.99€/mois",
+      "PriceYear": "192€/année",
+      "Benefits": ["3 inventaires", "20 utilisateurs", "Importer des inventaires"]
+    },
+    "FreePlan": {
+      "Name": "Plan gratuit",
+      "Price": "Gratuit",
+      "PriceYear": "Gratuit",
+      "Benefits": ["1 inventaire", "5 utilisateurs", "Importer des inventaires"]
+    },
+    "PremiumPlan": {
+      "Name": "Plan premium",
+      "Price": "49.99€/mois",
+      "PriceYear": "440€/année",
+      "Benefits": ["Inventaires illimités", "Utilisateurs illimités", "Importer des inventaires"]
+    },
+    "ButtonLabel": "Essayez-le maintenant"
+  },
+  "Tech": {
+    "Title": "Notre stack technologique",
+    "Description": "Chez Stockify, nous utilisons une combinaison de technologies modernes et robustes pour offrir des solutions de haute qualité et performance. Notre stack technologique inclut :",
+    "Technologies": {
+      ".NET": {
+        "Name": ".NET",
+        "Description": "Une plateforme de développement logiciel pour les applications et services."
+      },
+      "React": {
+        "Name": "React",
+        "Description": "Une bibliothèque JavaScript pour construire des interfaces utilisateur."
+      },
+      "JWT": {
+        "Name": "JWT",
+        "Description": "JSON Web Tokens pour une authentification sécurisée."
+      },
+      "Tailwind CSS": {
+        "Name": "Tailwind CSS",
+        "Description": "Un framework CSS pour créer des designs modernes et responsifs."
+      },
+      "EmailJs": {
+        "Name": "EmailJs",
+        "Description": "Un service de messagerie pour envoyer et recevoir des courriels efficacement."
+      },
+      "ChartJs": {
+        "Name": "ChartJs",
+        "Description": "Une bibliothèque JavaScript pour créer des graphiques interactifs."
+      },
+      "Docker": {
+        "Name": "Docker",
+        "Description": "Une plateforme pour développer, expédier et exécuter des applications en conteneurs."
+      },
+      "AWS": {
+        "Name": "AWS",
+        "Description": "Amazon Web Services, une plateforme de services cloud."
+      },
+      "Kubernetes": {
+        "Name": "Kubernetes",
+        "Description": "Un système d'orchestration de conteneurs pour automatiser le déploiement, le scaling et la gestion des applications."
+      },
+      "GitHub": {
+        "Name": "GitHub",
+        "Description": "Une plateforme pour le contrôle de version et la collaboration dans le développement logiciel, utilisant Git."
+      },
+      "Redux": {
+        "Name": "Redux",
+        "Description": "Une bibliothèque JavaScript pour la gestion de l'état de l'application, couramment utilisée avec React."
+      },
+      "i18n": {
+        "Name": "i18n",
+        "Description": "i18next est un cadre d'internationalisation écrit en et pour JavaScript."
+      }
+    }
+  },
+  "AboutUs": {
+    "Title": "À propos de nous",
+    "Description": "Chez Stockify, nous nous consacrons à révolutionner la gestion des inventaires. Notre objectif est de fournir des solutions innovantes permettant aux entreprises d'optimiser leurs opérations et d'atteindre de nouveaux niveaux d'efficacité. En mettant l'accent sur la technologie avancée et la facilité d'utilisation, nos services sont conçus pour répondre aux besoins des entreprises de toutes tailles.",
+    "Vision": {
+      "Title": "Notre Vision",
+      "Text": "Nous aspirons à être des leaders dans les solutions de gestion des inventaires, aidant les entreprises à réduire les coûts, à améliorer la précision et à augmenter la productivité. Nous croyons qu'une gestion efficace des inventaires est essentielle au succès de toute entreprise."
+    },
+    "Project": {
+      "Title": "Notre Projet",
+      "Text": "Stockify offre une plateforme intuitive et puissante qui intègre l'analyse des données pour fournir des informations en temps réel. Notre projet est en constante évolution, incorporant les retours de nos utilisateurs pour s'améliorer et s'adapter aux exigences changeantes du marché."
+    }
+  },
+  "Login": {
+    "Title": "Connexion",
+    "UsernameLabel": "Nom d'utilisateur",
+    "PasswordLabel": "Mot de passe",
+    "RegisterLink": "Vous n'avez pas de compte ? Inscrivez-vous",
+    "OwnerLabel": "Êtes-vous propriétaire ?",
+    "LoginFailed": "Échec de la connexion",
+    "ContinueButton": "Continuer"
+  },
+  "Register": {
+    "UsernameLabel": "Prénom",
+    "SurnameLabel": "Nom de famille",
+    "PasswordLabel": "Mot de passe",
+    "EmailLabel": "Email",
+    "CountryLabel": "Pays",
+    "CityLabel": "Ville",
+    "DirectionLabel": "Adresse",
+    "PostalCodeLabel": "Code postal",
+    "ServicePlaceholder": "Sélectionner un service",
+    "UserExistsError": "Utilisateur déjà enregistré",
+    "FormError": "Remplissez tous les champs avant de continuer",
+    "ContinueButton": "Continuer",
+    "CardHolderLabel": "Nom complet",
+    "CardNumberLabel": "Numéro de carte",
+    "ExpirationDateLabel": "MM/AAAA",
+    "CVCLabel": "CVC",
+    "TotalCost": "Coût total",
+    "Plan": "Plan",
+    "Price": "Prix",
+    "Taxes": "Taxes",
+    "Total": "Total",
+    "BackButton": "Retour",
+    "AcceptAndPayButton": "Accepter et payer"
+  },
+  "AddInventory": {
+    "AddButtonAlt": "ajouter"
+  },
+  "AddInventoryForm": {
+    "Title": "Création d'inventaire",
+    "NameLabel": "Nom de l'inventaire",
+    "LocationLabel": "Localisation",
+    "DescriptionLabel": "Description",
+    "ColorLabel": "Couleur",
+    "ImportLabel": "Importer",
+    "ContinueButton": "Continuer",
+    "AddButtonAlt": "ajouter"
+  },
+  "InventoryCardInfo": {
+    "DescriptionLabel": "Description",
+    "LocationLabel": "Localisation",
+    "AccessButtonLabel": "Accéder",
+    "RemoveButtonLabel": "Supprimer"
+  },
+  "RemoveInventory": {
+    "WarningText": "Supprimer un inventaire est une action irréversible, vous devriez contacter un responsable avant de le supprimer",
+    "RemoveButtonLabel": "Supprimer",
+    "ExportButtonLabel": "Exporter"
+  },
+  "ClientProductsTable": {
+    "AddProductButtonLabel": "Ajouter un produit",
+    "SearchPlaceholder": "Rechercher...",
+    "EmptyMessage": "Aucun produit trouvé.",
+    "IDHeader": "ID",
+    "NameHeader": "Nom",
+    "DescriptionHeader": "Description",
+    "CategoriesHeader": "Catégories",
+    "PriceHeader": "Prix",
+    "QuantityHeader": "Quantité",
+    "SearchByIDPlaceholder": "Rechercher par ID",
+    "SearchByNamePlaceholder": "Rechercher par nom",
+    "SearchByDescriptionPlaceholder": "Rechercher par description",
+    "SearchByCategoriesPlaceholder": "Rechercher par catégories",
+    "SearchByPricePlaceholder": "Rechercher par prix",
+    "SearchByQuantityPlaceholder": "Rechercher par quantité"
+  },
+  "AddProduct": {
+    "CategoryLabel": "Catégorie",
+    "ProductLabel": "Produit",
+    "NewButtonLabel": "Nouveau",
+    "ExistingButtonLabel": "Existant"
+  },
+  "AddCategoryForm": {
+    "CategoryNameLabel": "Nom de la catégorie",
+    "CreateButtonLabel": "Créer",
+    "ErrorMessage": "Remplissez tous les champs"
+  },
+  "AddProductForm": {
+    "NameLabel": "Nom",
+    "DescriptionLabel": "Description",
+    "PriceLabel": "Prix",
+    "QuantityLabel": "Quantité",
+    "SelectCategoriesPlaceholder": "Sélectionner des catégories",
+    "SelectAtLeastOneCategoryError": "Sélectionnez au moins une catégorie",
+    "CreateButtonLabel": "Créer"
+  },
+  "ClientInfoCards": {
+    "ProductPriceTitle": "Prix des produits",
+    "TotalProductsTitle": "Produits totaux",
+    "DailyTransactionsTitle": "Transactions quotidiennes",
+    "TotalTransactionsTitle": "Transactions totales"
+  },
+  "InventoryProductDistribution": {
+    "Title": "Inventaires",
+    "LoadingMessage": "Chargement..."
+  },
+  "InventoryProduct": {
+    "Title": "Produits",
+    "LoadingMessage": "Chargement..."
+  },
+  "ClientUserTable": {
+    "AddUserButtonLabel": "Ajouter un utilisateur",
+    "SearchPlaceholder": "Rechercher...",
+    "NoUsersFoundMessage": "Aucun utilisateur trouvé.",
+    "IDHeader": "ID",
+    "NameHeader": "Prénom",
+    "LastNameHeader": "Nom",
+    "EmailHeader": "Email",
+    "RoleHeader": "Rôle",
+    "DeleteButtonLabel": "Supprimer",
+    "SelectRolePlaceholder": "Sélectionner un rôle"
+  },
+  "CreateUser": {
+    "Title": "Créer un utilisateur"
+  },
+  "CreateUserForm": {
+    "NameLabel": "Prénom",
+    "LastNameLabel": "Nom",
+    "EmailLabel": "Email",
+    "CreateButtonLabel": "Créer"
+  },
+  "Sidebar": {
+    "MyInventories": "Mes Inventaires",
+    "Users": "Utilisateurs",
+    "Information": "Information",
+    "Logout": "Déconnexion"
+  }
+}

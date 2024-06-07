@@ -1,0 +1,5 @@
+.fixed-height .p-multiselect-label-container {
+    max-width: 13rem;
+    min-width: 13rem;
+    overflow: hidden;
+}
