@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Thunk para obtener todas las transacciones
 export const getAllTransactions = createAsyncThunk(
     'transaction/getAllTransactions',
     async (_, { rejectWithValue }) => {
@@ -32,7 +31,6 @@ export const getAllTransactions = createAsyncThunk(
     }
 );
 
-// Thunk para obtener transacciones por ID de producto
 export const getTransactions = createAsyncThunk(
     'transaction/getTransactions',
     async (id, { rejectWithValue }) => {
@@ -64,7 +62,6 @@ export const getTransactions = createAsyncThunk(
     }
 );
 
-// Slice para gestionar el estado de las transacciones
 const transactionSlice = createSlice({
     name: 'transaction',
     initialState: {

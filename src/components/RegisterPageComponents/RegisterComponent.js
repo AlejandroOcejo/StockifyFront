@@ -162,7 +162,6 @@ const RegisterComponent = () => {
         setFormStep(1);
       }
 
-      // Enviar evento a dataLayer cuando se envía el formulario
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: 'postalCodeUpdate',
