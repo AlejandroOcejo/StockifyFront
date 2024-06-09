@@ -1,5 +1,5 @@
 import { Dropdown } from 'primereact/dropdown';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
 import Button from '../../components/CommonComponents/Button/Button';
@@ -91,6 +91,14 @@ const RegisterComponent = () => {
       [name]: value === '',
       userExists: false,
     }));
+
+    if (name === 'postalCode') {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'postalCodeUpdate',
+        postalCode: value,
+      });
+    }
   };
 
   const handlePaymentInputChange = (event) => {
