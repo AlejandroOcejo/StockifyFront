@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
-  const { width, height, onButtonClick, disabled, label, color, icon } = props;
+  const { id, width, height, onButtonClick, disabled, label, color, icon } = props;
   const [hoverStyles, setHoverStyles] = useState({});
 
   const sizeStyles = {
@@ -35,6 +35,7 @@ const Button = (props) => {
 
   return (
     <div
+      id={id || undefined}
       onClick={disabled ? null : onButtonClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -49,11 +50,21 @@ const Button = (props) => {
 export default Button;
 
 Button.propTypes = {
-  label: PropTypes.string,
-  onButtonClick: PropTypes.func,
+  id: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.string,
   icon: PropTypes.string,
+};
+
+Button.defaultProps = {
+  id: null,
+  disabled: false,
+  width: 'auto',
+  height: 'auto',
+  color: '#52489C',
+  icon: null,
 };
