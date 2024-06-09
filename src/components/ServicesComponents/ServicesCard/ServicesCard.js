@@ -10,14 +10,12 @@ const ServicesCard = () => {
 
   useEffect(() => {
     if (selectedService) {
-      // Actualiza la capa de datos de GTM
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: 'service_selected',
         selectedService: selectedService,
       });
 
-      // Redirige después de actualizar la capa de datos
       navigate('/register');
     }
   }, [selectedService, navigate]);
