@@ -16,13 +16,26 @@ const LangComponent = () => {
   useEffect(() => {
     setCurrentFlag(flags[i18n.language]);
     localStorage.setItem('lang', i18n.language);
+    setCurrentLang(i18n.language);
   }, [i18n.language]);
+
+  useEffect(() => {
+    triggerGTMEvent(currentLang);
+  }, [currentLang]);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-    setCurrentLang(lng);
     localStorage.setItem('lang', lng);
     setShowFlags(false);
+  };
+
+  const triggerGTMEvent = (lang) => {
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'langEvent',
+        selectedLang: lang,
+      });
+    }
   };
 
   return (

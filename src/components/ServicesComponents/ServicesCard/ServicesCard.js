@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../CommonComponents/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 const ServicesCard = () => {
+  const [selectedService, setSelectedService] = useState('');
   const [t] = useTranslation('global');
   const navigate = useNavigate();
 
-  const handleRedirect = () => {
-    navigate('/register');
+  useEffect(() => {
+    if (selectedService) {
+      // Actualiza la capa de datos de GTM
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'service_selected',
+        selectedService: selectedService,
+      });
+
+      // Redirige después de actualizar la capa de datos
+      navigate('/register');
+    }
+  }, [selectedService, navigate]);
+
+  const handleRedirect = (serviceName) => {
+    setSelectedService(serviceName);
   };
 
   const testData = [
@@ -58,7 +73,7 @@ const ServicesCard = () => {
             ))}
           </div>
           <div className="flex justify-center">
-            <Button onButtonClick={handleRedirect} label={t('Services.ButtonLabel')} disabled={service.serviceName !== t('Services.FreePlan.Name')} />
+            <Button id={'serviceButton'} onButtonClick={() => handleRedirect(service.serviceName)} label={t('Services.ButtonLabel')} disabled={service.serviceName !== t('Services.FreePlan.Name')} />
           </div>
           {service.serviceName === t('Services.FreePlan.Name') && (
             <div
