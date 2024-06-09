@@ -91,14 +91,6 @@ const RegisterComponent = () => {
       [name]: value === '',
       userExists: false,
     }));
-
-    if (name === 'postalCode') {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'postalCodeUpdate',
-        postalCode: value,
-      });
-    }
   };
 
   const handlePaymentInputChange = (event) => {
@@ -169,6 +161,13 @@ const RegisterComponent = () => {
         }));
         setFormStep(1);
       }
+
+      // Enviar evento a dataLayer cuando se envía el formulario
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'postalCodeUpdate',
+        postalCode: formData.contact.postalCode,
+      });
     }
   };
 
