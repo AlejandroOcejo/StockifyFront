@@ -11,6 +11,7 @@ import { getUsers, updateUser, deleteUser } from '../../../state/userSlicer';
 import { useDispatch, useSelector } from 'react-redux';
 import CreateUser from '../CreateUser/CreateUser';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const ClientUserTable = () => {
     const [isActive, setActive] = useState(false);
@@ -47,16 +48,26 @@ const ClientUserTable = () => {
         setEditingRows(e.data);
     };
 
-    const onRowEditComplete = (e) => {
+    const onRowEditComplete = async (e) => {
         let _users = [...users];
         let { newData, index } = e;
         _users[index] = newData;
         setUsers(_users);
-        dispatch(updateUser(newData));
+        try {
+            await dispatch(updateUser(newData)).unwrap();
+            toast.success('Rol de usuario actualizado con éxito');
+        } catch (error) {
+            toast.error('Error al actualizar el rol de usuario');
+        }
     };
 
-    const handleDelete = (userId) => {
-        dispatch(deleteUser(userId));
+    const handleDelete = async (userId) => {
+        try {
+            await dispatch(deleteUser(userId)).unwrap();
+            toast.success('Usuario eliminado con éxito');
+        } catch (error) {
+            toast.error('Error al eliminar el usuario');
+        }
     };
 
     const deleteButtonTemplate = (rowData) => {

@@ -9,6 +9,7 @@ import { registerUserNotTenant } from '../../../../state/registerSlicer';
 import emailjs from 'emailjs-com';
 import { getUsers } from '../../../../state/userSlicer';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const CreateUserForm = ({ closeDialog }) => {
     const dispatch = useDispatch();
@@ -59,13 +60,30 @@ const CreateUserForm = ({ closeDialog }) => {
 
         emailjs.send('service_gyf1sf9', 'template_buvq5ss', templateParams, 'orgiuFcj7SzraGVMv')
             .then((response) => {
+                toast.success('Correo enviado con éxito');
             }, (error) => {
+                toast.error('Error al enviar el correo');
                 console.error('Error al enviar el correo:', error);
             });
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        // Check for errors
+        const newErrors = {
+            name: formData.name === '',
+            lastName: formData.lastName === '',
+            email: formData.email === ''
+        };
+
+        setErrors(newErrors);
+
+        if (Object.values(newErrors).some(error => error)) {
+            toast.error('Por favor, completa todos los campos');
+            return;
+        }
+
         const randomPassword = generateRandomPassword(12);
         const updatedFormData = { ...formData, password: randomPassword };
 
@@ -73,12 +91,15 @@ const CreateUserForm = ({ closeDialog }) => {
             const response = await dispatch(registerUserNotTenant(updatedFormData)).unwrap();
             if (response && response.success) {
                 sendMail(updatedFormData.email, updatedFormData.name, randomPassword, updatedFormData.tenantName);
-                dispatch(getUsers())
+                dispatch(getUsers());
+                toast.success('Usuario creado con éxito');
                 closeDialog();
             } else {
+                toast.error('Error al crear la cuenta');
                 console.error('Error al crear la cuenta:', response.error);
             }
         } catch (error) {
+            toast.error('Error al crear la cuenta');
             console.error('Error al crear la cuenta:', error);
         }
     };

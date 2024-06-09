@@ -13,10 +13,12 @@ import * as XLSX from 'xlsx';
 import './AddInventoryForm.css';
 import { addCategory } from '../../../../state/categorySlicer';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const AddInventoryForm = ({ closeDialog }) => {
   const dispatch = useDispatch();
   const [t] = useTranslation('global');
+  const [loading, setLoading] = useState(false);  // Estado local para manejar la carga
 
   const [color, setColor] = useState('#52489C');
   const [formData, setFormData] = useState({
@@ -31,7 +33,6 @@ const AddInventoryForm = ({ closeDialog }) => {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [excelData, setExcelData] = useState([]);
-  const [loading, setLoading] = useState(false); // Add loading state
 
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -87,16 +88,22 @@ const AddInventoryForm = ({ closeDialog }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true); // Set loading to true when submission starts
+    setLoading(true);  // Empieza la carga
     const currentDate = new Date().toISOString();
     let inventoryId = null;
 
     const saveInventory = async (imageLocation) => {
-      const newInventory = await dispatch(addInventory({ ...formData, image: imageLocation, creationDate: currentDate }));
-      inventoryId = newInventory.payload.id;
-      await uploadProducts(inventoryId);
-      setLoading(false); // Set loading to false when submission ends
-      closeDialog();
+      try {
+        const newInventory = await dispatch(addInventory({ ...formData, image: imageLocation, creationDate: currentDate }));
+        inventoryId = newInventory.payload.id;
+        await uploadProducts(inventoryId);
+        toast.success('Inventario creado con éxito');
+        setLoading(false);  // Termina la carga
+        closeDialog();
+      } catch (error) {
+        toast.error('Máximo de inventarios alcanzado');
+        setLoading(false);  // Termina la carga en caso de error
+      }
     };
 
     if (imageFile) {
@@ -104,7 +111,8 @@ const AddInventoryForm = ({ closeDialog }) => {
         if (!err) {
           await saveInventory(location);
         } else {
-          setLoading(false); // Set loading to false in case of error
+          toast.error('Error al subir la imagen');
+          setLoading(false);  // Termina la carga en caso de error
         }
       });
     } else {

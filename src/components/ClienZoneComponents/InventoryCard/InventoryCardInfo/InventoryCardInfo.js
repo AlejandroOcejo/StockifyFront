@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInventoryById } from '../../../../state/inventorySlicer';
 import * as XLSX from 'xlsx';
+import { toast } from 'react-toastify';
 
 const InventoryCardInfo = ({ item }) => {
     const { id, name, description, location } = item;
@@ -64,6 +65,8 @@ const InventoryCardInfo = ({ item }) => {
 
         const fileName = `Inventory_${id}_${timeString}.xlsx`;
         XLSX.writeFile(workbook, `${fileName}`);
+
+        toast.success('Inventario exportado con éxito');
     };
 
     return (

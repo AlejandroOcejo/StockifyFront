@@ -11,6 +11,7 @@ import Spacer from '../../../CommonComponents/Spacer/Spacer';
 import { addProduct } from '../../../../state/productSlicer';
 import { getCategories } from '../../../../state/categorySlicer';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const AddProductForm = ({ inventoryId, onClose }) => {
     const dispatch = useDispatch();
@@ -85,8 +86,13 @@ const AddProductForm = ({ inventoryId, onClose }) => {
             return;
         }
 
-        await dispatch(addProduct(formData));
-        onClose();
+        try {
+            await dispatch(addProduct(formData));
+            toast.success('Producto creado con éxito');
+            onClose();
+        } catch (error) {
+            toast.error('Error al crear el producto');
+        }
     };
 
     return (

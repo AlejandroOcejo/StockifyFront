@@ -14,6 +14,7 @@ import { removeProduct, updateProduct } from '../../../state/productSlicer';
 import Switch from '../../CommonComponents/Switch/Switch';
 import ProductCardMovementsInfo from './ProductCardInfo/ProductCardMovementsInfo';
 import UpdateButton from '../../CommonComponents/UpdateButton/UpdateButton';
+import { toast } from 'react-toastify';
 
 const ProductCard = ({ product, inventoryId, closeDialog }) => {
     const { t } = useTranslation('global');
@@ -42,10 +43,15 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
         dispatch(getCategories(inventoryId));
     }, [dispatch, inventoryId]);
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         let id = product.id;
-        dispatch(removeProduct({ id, inventoryId }));
-        closeDialog();
+        try {
+            await dispatch(removeProduct({ id, inventoryId })).unwrap();
+            toast.success('Producto eliminado con éxito');
+            closeDialog();
+        } catch (error) {
+            toast.error('Error al eliminar el producto');
+        }
     };
 
     const handleUpdateOptions = () => {
@@ -103,14 +109,16 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
         }));
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         let id = product.id;
+
         try {
-            dispatch(updateProduct({ id, formData, inventoryId })).then(() => {
-                closeDialog();
-            });
+            await dispatch(updateProduct({ id, formData, inventoryId })).unwrap();
+            toast.success('Producto actualizado con éxito');
+            closeDialog();
         } catch (error) {
+            toast.error('Error al actualizar el producto');
         }
     };
 

@@ -23,6 +23,8 @@ import ClientInformation from './views/ClientZone/ClientInformation/ClientInform
 import Tech from './views/Tech/Tech';
 import AboutUs from './views/AboutUs/AboutUs';
 import NotFound from './views/NotFound/NotFound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -64,6 +66,7 @@ root.render(
     <React.StrictMode>
       <I18nextProvider i18n={i18next}>
         <App />
+        <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar newestOnTop closeOnClick rtl={false} pauseOnFocusLoss pauseOnHover />
       </I18nextProvider>
     </React.StrictMode>
   </Provider>

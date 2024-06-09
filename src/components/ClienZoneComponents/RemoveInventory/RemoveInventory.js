@@ -4,14 +4,24 @@ import { removeInventory } from '../../../state/inventorySlicer';
 import RemoveButton from '../../CommonComponents/RemoveButton/RemoveButton';
 import Switch from '../../CommonComponents/Switch/Switch';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const RemoveInventory = (props) => {
   const [isAccepted, setIsAccepted] = useState(false);
   const [t] = useTranslation('global');
   const dispatch = useDispatch();
 
-  const handleClickRemove = () => {
-    dispatch(removeInventory(props.id));
+  const handleClickRemove = async () => {
+    try {
+      const resultAction = await dispatch(removeInventory(props.id));
+      if (removeInventory.fulfilled.match(resultAction)) {
+        toast.success('Inventario eliminado con éxito');
+      } else {
+        toast.error('Error al eliminar el inventario');
+      }
+    } catch (error) {
+      toast.error('Error al eliminar el inventario');
+    }
   };
 
   const handleToggle = () => {
