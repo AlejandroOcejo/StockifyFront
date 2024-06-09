@@ -70,7 +70,7 @@ const CreateUserForm = ({ closeDialog }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Check for errors
+
         const newErrors = {
             name: formData.name === '',
             lastName: formData.lastName === '',

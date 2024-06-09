@@ -55,5 +55,5 @@ Button.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.string,
-  icon: PropTypes.string, // Add icon prop type
+  icon: PropTypes.string,
 };

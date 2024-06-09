@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 const AddInventoryForm = ({ closeDialog }) => {
   const dispatch = useDispatch();
   const [t] = useTranslation('global');
-  const [loading, setLoading] = useState(false);  // Estado local para manejar la carga
+  const [loading, setLoading] = useState(false); 
 
   const [color, setColor] = useState('#52489C');
   const [formData, setFormData] = useState({
@@ -88,7 +88,7 @@ const AddInventoryForm = ({ closeDialog }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);  // Empieza la carga
+    setLoading(true);
     const currentDate = new Date().toISOString();
     let inventoryId = null;
 
@@ -98,11 +98,11 @@ const AddInventoryForm = ({ closeDialog }) => {
         inventoryId = newInventory.payload.id;
         await uploadProducts(inventoryId);
         toast.success('Inventario creado con éxito');
-        setLoading(false);  // Termina la carga
+        setLoading(false);
         closeDialog();
       } catch (error) {
         toast.error('Máximo de inventarios alcanzado');
-        setLoading(false);  // Termina la carga en caso de error
+        setLoading(false);
       }
     };
 
@@ -112,7 +112,7 @@ const AddInventoryForm = ({ closeDialog }) => {
           await saveInventory(location);
         } else {
           toast.error('Error al subir la imagen');
-          setLoading(false);  // Termina la carga en caso de error
+          setLoading(false);
         }
       });
     } else {

@@ -10,7 +10,7 @@ const UpdateButton = (props) => {
         height: height || 'auto',
     };
 
-    const backgroundColor = disabled ? 'gray' : color || '#FFC107';  // Amarillo menos chillón
+    const backgroundColor = disabled ? 'gray' : color || '#FFC107'; 
     const cursorStyle = disabled ? 'not-allowed' : 'pointer';
 
     const handleMouseMove = (e) => {
@@ -20,7 +20,7 @@ const UpdateButton = (props) => {
             const y = e.clientY - rect.top;
 
             setHoverStyles({
-                background: `radial-gradient(circle at ${x}px ${y}px, #FFD54F, ${backgroundColor})`,  // Amarillo más suave
+                background: `radial-gradient(circle at ${x}px ${y}px, #FFD54F, ${backgroundColor})`,
             });
         }
     };
