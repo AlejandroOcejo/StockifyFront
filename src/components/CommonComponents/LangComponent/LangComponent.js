@@ -11,19 +11,24 @@ const LangComponent = () => {
   const { i18n } = useTranslation();
   const [showFlags, setShowFlags] = useState(false);
   const [currentFlag, setCurrentFlag] = useState(flags[i18n.language]);
+  const [currentLang, setCurrentLang] = useState(localStorage.getItem('lang') || i18n.language);
 
   useEffect(() => {
     setCurrentFlag(flags[i18n.language]);
+    localStorage.setItem('lang', i18n.language);
   }, [i18n.language]);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    setCurrentLang(lng);
+    localStorage.setItem('lang', lng);
     setShowFlags(false);
   };
 
   return (
     <div className="fixed bottom-4 right-4 cursor-pointer">
       <img
+        id='langFlag'
         src={currentFlag}
         alt="Current Language"
         className="w-8 h-5 mb-1 border-2 border-solid rounded"
@@ -33,7 +38,7 @@ const LangComponent = () => {
         <div className="flex flex-col">
           {Object.keys(flags).map(
             (lng) =>
-              lng !== i18n.language && (
+              lng !== currentLang && (
                 <img
                   key={lng}
                   src={flags[lng]}

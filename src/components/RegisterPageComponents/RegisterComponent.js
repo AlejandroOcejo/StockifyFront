@@ -436,6 +436,7 @@ const RegisterComponent = () => {
                     disabled={loading}
                   />
                   <Button
+                    id={'submitButton'}
                     width={'12rem'}
                     onButtonClick={handleSubmit}
                     label={t('Register.AcceptAndPayButton')}
