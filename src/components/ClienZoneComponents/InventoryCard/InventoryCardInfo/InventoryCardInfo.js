@@ -66,7 +66,7 @@ const InventoryCardInfo = ({ item }) => {
         const fileName = `Inventory_${id}_${timeString}.xlsx`;
         XLSX.writeFile(workbook, `${fileName}`);
 
-        toast.success('Inventario exportado con éxito');
+        toast.success(t('toast.inventory_export_success'));
     };
 
     return (

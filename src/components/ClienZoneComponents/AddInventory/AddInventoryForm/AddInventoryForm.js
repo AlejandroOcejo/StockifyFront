@@ -14,11 +14,12 @@ import './AddInventoryForm.css';
 import { addCategory } from '../../../../state/categorySlicer';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { translateExcelData } from '../../../../openAIServices';
 
 const AddInventoryForm = ({ closeDialog }) => {
   const dispatch = useDispatch();
   const [t] = useTranslation('global');
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const [color, setColor] = useState('#52489C');
   const [formData, setFormData] = useState({
@@ -40,6 +41,14 @@ const AddInventoryForm = ({ closeDialog }) => {
       color: color,
     }));
   }, [color]);
+
+  useEffect(() => {
+    if (loading) {
+      toast.info(t('toast.loading'), { toastId: 'loadingToast' });
+    } else {
+      toast.dismiss('loadingToast');
+    }
+  }, [loading, t]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -90,18 +99,17 @@ const AddInventoryForm = ({ closeDialog }) => {
     event.preventDefault();
     setLoading(true);
     const currentDate = new Date().toISOString();
-    let inventoryId = null;
 
     const saveInventory = async (imageLocation) => {
       try {
         const newInventory = await dispatch(addInventory({ ...formData, image: imageLocation, creationDate: currentDate }));
-        inventoryId = newInventory.payload.id;
+        const inventoryId = newInventory.payload.id;
         await uploadProducts(inventoryId);
-        toast.success('Inventario creado con éxito');
+        toast.success(t('toast.create_inventory_success'));
         setLoading(false);
         closeDialog();
       } catch (error) {
-        toast.error('Máximo de inventarios alcanzado');
+        toast.error(t('toast.create_inventory_error_max'));
         setLoading(false);
       }
     };
@@ -111,7 +119,7 @@ const AddInventoryForm = ({ closeDialog }) => {
         if (!err) {
           await saveInventory(location);
         } else {
-          toast.error('Error al subir la imagen');
+          toast.error(t('toast.upload_image_error'));
           setLoading(false);
         }
       });
@@ -121,32 +129,44 @@ const AddInventoryForm = ({ closeDialog }) => {
   };
 
   const uploadProducts = async (inventoryId) => {
-    const categorySet = new Set();
-    const categoryMap = {};
+    try {
+      const translatedData = await translateExcelData(excelData);
+      const AIdata = translatedData.inventory;
+      console.log(AIdata);
 
-    for (const product of excelData) {
-      const category = product.category;
-      if (!categorySet.has(category)) {
-        categorySet.add(category);
-        const formData = {
-          name: category,
-          inventoryId: inventoryId,
-        };
-        const result = await dispatch(addCategory({ formData }));
-        categoryMap[category] = result.payload.id;
+      const categorySet = new Set();
+      const categoryMap = {};
+
+      for (const product of AIdata) {
+        const category = product.categories;
+        if (!categorySet.has(category)) {
+          categorySet.add(category);
+          const formData = {
+            name: category[0],
+            inventoryId: inventoryId,
+          };
+          const result = await dispatch(addCategory({ formData }));
+          categoryMap[category] = result.payload.id;
+        }
       }
-    }
 
-    for (const product of excelData) {
-      const productData = {
-        name: product.product || 'No especificado en la exportación',
-        description: product.description || 'No especificado en la exportación',
-        price: parseFloat(product.price?.replace('€', '')) || 0,
-        quantity: product.quantity || 0,
-        inventoryId: inventoryId,
-        categoriesId: product.category ? [categoryMap[product.category]] : [],
-      };
-      dispatch(addProduct(productData));
+      for (const product of AIdata) {
+        const priceString = product.price ? product.price.replace(/[^\d.]/g, '') : '0';
+
+        const price = parseFloat(priceString) || 0;
+
+        const productData = {
+          name: product.product || 'No especificado en la importación',
+          description: product.description || 'No especificado en la importación',
+          price: price,
+          quantity: product.quantity || 0,
+          inventoryId: inventoryId,
+          categoriesId: product.categories ? [categoryMap[product.categories]] : [],
+        };
+        dispatch(addProduct(productData));
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

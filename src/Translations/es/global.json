@@ -284,5 +284,32 @@
     "select_at_least_one_category": "Seleccione al menos una categoría",
     "save": "Guardar",
     "id": "ID"
+  },
+  "toast": {
+    "create_category_success": "Categoría creada con éxito",
+    "create_category_error": "Error al crear la categoría",
+    "create_category_name_required": "El nombre es obligatorio",
+    "create_inventory_success": "Inventario creado con éxito",
+    "create_inventory_error_max": "Máximo de inventarios alcanzado",
+    "upload_image_error": "Error al subir la imagen",
+    "create_product_success": "Producto creado con éxito",
+    "create_product_error": "Error al crear el producto",
+    "update_user_role_success": "Rol de usuario actualizado con éxito",
+    "update_user_role_error": "Error al actualizar el rol de usuario",
+    "delete_user_success": "Usuario eliminado con éxito",
+    "delete_user_error": "Error al eliminar el usuario",
+    "email_send_success": "Correo enviado con éxito",
+    "email_send_error": "Error al enviar el correo",
+    "complete_all_fields": "Por favor, completa todos los campos",
+    "user_created_success": "Usuario creado con éxito",
+    "user_create_error": "Error al crear la cuenta",
+    "inventory_export_success": "Inventario exportado con éxito",
+    "product_delete_success": "Producto eliminado con éxito",
+    "product_delete_error": "Error al eliminar el producto",
+    "product_update_success": "Producto actualizado con éxito",
+    "product_update_error": "Error al actualizar el producto",
+    "inventory_delete_success": "Inventario eliminado con éxito",
+    "inventory_delete_error": "Error al eliminar el inventario",
+    "loading": "Importando inventario"
   }
 }

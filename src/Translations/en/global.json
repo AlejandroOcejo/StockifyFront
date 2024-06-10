@@ -284,5 +284,32 @@
     "select_at_least_one_category": "Select at least one category",
     "save": "Save",
     "id": "ID"
+  },
+  "toast": {
+    "create_category_success": "Category created successfully",
+    "create_category_error": "Error creating category",
+    "create_category_name_required": "Name is required",
+    "create_inventory_success": "Inventory created successfully",
+    "create_inventory_error_max": "Maximum inventories reached",
+    "upload_image_error": "Error uploading image",
+    "create_product_success": "Product created successfully",
+    "create_product_error": "Error creating product",
+    "update_user_role_success": "User role updated successfully",
+    "update_user_role_error": "Error updating user role",
+    "delete_user_success": "User deleted successfully",
+    "delete_user_error": "Error deleting user",
+    "email_send_success": "Email sent successfully",
+    "email_send_error": "Error sending email",
+    "complete_all_fields": "Please complete all fields",
+    "user_created_success": "User created successfully",
+    "user_create_error": "Error creating account",
+    "inventory_export_success": "Inventory exported successfully",
+    "product_delete_success": "Product deleted successfully",
+    "product_delete_error": "Error deleting product",
+    "product_update_success": "Product updated successfully",
+    "product_update_error": "Error updating product",
+    "inventory_delete_success": "Inventory deleted successfully",
+    "inventory_delete_error": "Error deleting inventory",
+    "loading": "Importing inventory"
   }
 }

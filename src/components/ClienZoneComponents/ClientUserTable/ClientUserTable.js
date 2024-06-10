@@ -55,18 +55,18 @@ const ClientUserTable = () => {
         setUsers(_users);
         try {
             await dispatch(updateUser(newData)).unwrap();
-            toast.success('Rol de usuario actualizado con éxito');
+            toast.success(t('toast.update_user_role_success'));
         } catch (error) {
-            toast.error('Error al actualizar el rol de usuario');
+            toast.error(t('toast.update_user_role_error'));
         }
     };
 
     const handleDelete = async (userId) => {
         try {
             await dispatch(deleteUser(userId)).unwrap();
-            toast.success('Usuario eliminado con éxito');
+            toast.success(t('toast.delete_user_success'));
         } catch (error) {
-            toast.error('Error al eliminar el usuario');
+            toast.error(t('toast.delete_user_error'));
         }
     };
 

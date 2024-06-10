@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const AddCategoryForm = ({ inventoryId, onSubmit }) => {
     const dispatch = useDispatch();
-    const [t] = useTranslation('global');
+    const { t } = useTranslation('global');
 
     const [formData, setFormData] = useState({
         name: '',
@@ -38,15 +38,16 @@ const AddCategoryForm = ({ inventoryId, onSubmit }) => {
                 ...prevErrors,
                 name: true
             }));
+            toast.error(t('toast.create_category_name_required'));
             return;
         }
 
         try {
             await dispatch(addCategory({ formData })).unwrap();
-            toast.success('Categoría creada con éxito');
+            toast.success(t('toast.create_category_success'));
             onSubmit();
         } catch (error) {
-            toast.error('Error al crear la categoría');
+            toast.error(t('toast.create_category_error'));
         }
     };
 

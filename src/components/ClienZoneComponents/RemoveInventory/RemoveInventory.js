@@ -15,14 +15,15 @@ const RemoveInventory = (props) => {
     try {
       const resultAction = await dispatch(removeInventory(props.id));
       if (removeInventory.fulfilled.match(resultAction)) {
-        toast.success('Inventario eliminado con éxito');
+        toast.success(t('toast.inventory_delete_success'));
       } else {
-        toast.error('Error al eliminar el inventario');
+        toast.error(t('toast.inventory_delete_error'));
       }
     } catch (error) {
-      toast.error('Error al eliminar el inventario');
+      toast.error(t('toast.inventory_delete_error'));
     }
   };
+
 
   const handleToggle = () => {
     setIsAccepted(!isAccepted);

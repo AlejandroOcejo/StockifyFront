@@ -47,10 +47,10 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
         let id = product.id;
         try {
             await dispatch(removeProduct({ id, inventoryId })).unwrap();
-            toast.success('Producto eliminado con éxito');
+            toast.success(t('toast.product_delete_success'));
             closeDialog();
         } catch (error) {
-            toast.error('Error al eliminar el producto');
+            toast.error(t('toast.product_delete_error'));
         }
     };
 
@@ -115,10 +115,10 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
 
         try {
             await dispatch(updateProduct({ id, formData, inventoryId })).unwrap();
-            toast.success('Producto actualizado con éxito');
+            toast.success(t('toast.product_update_success'));
             closeDialog();
         } catch (error) {
-            toast.error('Error al actualizar el producto');
+            toast.error(t('toast.product_update_error'));
         }
     };
 

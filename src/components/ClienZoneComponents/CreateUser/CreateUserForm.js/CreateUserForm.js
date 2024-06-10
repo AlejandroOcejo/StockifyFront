@@ -60,9 +60,9 @@ const CreateUserForm = ({ closeDialog }) => {
 
         emailjs.send('service_gyf1sf9', 'template_buvq5ss', templateParams, 'orgiuFcj7SzraGVMv')
             .then((response) => {
-                toast.success('Correo enviado con éxito');
+                toast.success(t('toast.email_send_success'));
             }, (error) => {
-                toast.error('Error al enviar el correo');
+                toast.error(t('toast.email_send_error'));
                 console.error('Error al enviar el correo:', error);
             });
     };
@@ -80,7 +80,7 @@ const CreateUserForm = ({ closeDialog }) => {
         setErrors(newErrors);
 
         if (Object.values(newErrors).some(error => error)) {
-            toast.error('Por favor, completa todos los campos');
+            toast.error(t('toast.complete_all_fields'));
             return;
         }
 
@@ -92,14 +92,14 @@ const CreateUserForm = ({ closeDialog }) => {
             if (response && response.success) {
                 sendMail(updatedFormData.email, updatedFormData.name, randomPassword, updatedFormData.tenantName);
                 dispatch(getUsers());
-                toast.success('Usuario creado con éxito');
+                toast.success(t('toast.user_created_success'));
                 closeDialog();
             } else {
-                toast.error('Error al crear la cuenta');
+                toast.error(t('toast.user_create_error'));
                 console.error('Error al crear la cuenta:', response.error);
             }
         } catch (error) {
-            toast.error('Error al crear la cuenta');
+            toast.error(t('toast.user_create_error'));
             console.error('Error al crear la cuenta:', error);
         }
     };

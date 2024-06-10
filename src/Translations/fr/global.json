@@ -284,5 +284,32 @@
     "select_at_least_one_category": "Sélectionnez au moins une catégorie",
     "save": "Enregistrer",
     "id": "ID"
+  },
+  "toast": {
+    "create_category_success": "Catégorie créée avec succès",
+    "create_category_error": "Erreur lors de la création de la catégorie",
+    "create_category_name_required": "Le nom est obligatoire",
+    "create_inventory_success": "Inventaire créé avec succès",
+    "create_inventory_error_max": "Nombre maximal d'inventaires atteint",
+    "upload_image_error": "Erreur lors du téléchargement de l'image",
+    "create_product_success": "Produit créé avec succès",
+    "create_product_error": "Erreur lors de la création du produit",
+    "update_user_role_success": "Rôle utilisateur mis à jour avec succès",
+    "update_user_role_error": "Erreur lors de la mise à jour du rôle utilisateur",
+    "delete_user_success": "Utilisateur supprimé avec succès",
+    "delete_user_error": "Erreur lors de la suppression de l'utilisateur",
+    "email_send_success": "E-mail envoyé avec succès",
+    "email_send_error": "Erreur lors de l'envoi de l'e-mail",
+    "complete_all_fields": "Veuillez compléter tous les champs",
+    "user_created_success": "Utilisateur créé avec succès",
+    "user_create_error": "Erreur lors de la création du compte",
+    "inventory_export_success": "Inventaire exporté avec succès",
+    "product_delete_success": "Produit supprimé avec succès",
+    "product_delete_error": "Erreur lors de la suppression du produit",
+    "product_update_success": "Produit mis à jour avec succès",
+    "product_update_error": "Erreur lors de la mise à jour du produit",
+    "inventory_delete_success": "Inventaire supprimé avec succès",
+    "inventory_delete_error": "Erreur lors de la suppression de l'inventaire",
+    "loading": "Importation de l'inventaire"
   }
 }

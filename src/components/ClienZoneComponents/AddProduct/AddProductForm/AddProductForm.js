@@ -88,10 +88,10 @@ const AddProductForm = ({ inventoryId, onClose }) => {
 
         try {
             await dispatch(addProduct(formData));
-            toast.success('Producto creado con éxito');
+            toast.success(t('toast.create_product_success'));
             onClose();
         } catch (error) {
-            toast.error('Error al crear el producto');
+            toast.error(t('toast.create_product_error'));
         }
     };
 
