@@ -262,7 +262,7 @@ const RegisterComponent = () => {
                   />
                   <label htmlFor="email">{t('Register.EmailLabel')}</label>
                 </FloatLabel>
-                <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
+                <div className="flex flex-col md:flex-row md:space-x-4 space-y-8 md:space-y-0">
                   <FloatLabel>
                     <InputText
                       id="country"
@@ -286,7 +286,7 @@ const RegisterComponent = () => {
                     <label htmlFor="city">{t('Register.CityLabel')}</label>
                   </FloatLabel>
                 </div>
-                <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
+                <div className="flex flex-col md:flex-row md:space-x-4 space-y-8 md:space-y-0">
                   <FloatLabel>
                     <InputText
                       id="direction"
