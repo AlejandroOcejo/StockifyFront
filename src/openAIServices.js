@@ -1,9 +1,39 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true
-});
+const getApiKey = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Token not found in localStorage');
+    }
+
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/Auth/AIToken`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch API key');
+    }
+
+    const apiKey = await response.text();
+    return apiKey;
+};
+
+const initializeOpenAI = async () => {
+    try {
+        const apiKey = await getApiKey();
+        const openai = new OpenAI({
+            apiKey: apiKey,
+            dangerouslyAllowBrowser: true
+        });
+        return openai;
+    } catch (error) {
+        console.error('Error initializing OpenAI:', error);
+    }
+};
 
 const cleanJsonString = (str) => {
     return str.replace(/^\s*```json\s*/i, '').replace(/\s*```\s*$/i, '').trim();
@@ -12,6 +42,8 @@ const cleanJsonString = (str) => {
 export const translateExcelData = async (data) => {
     try {
         const cleanedData = JSON.stringify(data);
+
+        const openai = await initializeOpenAI();
 
         const response = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',
