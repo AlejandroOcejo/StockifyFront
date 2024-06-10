@@ -58,8 +58,8 @@
     },
     "PremiumPlan": {
       "Name": "Premium Plan",
-      "Price": "49.99€/month",
-      "PriceYear": "440€/year",
+      "Price": "59.99€/month",
+      "PriceYear": "567€/year",
       "Benefits": ["Unlimited inventories", "Unlimited users", "Import inventories"]
     },
     "ButtonLabel": "Try it now"
@@ -302,7 +302,7 @@
     "email_send_error": "Error sending email",
     "complete_all_fields": "Please complete all fields",
     "user_created_success": "User created successfully",
-    "user_create_error": "Error creating account",
+    "user_create_error": "Account limit reached",
     "inventory_export_success": "Inventory exported successfully",
     "product_delete_success": "Product deleted successfully",
     "product_delete_error": "Error deleting product",

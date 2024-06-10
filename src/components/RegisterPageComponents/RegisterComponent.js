@@ -338,7 +338,8 @@ const RegisterComponent = () => {
             ) : (
               <div className="w-full flex flex-col space-y-4">
                 <FloatLabel>
-                  <InputText disabled
+                  <InputText
+                    disabled
                     id="cardHolder"
                     value={paymentFormData.cardHolder}
                     name="cardHolder"
@@ -348,9 +349,10 @@ const RegisterComponent = () => {
                   <label htmlFor="cardHolder">{t('Register.CardHolderLabel')}</label>
                 </FloatLabel>
 
-                <div className="flex space-x-4">
+                <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                   <FloatLabel>
-                    <InputText disabled
+                    <InputText
+                      disabled
                       id="cardNumber"
                       value={paymentFormData.cardNumber}
                       name="cardNumber"
@@ -365,7 +367,8 @@ const RegisterComponent = () => {
                     <label htmlFor="cardNumber">{t('Register.CardNumberLabel')}</label>
                   </FloatLabel>
                   <FloatLabel>
-                    <InputText disabled
+                    <InputText
+                      disabled
                       id="expirationDate"
                       value={paymentFormData.expirationDate}
                       name="expirationDate"
@@ -376,8 +379,10 @@ const RegisterComponent = () => {
                     <label htmlFor="expirationDate">{t('Register.ExpirationDateLabel')}</label>
                   </FloatLabel>
                 </div>
+
                 <FloatLabel>
-                  <InputText disabled
+                  <InputText
+                    disabled
                     id="CVC"
                     value={paymentFormData.CVC}
                     name="CVC"
@@ -391,11 +396,13 @@ const RegisterComponent = () => {
                   />
                   <label htmlFor="CVC">{t('Register.CVCLabel')}</label>
                 </FloatLabel>
+
                 <Spacer />
+
                 <div className="flex justify-center w-full">
-                  <div className="w-full ">
+                  <div className="w-full">
                     <div className="bg-white p-4 rounded-lg bg-logoBlack bg-contain bg-no-repeat bg-center">
-                      <h2 className="text-2xl font-bold mb-4 text-center ">{t('Register.TotalCost')}</h2>
+                      <h2 className="text-2xl font-bold mb-4 text-center">{t('Register.TotalCost')}</h2>
                       <div className="flex justify-between mb-2">
                         <div className="font-semibold">{t('Register.Plan')}:</div>
                         <div>{getSelectedServicePrice(selectedService?.name)?.name}</div>
@@ -403,8 +410,7 @@ const RegisterComponent = () => {
                       <div className="flex justify-between mb-2">
                         <div className="font-semibold">{t('Register.Price')}:</div>
                         <div>
-                          {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) ===
-                            'number'
+                          {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) === 'number'
                             ? parsePrice(getSelectedServicePrice(selectedService?.name)?.price) + '€'
                             : parsePrice(getSelectedServicePrice(selectedService?.name)?.price)}
                         </div>
@@ -412,29 +418,27 @@ const RegisterComponent = () => {
                       <div className="flex justify-between mb-2">
                         <div className="font-semibold">{t('Register.Taxes')}:</div>
                         <div>
-                          {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) ===
-                            'number'
-                            ? parsePrice(getSelectedServicePrice(selectedService?.name)?.price) * 0.21 +
-                            '€'
+                          {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) === 'number'
+                            ? parsePrice(getSelectedServicePrice(selectedService?.name)?.price) * 0.21 + '€'
                             : 'No'}
                         </div>
                       </div>
                       <div className="flex justify-between font-semibold">
                         <div>{t('Register.Total')}:</div>
                         <div>
-                          {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) ===
-                            'number'
+                          {typeof parsePrice(getSelectedServicePrice(selectedService?.name)?.price) === 'number'
                             ? parsePrice(getSelectedServicePrice(selectedService?.name)?.price) +
-                            parsePrice(getSelectedServicePrice(selectedService?.name)?.price) * 0.21 +
-                            '€'
+                            parsePrice(getSelectedServicePrice(selectedService?.name)?.price) * 0.21 + '€'
                             : getSelectedServicePrice(selectedService?.name)?.price}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <Spacer />
-                <div className="flex justify-between">
+
+                <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
                   <Button
                     width={'12rem'}
                     onButtonClick={returnPrevStep}

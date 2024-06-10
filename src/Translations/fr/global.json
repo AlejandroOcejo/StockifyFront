@@ -58,8 +58,8 @@
     },
     "PremiumPlan": {
       "Name": "Plan premium",
-      "Price": "49.99€/mois",
-      "PriceYear": "440€/année",
+      "Price": "59.99€/mois",
+      "PriceYear": "567€/année",
       "Benefits": ["Inventaires illimités", "Utilisateurs illimités", "Importer des inventaires"]
     },
     "ButtonLabel": "Essayez-le maintenant"
@@ -302,7 +302,7 @@
     "email_send_error": "Erreur lors de l'envoi de l'e-mail",
     "complete_all_fields": "Veuillez compléter tous les champs",
     "user_created_success": "Utilisateur créé avec succès",
-    "user_create_error": "Erreur lors de la création du compte",
+    "user_create_error": "Limite de comptes atteinte",
     "inventory_export_success": "Inventaire exporté avec succès",
     "product_delete_success": "Produit supprimé avec succès",
     "product_delete_error": "Erreur lors de la suppression du produit",
