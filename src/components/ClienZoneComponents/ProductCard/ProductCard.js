@@ -136,7 +136,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                             <p><strong>{t('product.categories')}:</strong> {product.categories ? product.categories.map(cat => cat.name).join(', ') : ''}</p>
                         </div>
                     </div>
-                    <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
+                    <div className='flex flex-col md:flex-row gap-3 items-center justify-center md:items-start'>
                         <Button width={'8rem'} onButtonClick={handleMovements} label={t('product.movements')} />
                         <UpdateButton width={'8rem'} onButtonClick={handleUpdateOptions} label={t('product.update')} />
                         <RemoveButton width={'8rem'} onButtonClick={handleDelete} label={t('product.delete')} />
@@ -155,7 +155,7 @@ const ProductCard = ({ product, inventoryId, closeDialog }) => {
                             <p><strong>{t('product.categories')}:</strong> {product.categories ? product.categories.map(cat => cat.name).join(', ') : ''}</p>
                         </div>
                     </div>
-                    <div className='flex flex-col md:flex-row gap-3 items-center md:items-start'>
+                    <div className='flex flex-col md:flex-row gap-3 items-center justify-center md:items-start'>
                         <Button width={'8rem'} onButtonClick={() => setView('details')} icon={'/flecha.png'} label={t('product.return')} />
                         <Button width={'8rem'} onButtonClick={handleQuantityUpdate} label={t('product.update_quantity')} />
                         <Button width={'8rem'} onButtonClick={handleInfoUpdate} label={t('product.update_information')} />
