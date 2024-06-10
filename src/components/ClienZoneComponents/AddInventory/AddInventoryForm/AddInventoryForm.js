@@ -104,8 +104,13 @@ const AddInventoryForm = ({ closeDialog }) => {
       try {
         const newInventory = await dispatch(addInventory({ ...formData, image: imageLocation, creationDate: currentDate }));
         const inventoryId = newInventory.payload.id;
-        await uploadProducts(inventoryId);
-        toast.success(t('toast.create_inventory_success'));
+        if (inventoryId !== undefined) {
+          await uploadProducts(inventoryId);
+          toast.success(t('toast.create_inventory_success'));
+          setLoading(false);
+          closeDialog();
+        }
+        toast.error(t('toast.create_inventory_error_max'));
         setLoading(false);
         closeDialog();
       } catch (error) {
