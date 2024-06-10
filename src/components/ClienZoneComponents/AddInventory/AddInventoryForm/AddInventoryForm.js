@@ -138,21 +138,22 @@ const AddInventoryForm = ({ closeDialog }) => {
       const categoryMap = {};
 
       for (const product of AIdata) {
-        const category = product.categories;
-        if (!categorySet.has(category)) {
-          categorySet.add(category);
-          const formData = {
-            name: category[0],
-            inventoryId: inventoryId,
-          };
-          const result = await dispatch(addCategory({ formData }));
-          categoryMap[category] = result.payload.id;
+        const categories = product.categories || [];
+        for (const category of categories) {
+          if (!categorySet.has(category)) {
+            categorySet.add(category);
+            const formData = {
+              name: category,
+              inventoryId: inventoryId,
+            };
+            const result = await dispatch(addCategory({ formData }));
+            categoryMap[category] = result.payload.id;
+          }
         }
       }
 
       for (const product of AIdata) {
         const priceString = product.price ? product.price.replace(/[^\d.]/g, '') : '0';
-
         const price = parseFloat(priceString) || 0;
 
         const productData = {
@@ -161,9 +162,10 @@ const AddInventoryForm = ({ closeDialog }) => {
           price: price,
           quantity: product.quantity || 0,
           inventoryId: inventoryId,
-          categoriesId: product.categories ? [categoryMap[product.categories]] : [],
+          categoriesId: product.categories ? product.categories.map(cat => categoryMap[cat]) : [],
         };
-        dispatch(addProduct(productData));
+
+        await dispatch(addProduct(productData));
       }
     } catch (error) {
       console.log(error);
